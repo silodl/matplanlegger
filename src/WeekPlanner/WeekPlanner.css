@@ -1,0 +1,33 @@
+.weekday {
+    text-align: left;
+    z-index: 1;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px 0;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.alignRecipes {
+    z-index: 2;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 90vw;
+    height: 100vh;
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    column-gap: 20px;
+    row-gap: 20px;
+    padding: 5vw;
+    background-color: white;
+}
+
+.closeButton {
+    position: fixed;
+    right: 50px;
+    top: 50px;
+    width: 18px;
+}
