@@ -1,3 +1,29 @@
+.weekplan {
+    position: relative;
+    top: 5px;
+    padding: 5px 4.4vw 0 4.4vw;
+    height: calc(100vh - 139px);
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    column-gap: 15px;
+    row-gap: 15px;
+}
+
+@media (min-width: 481px) {
+    .weekplan {
+      padding: 5px 140px 0 140px;
+      height: calc(100vh - 131px);
+      column-gap: 20px;
+      row-gap: 20px;
+    }
+  }
+  
+  .weekplan::-webkit-scrollbar {
+    display: none;
+  }
+
 .weekday {
     text-align: left;
     z-index: 1;
@@ -5,7 +31,7 @@
     padding: 5px;
     border-radius: 10px 0;
     position: absolute;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .alignRecipes {

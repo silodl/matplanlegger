@@ -6,6 +6,7 @@ import { AddRecipe, Recipe } from './AddRecipe';
 import fetch from 'node-fetch';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { Card } from '../Components/Card';
+import clock from '../Images/Icons/Clock.svg';
 
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Drinker";
 
@@ -26,31 +27,13 @@ export const NewRecipe = () => {
   const user = useLoggedInUser();
 
   const categories: FoodCategory[] = ["Frokost", "Lunsj", "Middag", "Dessert", "Drinker"]
-  const tagColors: string[] = ["#e1f1f6", "#dff0d0", "#f5dbd9", "#feecb5"];
 
-  const handleToggle = (value: string) => {
-    let toggle = document.getElementById("toggle");
-    if(toggle && value !== type) {
-      if(value === "url"){
-        toggle.className = "toggle toggleLeft";
-      }
-      else if(value === "file") {
-        toggle.className = "toggle toggleRight";
-      }
-      setType(value);
+  const handleTags = (tagString: string) => {
+    if (tagString.includes(",")) {
+      setTags(tagString.split(","))
     }
-  }
-
-  const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === "Enter") {
-      let value = e.target.value
-      if(value.includes(",")) {
-        let newTags = value.split(",");
-        setTags(tags.concat(newTags))
-      }
-      else {
-        setTags(old => [...old, value])
-      }
+    else {
+      setTags([tagString])
     }
   }
 
@@ -88,112 +71,102 @@ export const NewRecipe = () => {
     <AppLayout>
 
       <form className="formWrapper">
-        <div className='center' style={{fontSize: "25px"}}> Ny oppskrift </div>
-        <div className="inputTitle"> Hvor henter du oppskriften fra? </div>
+        <div className="formTitle"> Ny oppskrift </div>
 
-        <div className="fileChoiceContainer"> 
-          <div className='toggleWrapper'><div id="toggle" className='toggle'/></div>
-          <span className={type === "url" ? "activeToggle" : ""}
-            onClick={() => handleToggle("url")}>
-              link 
-          </span>
-          <span className={type === "file" ? "activeToggle" : ""}
-            onClick={() => handleToggle("file")}>
-              last opp 
-          </span>
+        <div>
+          <div className="fieldTitle"> Hvor henter du oppskriften fra? </div>
+            <div className={type === "url" ? "toggleWrapper leftToggle" : "toggleWrapper rightToggle"}>
+
+              <div onClick={() => setType("url")} className={type === "url" ? "lTest" : ""}> link </div>
+              <div onClick={() => setType("file")} className={type === "url" ? "" : "rTest"}> fil </div>
+            </div>
+            
         </div>
 
-        {type === "url"
-        ? 
-          <input
-            id="urlField"
-            className="inputField"
-            type="url"
-            placeholder="matbloggen.no/kyllingsuppe"
-            onChange={(e) => setUrl(e.target.value)}
-          />
-        : <input
-          id="fileField"
-          className="fileInput fileInputField"
-          type="file"
-          onChange={(e) => setFile(e.currentTarget.files)}
-          />
+        {type === "url" 
+          ?  <input
+              id="urlField"
+              className="inputField"
+              type="url"
+              size={40}
+              placeholder="matbloggen.no/kyllingsuppe"
+              onChange={(e) => setUrl(e.target.value)}
+            />
+          : <input
+            id="fileField"
+            className="fileInput"
+            type="file"
+            onChange={(e) => setFile(e.currentTarget.files)}
+            />
         }
         
-        <div className="inputTitle"> Tittel </div>
-        <input className='inputField'
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
-        />
-
-        <div className="inputTitle"> Kategori </div>
-        
-        <div onClick={() => setViewCategoryOptions(!viewCategoryOptions)}
-        className={viewCategoryOptions? "selectedField selectedFieldOpen" :"selectedField"}> {category}</div>
-        {viewCategoryOptions 
-        ?
-          <div className="alignSelectField">
-            <div className='selectField'>
-            {categories.map((categoryOption) => {
-              return(
-                <div key={categoryOption} className='option'
-                onClick={() => (setCategory(categoryOption), setViewCategoryOptions(false))}> {categoryOption} </div>
-              )
-            })}
-            </div>
-          </div>
-        : null}
-
-        <div className="inputTitle"> Tidsbruk </div>
-          <div className="timeField">
-            <input 
-              className='inputField'
-              type="number"
-              placeholder='30'
-              onChange={(e) => setTime(e.target.value)}
-            />
-            
-            <div onClick={() => setViewTimeOptions(!viewTimeOptions)}
-            className={viewTimeOptions? "selectedField selectedFieldOpen" :"selectedField"}> {timeUnit} </div>
-            
-              {viewTimeOptions 
-              ?
-                <div className="alignSelectField">
-                  <div className='selectField'>
-                    <div onClick={() => (setTimeUnit("minutter"), setViewTimeOptions(false))} className="option"> minutter </div>
-                    <div onClick={() => (setTimeUnit("timer"), setViewTimeOptions(false))} className="option"> timer </div>
-                  </div>
-                </div>
-              : null
-              }
+        <div>
+          <div className="fieldTitle"> Tittel </div>
+          <input className='inputField' size={40}
+            placeholder='Kyllingsuppe'
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}/>
         </div>
 
-        <div className="inputTitle"> Tags </div>
-        <input className='inputField'
-          onKeyDown={(e) => handleTags(e)}
-          placeholder="f.eks. kylling, thai, asiatisk"/>
+        <div>
+          <div className="fieldTitle"> Kategori </div>
 
-        {tags.length > 0
-        ? <div className="tagContainer">
-            {tags.map((tag) => {
-              return(
-                <Tag key={tag} tag={tag} color={tagColors[tags.indexOf(tag)]}/>
-              )
-            })}
-          </div>
-        : null}
+          <div tabIndex={0} onBlur={() => setViewCategoryOptions(false)}>
+            <div className={viewCategoryOptions? "selectField selectFieldOpen" :"selectField"} style={{width: "100px"}}
+              onClick={() => setViewCategoryOptions(!viewCategoryOptions)}> {category} <div className="selectFieldArrow"/>
+            </div>
 
-        {url && type === "url" &&(
-          <div className="previewCard">
-            <Card cardType='nonEmpty' image={imageUrl}>
-              <div className="cardText"> 
-                <div className="title"> {title} </div>
+            <div style={{position: "absolute", height:"0"}}>
+              {viewCategoryOptions && (
+                  <div className='selectOptions' id="selectOptions" style={{width:"116px"}}>
+                    {categories.map((categoryOption) => {
+                      return(
+                        <div key={categoryOption} className='option' id="option"
+                        onClick={() => (setCategory(categoryOption), setViewCategoryOptions(false))}> {categoryOption} </div>
+                      )
+                    })} 
+                  </div>
+
+              )}
+            </div>
+          </div>  
+        </div>
+
+        <div>
+          <div className="fieldTitle"> Tidsbruk </div>
+            <div className="multiField">
+              <input 
+                className='inputField'
+                type="number"
+                placeholder='30'
+                style={{width: "50px"}}
+                onChange={(e) => setTime(e.target.value)}/>
+            
+              <div tabIndex={0} onBlur={() => setViewTimeOptions(false)}>
+                <div className={viewTimeOptions? "selectField selectFieldOpen" :"selectField"} style={{width: "85px"}}
+                  onClick={() => setViewTimeOptions(!viewTimeOptions)}> {timeUnit} <div className="selectFieldArrow"/> 
+                </div>
+
+                <div style={{position: "absolute", height:"0"}}>
+                  {viewTimeOptions && (
+                    <div className='selectOptions' style={{width: "101px"}}>
+                      <div onClick={() => (setTimeUnit("minutter"), setViewTimeOptions(false))} className="option"> minutter </div>
+                      <div onClick={() => (setTimeUnit("timer"), setViewTimeOptions(false))} className="option"> timer </div>
+                    </div>
+                  )}
+                </div>
+              
               </div>
-            </Card>
-          </div>
-        )}
-        
+            </div>
+        </div>
 
+        <div>
+          <div className="fieldTitle"> Tags <span style={{fontSize: "14px"}}>(maks 4)</span> </div>
+          <input className='inputField' size={40}
+            onChange={(e) => handleTags(e.target.value)}
+            placeholder="f.eks. kylling, thai, asiatisk"/>
+          </div>
+        
         <div className='primaryButton button center' onClick={() => AddNewRecipe()}> Legg til </div>
       </form>
     </AppLayout>

@@ -20,7 +20,7 @@ export const Card = (props: CardProps) => {
                 <div className='weekday'> {props.weekday} </div>
             )}
             {props.image && (
-                <img className='image' src={props.image} alt="food"/>
+                <img className='recipeImage' src={props.image} alt="food"/>
             )}
             {props.children}
         </div>

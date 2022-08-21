@@ -3,12 +3,13 @@ import {Navigate} from 'react-router-dom';
 import '../App.css';
 import './Authentication.css';
 import '../Recipes/NewRecipe.css';
-import Phone from '../Images/Phone.svg';
-import Blob from '../Images/blob.svg';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@firebase/auth';
 import { auth, db } from '../Firebase';
 import { setDoc, doc } from 'firebase/firestore';
 import { useLoggedInUser } from './UseLoggedInUser';
+import hat from '../Images/Icons/Hat_brown.svg';
+import food1 from '../Images/food1.jpg';
+import food2 from '../Images/food2.jpg';
 
 export const Authentication = () => {
 
@@ -21,6 +22,7 @@ export const Authentication = () => {
     const [page, setPage] = useState("login");
 
     const user = useLoggedInUser();
+    const isMobile = (window.innerWidth < 481) ? true : false;
 
     useEffect(() => {
       if(user){
@@ -88,52 +90,76 @@ export const Authentication = () => {
 
             {redirect ? <Navigate to="/ukeplanlegger"/> : null}
             
-            <div className="landingPageTitle"> Den digitale kokeboken </div>
-            <div className="landingPageText">
-                <ul>
-                    <li> Lagre oppskrifter </li>
-                    <li> Lag egen ukemeny </li>
-                    <li> Lag felles kokebok </li>
-                </ul>
+            <div className="landingPageTitle"> 
+              Matplanlegger 
+              <img src={hat} alt="chef's hat"/>
             </div>
 
-            <div className="loginWrapper">
-                <div className='title'> {page === "login" ? "Logg inn" : "Registrer"} </div>
-                
-                <div> {error} </div>
+            <div className="landingpage">
 
-                <div className="inputTitle"> E-post </div>
-                <input className='inputField'
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}  
-                />
-                
-                <div className="inputTitle"> Passord </div>
-                <input className='inputField'
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}  
-                />
-                
-                <div className="centerElements">
-                    {page === "login" 
-                    ? 
-                    <>
-                        <div className="secondaryButton button" onClick={() => setPage("register")}> Registrer </div>
-                        <div className="primaryButton button" onClick={login}> Logg inn </div>
-                    </>
-                    :
-                    <>
-                        <div className="secondaryButton button" onClick={() => setPage("login")}> Logg inn</div>
-                        <div className="primaryButton button" onClick={register}> Registrer </div>
-                    </>
-                    }
+              <div className="loginWrapper">
+                  <div className='title'> {page === "login" ? "Logg inn" : "Registrer"} </div>
+                  
+                  {error && (
+                    <div> {error} </div>
+                  )}
+                  
+                  <div>
+                    <div className="fieldTitle"> E-post </div>
+                    <input className='inputField'
+                    type="email"
+                    value={email}
+                    size={29}
+                    onChange={(e) => setEmail(e.target.value)}  
+                    />
+                  </div>
+                  
+                  <div>
+                    <div className="fieldTitle"> Passord </div>
+                    <input className='inputField'
+                    type="password"
+                    size={29}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}  
+                    />
+                  </div>
+                  
+                  <div className="centerElements">
+                      {page === "login" 
+                      ? 
+                      <>
+                          <div className="secondaryButton button" onClick={() => setPage("register")}> Registrer </div>
+                          <div className="primaryButton button" onClick={login}> Logg inn </div>
+                      </>
+                      :
+                      <>
+                          <div className="secondaryButton button" onClick={() => setPage("login")}> Logg inn</div>
+                          <div className="primaryButton button" onClick={register}> Registrer </div>
+                      </>
+                      }
+                  </div>
+              </div>
+              
+              {isMobile 
+              ? <div className="landingPageImage">
+                  <img src={food1} alt="pasta" style={{width:"130px", rotate:"-83deg", position: "relative", left: "30px"}}/>
+                  <img src={food2} alt="seafood" style={{width:"130px", rotate:"83deg", position: "relative", top: "115px", right: "30px"}}/>
                 </div>
+              : <div className="landingPageText">
+                  <ul>
+                    <li> Lagre oppskrifter </li>
+                    <li> Planlegg ukemeny </li>
+                    <li> Lag felles kokebok </li>
+                  </ul>
+
+                  <img src={food1} alt="pasta" style={{width:"80px", rotate:"-83deg", position: "relative", top: "-15px"}}/>
+                  <img src={food2} alt="seafood" style={{width:"80px", rotate:"83deg", position: "relative", top: "40px", right: "-15px"}}/>
+              </div>
+              }
+              
+
             </div>
-            <img className="imageFrame" src={Blob} alt=""/>
-            <img className="landingPageImage" src={Phone} alt=""/>
-            
+
         </div>
     );
 }

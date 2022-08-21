@@ -8,6 +8,7 @@ import close from '../Images/Icons/Close.svg';
 import { PlanRecipe } from './PlanRecipe';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { usePlannedWeek } from './UsePlannedWeek';
+import { Tag } from '../Components/Tag';
 
 export const GetWeek = (props: {week: number}) => {
 
@@ -35,7 +36,7 @@ export const GetWeek = (props: {week: number}) => {
                                     <div className="cardText">
                                         <div className="title">{recipe.name}</div>
                                         <div><img src={clock} alt="clock"/>{recipe.time}</div>
-                                        <div className="tag">{recipe.tags}</div>
+                                        {recipe.tags.length > 0 && (<Tag tags={recipe.tags} />)}
                                     </div>
                                 </Card>
                             </div>
@@ -56,7 +57,7 @@ export const GetWeek = (props: {week: number}) => {
                                         <div className='cardText'>
                                             <div className="title">{recipe.name}</div>
                                             <div><img src={clock} alt="clock"/>{recipe.time}</div>
-                                            <div className="tag">{recipe.tags}</div>
+                                            {recipe.tags.length > 0 && (<Tag tags={recipe.tags} />)}
                                         </div>
                                     </Card>                         
                                 )

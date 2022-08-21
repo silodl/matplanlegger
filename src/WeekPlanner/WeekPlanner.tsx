@@ -20,7 +20,7 @@ export const WeekPlanner = () => {
     <AppLayout>
       <div className='pageTitle'> Ukeplanlegger </div>
       <div> Uke {week} </div>
-      <div className='cardWrapper'>
+      <div className='weekplan'>
         <GetWeek week={week}/>
       </div>
     </AppLayout>
