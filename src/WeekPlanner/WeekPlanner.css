@@ -1,59 +1,118 @@
 .weekplan {
-    position: relative;
-    top: 5px;
-    padding: 5px 4.4vw 0 4.4vw;
-    height: calc(100vh - 139px);
-    overflow-y: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    column-gap: 15px;
-    row-gap: 15px;
+  position: relative;
+  top: 5px;
+  padding: 5px calc(5vw - 2px) 0 calc(5vw - 2px);
+  height: calc(100vh - 139px);
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  column-gap: 15px;
+  row-gap: 5px;
 }
 
 @media (min-width: 481px) {
-    .weekplan {
-      padding: 5px 140px 0 140px;
-      height: calc(100vh - 131px);
-      column-gap: 20px;
-      row-gap: 20px;
-    }
+  .weekplan {
+    padding: 5px calc(15vw - 2px) 0 calc(15vw - 2px);
+    height: calc(100vh - 131px);
+    column-gap: 20px;
+    row-gap: 20px;
   }
+}
   
-  .weekplan::-webkit-scrollbar {
-    display: none;
-  }
-
-.weekday {
-    text-align: left;
-    z-index: 1;
-    width: fit-content;
-    padding: 5px;
-    border-radius: 10px 0;
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.8);
+.weekplan::-webkit-scrollbar {
+  display: none;
 }
 
 .alignRecipes {
-    z-index: 2;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 90vw;
-    height: 100vh;
-    padding: 20px 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    column-gap: 20px;
-    row-gap: 20px;
-    padding: 5vw;
-    background-color: white;
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 90vw;
+  height: 100vh;
+  padding: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  column-gap: 20px;
+  row-gap: 20px;
+  padding: 5vw;
+  background-color: white;
+}
+
+
+@media (max-width: 480px) {
+  .alignRecipes {
+    column-gap: 10px;
+    row-gap: 10px;
+  }
 }
 
 .closeButton {
-    position: fixed;
-    right: 50px;
-    top: 50px;
-    width: 18px;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  width: 15px;
+}
+
+.weekday {
+  width: 90vw;
+  height: 240px;
+  border: 2px solid var(--color-primary);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.weekday .card {
+  margin: 5px;
+}
+
+.weekdayHeader {
+  text-align: left;
+  z-index: 1;
+  width: calc(90vw - 10px);
+  padding: 2.5px 5px 2.5px 5px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.addRecipe {
+  border: 1.5px solid #333;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recipeWrapper {
+  display: flex;
+  column-gap: 10px;
+}
+
+.noCards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+  height: 240px;
+  width: 90vw;
+}
+
+@media (min-width: 481px) {
+  .weekday, .noCards {
+    width: 70vw;
+  }
+
+  .weekdayHeader {
+    width: calc(70vw - 10px);
+  }
 }

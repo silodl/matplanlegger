@@ -61,6 +61,10 @@
   column-gap: 10px;
 }
 
+.cookTime img {
+  width: 20px;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;

@@ -28,7 +28,7 @@ export const Cookbook = () => {
           <div className='cardWrapper'>
             {recipes.map((recipe: Recipe) => {
               return(
-                <Card key={recipe.url} cardType="nonEmpty" image={recipe.image}>
+                <Card key={recipe.url} image={recipe.image}>
                   <div className="cardText"></div>
                 </Card>
               )

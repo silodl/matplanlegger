@@ -1,10 +1,7 @@
 import './Card.css';
 
-type CardType = "nonEmpty" | "empty"; 
-
 type CardProps = {
     children: React.ReactNode,
-    cardType: CardType,
     image?: string,
     weekday?: string,
 }
@@ -12,10 +9,7 @@ type CardProps = {
 export const Card = (props: CardProps) => {
 
     return(
-        <div className={props.cardType === "empty" 
-            ? "emptyCard card"
-            : "card"
-        }>  
+        <div className="card">  
             {props.weekday && (
                 <div className='weekday'> {props.weekday} </div>
             )}

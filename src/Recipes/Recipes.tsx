@@ -34,10 +34,10 @@ export const Recipes = () => {
                     {recipes.map((recipe: Recipe) => {
                         return(
                             <div onClick={() => LoadRecipe(recipe.id)} key={recipe.id}>
-                                <Card key={recipe.url} cardType="nonEmpty" image={recipe.image}>
+                                <Card key={recipe.url} image={recipe.image}>
                                     <div className="recipeInfo">
                                         <div className="recipeTitle">{recipe.name}</div>
-                                        <div className="cookTime"><img src={clock} alt="clock" style={{width: "20px"}}/>{recipe.time}</div>
+                                        <div className="cookTime"><img src={clock} alt="clock"/>{recipe.time}</div>
                                         {recipe.tags.length > 0 && (<Tag tags={recipe.tags} />)}
                                     </div>
                                 </Card>
