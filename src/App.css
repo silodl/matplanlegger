@@ -96,3 +96,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
+  align-items: center;
+}

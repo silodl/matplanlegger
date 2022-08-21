@@ -169,17 +169,6 @@ input[type="number"] {
     column-gap: 10px;
 }
 
-.previewCard {
-    /*display: flex;
-    justify-content: center;*/
-    cursor: auto;
-    /*width: 100%;*/
-    position: absolute;
-    right: 10vw;
-    top: 30vh;
-}
-
-/*
 .checkBox {
     width: 15px;
     height: 15px;
@@ -198,4 +187,3 @@ input[type="number"] {
     bottom: 3.5px;
     left: 1.5px;
 }
-*/

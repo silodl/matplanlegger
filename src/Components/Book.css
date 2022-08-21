@@ -1,23 +1,26 @@
 .book {
-    border-radius: 10px;
     display: flex;
-    text-align: left;
-    box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    flex-direction: column;
-    width: 170px;
-    height: 170px;
-}
-
-.bookcover {
-    width: 100%;
-    height: 60%;
-    border-radius: 10px 10px 0 0;
-    object-fit: contain;
+    width: 150px;
+    height: 140px;
+    background-image: url("../Images/book_cover.svg");
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: center;
 }
 
 .bookTitle {
-    padding: 10px;
     font-size: 16px;
     line-height: 1em;
+    padding: 10px 8px;
+    width: 60%;
+    height: 50%;
+    position: relative;
+    left: 5px;
+    bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

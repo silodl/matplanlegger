@@ -1,6 +1,7 @@
 import { AppLayout } from '../App';
 import { useCookbooks } from './UseCookbooks';
 import { Book } from '../Components/Book';
+import books from '../Images/books.png';
 
 export const LoadCookbook = (id: string) => {
     window.location.href = `/kokebok/${id}`;
@@ -9,36 +10,46 @@ export const LoadCookbook = (id: string) => {
 export const Cookbooks = () => {
 
     const cookbooks = useCookbooks();
+    const isMobile = (window.innerWidth < 481) ? true : false;
 
     return (
         <AppLayout>
-            <div className='pageTitle'> Mine kokebøker </div>
-            <div className='secondaryButton button corner'> 
-                <a href="/ny_kokebok"> Ny kokebok </a>
-            </div>
-            <div className='cardWrapper'>
-                {cookbooks && cookbooks.length > 0 ?
-                cookbooks.map((book) => {
-                return(
-                    <div onClick={() => LoadCookbook(book.id)} key={book.id}>
-                        <Book key={book.id}  image={book.image}>
-                            <div className='bookTitle'>
-                                {book.name}    
-                            </div>    
-                        </Book> 
+            
+            {cookbooks.length > 0 
+            ?
+            <>
+                <div>
+                    <div className='pageTitle'> Mine kokebøker </div>
+                    <div className='secondaryButton button corner'> 
+                        <a href="/ny_kokebok"> {isMobile ? "+" : "Ny kokebok"} </a>
                     </div>
-                )
-                })
-                : 
-                <>
-                    <div className='cardText'> Ingen lagrede kokebøker </div>
+                </div>
 
-                    <div className='primaryButton button center' 
-                    style={{marginTop:"10vh"}}> 
-                    <a href="/ny_kokebok"> Opprett din første kokebok </a></div>
-                </>
-                }
+                <div className='cardWrapper'>
+                    {cookbooks.map((book) => {
+                        return(
+                            <div onClick={() => LoadCookbook(book.id)} key={book.id}>
+                                <Book key={book.id}>
+                                    <div className='bookTitle'>
+                                        {book.name}
+                                    </div> 
+                                </Book> 
+                            </div>
+                        )
+                    })}
+                </div>
+            </>
+            : 
+            <div className="emptyState">
+                <div className='pageTitle'> Mine kokebøker </div>
+                <div> Du har ingen kokebøker enda </div>
+                <img width={"170px"}
+                src={books} alt="books"/>
+                <div className='primaryButton button'> 
+                    <a href="/ny_kokebok"> Legg til din første kokebok </a>
+                </div>
             </div>
+            }
         </AppLayout>
     );
 }
