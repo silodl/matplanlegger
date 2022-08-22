@@ -1,9 +1,9 @@
 import { AppLayout } from "../App";
-import { Card } from "../Components/Card"
+import { Card } from "../Components/RecipeCard"
 import { useRecipes } from "./UseRecipes"
 import { Recipe } from "./AddRecipe";
 import './NewRecipe.css';
-import '../Components/Card.css';
+import '../Components/RecipeCard.css';
 import clock from '../Images/Icons/Clock.svg';
 import { Tag } from "../Components/Tag";
 import book from '../Images/book.png';

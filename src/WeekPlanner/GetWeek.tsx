@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Card } from '../Components/Card';
+import { WeekRecipeCard } from './/WeekRecipeCard';
 import { Recipe } from '../Recipes/AddRecipe';
 import { useRecipes } from '../Recipes/UseRecipes';
 import clock from '../Images/Icons/Clock.svg';
@@ -9,6 +9,7 @@ import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { usePlannedWeek } from './UsePlannedWeek';
 import { Tag } from '../Components/Tag';
 import book from '../Images/book.png';
+import { Card } from '../Components/RecipeCard';
 
 export const GetWeek = (props: {week: number}) => {
 
@@ -53,29 +54,20 @@ export const GetWeek = (props: {week: number}) => {
                         <div className="weekday"> 
                             <div className="weekdayHeader">
                                 <div>{weeknames[plannedRecipes.indexOf(recipes)]} </div>
-                                {recipes.length > 0 && (<div className="addRecipe" onClick={() => setPlanDay(plannedRecipes.indexOf(recipes))}> + </div>)}
+                                <div className="addRecipe" onClick={() => setPlanDay(plannedRecipes.indexOf(recipes))}> Planlegg <span> + </span> </div>
                             </div>
                             <div key={plannedRecipes.indexOf(recipes)} className="recipeWrapper">                      
                                 {recipes.length > 0 && recipes.map((recipe: Recipe) => {
                                     return(
-                                        <Card image={recipe.image} key={recipe.id}>        
-                                            <div className='recipeInfo'>
-                                                <div className="recipeTitle">{recipe.name}</div>
-                                                <div className="cookTime"><img src={clock} alt="clock"/>{recipe.time}</div>
-                                                {recipe.tags.length > 0 && (<Tag tags={recipe.tags} />)}
-                                            </div>
-                                        </Card>                         
+                                        <WeekRecipeCard key={recipe.id} recipe={(recipe)}/>                  
                                     )
                                 })}
                                 
                                 {recipes.length === 0 && (
-                                    
                                     <div className="noCards">
                                         <div> Ingen planlagte oppskrifter </div>
                                         <img src={book} alt="book" width="100px"/>
-                                        <div className="button primaryButton" onClick={() => setPlanDay(plannedRecipes.indexOf(recipes))}> Planlegg </div>
-                                    </div>
-                                    
+                                    </div>                                    
                                 )}
                             </div>
                         </div>

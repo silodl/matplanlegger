@@ -1,4 +1,4 @@
-import './Card.css';
+import './RecipeCard.css';
 
 export const Tag = (props:{tags: string[]}) => {
 

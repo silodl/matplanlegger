@@ -5,7 +5,7 @@ import { Tag } from '../Components/Tag';
 import { AddRecipe, Recipe } from './AddRecipe';
 import fetch from 'node-fetch';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
-import { Card } from '../Components/Card';
+import { Card } from '../Components/RecipeCard';
 import clock from '../Images/Icons/Clock.svg';
 
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Drinker";

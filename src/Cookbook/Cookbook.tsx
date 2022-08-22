@@ -1,5 +1,5 @@
 import { AppLayout } from '../App';
-import { Card } from '../Components/Card';
+import { Card } from '../Components/RecipeCard';
 import { Recipe } from '../Recipes/AddRecipe';
 import { useParams } from 'react-router-dom';
 import { useCookbook } from './UseCookbook';

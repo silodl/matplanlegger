@@ -58,7 +58,6 @@
 
 .weekday {
   width: 90vw;
-  height: 240px;
   border: 2px solid var(--color-primary);
   border-radius: 10px;
   margin-bottom: 10px;
@@ -69,32 +68,34 @@
 }
 
 .weekdayHeader {
-  text-align: left;
-  z-index: 1;
-  width: calc(90vw - 10px);
-  padding: 2.5px 5px 2.5px 5px;
+  width: calc(90vw - 5px);
+  padding: 0 0px 2.5px 5px;
   border-radius: 8px 8px 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .addRecipe {
-  border: 1.5px solid #333;
-  border-radius: 5px;
-  font-size: 20px;
-  height: 20px;
-  width: 20px;
+  background-color: var(--color-primary);
+  border-radius: 0 5px 0 5px;
+  font-size: 16px;
+  padding: 0 5px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.addRecipe > span {
+  font-size: 20px;
+  margin-left: 5px;
+}
+
 .recipeWrapper {
   display: flex;
   column-gap: 10px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .noCards {
@@ -103,7 +104,7 @@
   justify-content: center;
   align-items: center;
   row-gap: 10px;
-  height: 240px;
+  padding-bottom: 10px;
   width: 90vw;
 }
 
@@ -113,6 +114,6 @@
   }
 
   .weekdayHeader {
-    width: calc(70vw - 10px);
+    width: calc(70vw - 5px);
   }
 }
