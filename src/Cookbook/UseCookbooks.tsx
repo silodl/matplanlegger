@@ -1,11 +1,10 @@
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs, where } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useLoggedInUser } from "../Authentication/UseLoggedInUser";
 import { useState, useEffect } from "react";
 
 export interface Cookbook {
     name: string,
-    image: string,
     id: string,
 }
 
@@ -15,8 +14,8 @@ export const useCookbooks = () => {
     
     const user = useLoggedInUser();
     const fetchCookbooks = async() => {
-        if(user) {
-            const q = query(collection(db, "users", user.uid, "cookbooks"));
+        if(user && user.email) {
+            const q = query(collection(db, "cookbooks"), where("owners", "array-contains", user.email));
             const querySnapshot = await getDocs(q);
             setCookboks([]);
             querySnapshot.forEach((doc) => {
@@ -25,9 +24,8 @@ export const useCookbooks = () => {
                     const image: string = doc.get("image");
                     const id: string = doc.id;
                     setCookboks(old => [...old, {name, image, id}])
-
                 }
-        });
+            });
         }
     }
     

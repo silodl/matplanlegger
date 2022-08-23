@@ -6,8 +6,12 @@ import { Tag } from "../Components/Tag";
 
 export const WeekRecipeCard = (props: {recipe: Recipe}) => {
 
+    const LoadRecipe = (id: string) => {
+        window.location.href = `/oppskrifter/${id}`;
+    }
+
     return(
-        <div className="sideCard">  
+        <div className="sideCard" onClick={() => LoadRecipe(props.recipe.id)}>  
             <img className='recipeImage' src={props.recipe.image} alt="food"/>
             <div className="recipeInfo">
                 <div className='recipeTitle'> {props.recipe.name} </div>

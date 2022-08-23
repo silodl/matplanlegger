@@ -9,6 +9,7 @@
   align-content: flex-start;
   column-gap: 15px;
   row-gap: 5px;
+  justify-content: space-evenly;
 }
 
 @media (min-width: 481px) {
@@ -17,6 +18,7 @@
     height: calc(100vh - 131px);
     column-gap: 20px;
     row-gap: 20px;
+    justify-content: flex-start;
   }
 }
   
@@ -24,41 +26,10 @@
   display: none;
 }
 
-.alignRecipes {
-  z-index: 2;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 90vw;
-  height: 100vh;
-  padding: 20px 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  column-gap: 20px;
-  row-gap: 20px;
-  padding: 5vw;
-  background-color: white;
-}
-
-
-@media (max-width: 480px) {
-  .alignRecipes {
-    column-gap: 10px;
-    row-gap: 10px;
-  }
-}
-
-.closeButton {
-  position: fixed;
-  right: 10px;
-  top: 10px;
-  width: 15px;
-}
-
 .weekday {
   width: 90vw;
-  border: 2px solid var(--color-primary);
+  min-width: 340px;
+  background-color: #e3d2c45e;
   border-radius: 10px;
   margin-bottom: 10px;
 }
@@ -69,7 +40,7 @@
 
 .weekdayHeader {
   width: calc(90vw - 5px);
-  padding: 0 0px 2.5px 5px;
+  padding: 0 0px 5px 5px;
   border-radius: 8px 8px 0 0;
   display: flex;
   justify-content: space-between;
@@ -77,13 +48,14 @@
 }
 
 .addRecipe {
-  background-color: var(--color-primary);
-  border-radius: 0 5px 0 5px;
+  border: 2px solid var(--color-primary);
+  border-radius: 8px;
   font-size: 16px;
   padding: 0 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .addRecipe > span {
@@ -110,10 +82,12 @@
 
 @media (min-width: 481px) {
   .weekday, .noCards {
-    width: 70vw;
+    width: calc(35vw - 8px);
+    min-width: 340px;
   }
 
   .weekdayHeader {
-    width: calc(70vw - 5px);
+    width: calc(33vw - 5px);
+    min-width: 335px;
   }
 }

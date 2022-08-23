@@ -1,17 +1,18 @@
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../Firebase';
-import { User } from '@firebase/auth';
 
 export type CookbookComponent = {
     name: string,
-    user: User| undefined,
+    owners: string[],
 }
 
 export const AddCookbook = async (cookbook: CookbookComponent) => {
 
-    if (cookbook.user) {
-       const newDoc = await addDoc(collection(db, "users", cookbook.user.uid, "cookbooks"), {
+    if (cookbook.owners) {
+       const newDoc = await addDoc(collection(db, "cookbooks"), {
             name: cookbook.name,
+            owners: cookbook.owners,
+            recipes: [],
         }) 
 
         if (newDoc) {

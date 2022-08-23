@@ -9,11 +9,25 @@ export const Recipe = () => {
 
     return(
         <div className='root'>
-            <div className='backbutton'><a href="/oppskrifter"><img src={leftArrow} alt="left-arrow"/> <span> tilbake til alle oppskrifter </span></a></div>
+            <div className='backbutton'>
+                <a href="/oppskrifter">
+                    <img src={leftArrow} alt="left-arrow"/> 
+                    <span> tilbake til alle oppskrifter </span>
+                </a>
+            </div>
             {recipe && recipe.url 
-            ? <div> <iframe id="iframe" src={recipe.url} frameBorder="0" title={recipe.name}/> </div>
+            ? <div>
+                <object data={recipe.url} className="recipePreview"
+                type="text/html">
+                    <div className="noPreview">
+                        <div>Kunne ikke hente innholdet</div>
+                        <div> Trykk <a href={recipe.url} target="popup">her</a> for å opne oppskriften i ny fane</div>
+                    </div>
+                </object>
+             </div>
             : null
             }
+            
         </div>   
     )
 }

@@ -9,11 +9,24 @@ export const NewCookbook = () => {
 
   const [name, setName] = useState("");
   const [share, setShare] = useState(false);
+  const [owners, setOwners] = useState<string[]>([]);
   
   const user = useLoggedInUser();
 
   const submit = () => {
-    AddCookbook({name, user});
+    if(owners) {
+      AddCookbook({name, owners});
+    }
+  }
+
+  const handleOwners = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const ownersString = e.target.value;
+    if (ownersString.includes(",") && user && user.email) {
+      setOwners(ownersString.split(",").concat([user.email]))
+    }
+    else if (user && user.email) {
+      setOwners([ownersString, user.email])
+    }
   }
 
   return (
@@ -39,7 +52,8 @@ export const NewCookbook = () => {
         </div></div>
         {share ? 
           <input className='inputField' size={30}
-          placeholder='F.eks. ola.nordmann@gmail.com'/>  
+          placeholder='F.eks. ola@gmail.com, kari@gmail.com'
+          onChange={(e) => handleOwners(e)}/>  
         : null}
 
         <div className='primaryButton button center' onClick={() => submit()}> Legg til </div> 

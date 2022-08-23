@@ -14,7 +14,7 @@ export const useRecipe = (props: {id: string | undefined}) => {
         const fetchRecipe = async() => {
 
             if(user && props.id) {
-                const docRef = doc(db, "users", user.uid, "recipes", props.id);
+                const docRef = doc(db, "recipes", props.id);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     const url = docSnap.get("url");
@@ -24,9 +24,9 @@ export const useRecipe = (props: {id: string | undefined}) => {
                     const image = docSnap.get("image");
                     const time = docSnap.get("time");
                     const tags = docSnap.get("tags");
-                    const userID = user.uid
+                    const owner = user.uid
                     const id = docSnap.id;
-                    const recipeContent = {url, file, name, category, image, time, tags, userID, id};
+                    const recipeContent = {url, file, name, category, image, time, tags, owner, id};
                     setRecipe(recipeContent);
                 }
             }

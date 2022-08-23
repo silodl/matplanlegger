@@ -1,4 +1,4 @@
-import { collection, query, getDoc, doc, getDocs, where } from "firebase/firestore";
+import { getDoc, doc} from "firebase/firestore";
 import { db } from "../Firebase";
 import { useLoggedInUser } from "../Authentication/UseLoggedInUser";
 import { useState, useEffect } from "react";
@@ -15,35 +15,33 @@ export const useCookbook = (props: {id: string | undefined}) => {
     const fetchCookbook = async() => {
 
         if(user && props.id) {
-            const docRef = doc(db, "users", user.uid, "cookbooks", props.id);
+            const docRef = doc(db, "cookbooks", props.id);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const name = docSnap.get("name");
-                const image = docSnap.get("image");
-                const id = docSnap.get("id");
-                const book = {name, image, id}
+                const id = docSnap.id;
+                const book = {name, id}
                 setCookbook(book);
+                const recipeIDs: string[] = docSnap.get("recipes");
+                setRecipes([]);
+                recipeIDs.forEach(async(recipeID) => {
+                    const docRef = doc(db, "recipes", recipeID);
+                    const docSnap2 = await getDoc(docRef);
+                    if(docSnap2.exists()) {
+                        const url = docSnap2.get("url");
+                        const file = docSnap2.get("file");
+                        const name = docSnap2.get("name");
+                        const category = docSnap2.get("category");
+                        const image = docSnap2.get("image");
+                        const time = docSnap2.get("time");
+                        const tags = docSnap2.get("tags");
+                        const owner = user.uid
+                        const id = docSnap2.id;
+                        const recipe = {url, file, name, category, image, time, tags, owner, id};
+                        setRecipes(old => [...old, recipe])
+                    }
+                })
             }
-
-            const q = query(collection(db, "users", user.uid, "recipes"), where("cookbook", "==", props.id));
-            const querySnapshot = await getDocs(q);
-            setRecipes([]);
-            querySnapshot.forEach((doc) => {
-                if(doc.exists()) {
-                    const url = doc.get("url");
-                    const file = doc.get("file");
-                    const name = doc.get("name");
-                    const category = doc.get("category");
-                    const image = doc.get("image");
-                    const time = doc.get("time");
-                    const tags = doc.get("tags");
-                    const userID = user.uid
-                    const id = docSnap.id;
-                    const recipe = {url, file, name, category, image, time, tags, userID, id};
-                    setRecipes(old => [...old, recipe])
-                }
-            
-            });
         }
     }
     

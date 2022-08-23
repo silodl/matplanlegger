@@ -20,16 +20,17 @@
     width: 10px;
 }
 
-iframe {
+.recipePreview {
     position: fixed;
     left: 0;
     top: 5vh;
     margin: auto;
     width: 100vw;
-    height: 90vh;
+    height: 95vh;
 }
 
-.recipePreview {
-    display : block;
-    overflow : hidden
+.noPreview {
+    padding: 150px 50px;
+    display: flex;
+    flex-direction: column;
 }

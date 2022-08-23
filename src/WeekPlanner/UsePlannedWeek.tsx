@@ -12,7 +12,7 @@ export const usePlannedWeek = (props: {week: string}) => {
     const GetRecipe = async(id: string, day: string) => {
         const index = parseInt(day);
         if (user && id) {
-            const docRef = doc(db, "users", user.uid, "recipes", id);
+            const docRef = doc(db, "recipes", id);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const url = docSnap.get("url");
@@ -22,8 +22,8 @@ export const usePlannedWeek = (props: {week: string}) => {
                 const image = docSnap.get("image");
                 const time = docSnap.get("time");
                 const tags = docSnap.get("tags");
-                const userID = user.uid
-                const recipeContent = {url, file, name, category, image, time, tags, userID, id};
+                const owner = user.uid
+                const recipeContent = {url, file, name, category, image, time, tags, owner, id};
 
                 let newRecipes = recipes;
                 if(newRecipes[index].length > 0 && newRecipes[index][0].id !== recipeContent.id) {
