@@ -34,14 +34,14 @@ export const Cookbook = () => {
         <>
           <div> 
             <div className='pageTitle'> {cookbook?.name} </div>
-            <div className='secondaryButton button corner'> 
-                <a href="/ny_oppskrift"> {isMobile ? "+" : "Legg til oppskrift"} </a>
+            <div className='secondaryButton button corner' onClick={() => setViewAllRecipes(true)}> 
+                {isMobile ? "+" : "Legg til oppskrift"}
             </div>
           </div>
           <div className='cardWrapper'>
             {recipes.map((recipe: Recipe) => {
               return(
-                <Card key={recipe.url} recipe={recipe}/>
+                <Card key={recipe.url} recipe={recipe} clickable={true}/>
               )
             })}
           </div>

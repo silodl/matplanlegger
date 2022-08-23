@@ -1,4 +1,4 @@
-import { collection, query, getDocs, where } from "firebase/firestore";
+import { collection, query, onSnapshot, where } from "firebase/firestore";
 import { db } from "../Firebase";
 import { useLoggedInUser } from "../Authentication/UseLoggedInUser";
 import { useState, useEffect } from "react";
@@ -16,16 +16,17 @@ export const useCookbooks = () => {
     const fetchCookbooks = async() => {
         if(user && user.email) {
             const q = query(collection(db, "cookbooks"), where("owners", "array-contains", user.email));
-            const querySnapshot = await getDocs(q);
-            setCookboks([]);
-            querySnapshot.forEach((doc) => {
-                if(doc.exists()) {
-                    const name: string = doc.get("name");
-                    const image: string = doc.get("image");
-                    const id: string = doc.id;
-                    setCookboks(old => [...old, {name, image, id}])
-                }
-            });
+            onSnapshot(q, (querySnapshot) => {
+                setCookboks([]);
+                querySnapshot.forEach((doc) => {
+                    if(doc.exists()) {
+                        const name: string = doc.get("name");
+                        const image: string = doc.get("image");
+                        const id: string = doc.id;
+                        setCookboks(old => [...old, {name, image, id}])
+                    }
+                });
+            })
         }
     }
     

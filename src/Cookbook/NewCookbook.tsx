@@ -15,7 +15,13 @@ export const NewCookbook = () => {
 
   const submit = () => {
     if(owners) {
-      AddCookbook({name, owners});
+      if( owners.length === 0 && user && user.email) {
+        AddCookbook({name, owners: [user.email]});
+      }
+      else {
+        AddCookbook({name, owners});
+
+      }
     }
   }
 

@@ -3,14 +3,14 @@ import clock from '../Images/Icons/Clock.svg';
 import { Tag } from '../Components/Tag';
 import './RecipeCard.css';
 
-export const Card = (props: {recipe: Recipe}) => {
+export const Card = (props: {recipe: Recipe, clickable: boolean}) => {
 
     const LoadRecipe = (id: string) => {
         window.location.href = `/oppskrifter/${id}`;
     }
 
     return(
-        <div className="card" onClick={() => LoadRecipe(props.recipe.id)}>  
+        <div className="card" onClick={() => (props.clickable ? LoadRecipe(props.recipe.id) : "")}>  
             <img className='recipeImage' src={props.recipe.image} alt="food"/>
             <div className="recipeInfo">
                 <div className="recipeTitle">{props.recipe.name}</div>

@@ -32,7 +32,7 @@ export const Recipes = () => {
                     {recipes.map((recipe: Recipe) => {
                         return(
                             <div onClick={() => LoadRecipe(recipe.id)} key={recipe.id}>
-                                <Card key={recipe.url} recipe={recipe}/>
+                                <Card key={recipe.url} recipe={recipe} clickable={true}/>
                             </div>
                         )
                     })}

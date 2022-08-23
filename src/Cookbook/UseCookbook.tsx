@@ -1,4 +1,4 @@
-import { getDoc, doc} from "firebase/firestore";
+import { getDoc, doc, onSnapshot} from "firebase/firestore";
 import { db } from "../Firebase";
 import { useLoggedInUser } from "../Authentication/UseLoggedInUser";
 import { useState, useEffect } from "react";
@@ -15,8 +15,7 @@ export const useCookbook = (props: {id: string | undefined}) => {
     const fetchCookbook = async() => {
 
         if(user && props.id) {
-            const docRef = doc(db, "cookbooks", props.id);
-            const docSnap = await getDoc(docRef);
+            onSnapshot(doc(db, "cookbooks", props.id), (docSnap) => {
             if (docSnap.exists()) {
                 const name = docSnap.get("name");
                 const id = docSnap.id;
@@ -42,6 +41,7 @@ export const useCookbook = (props: {id: string | undefined}) => {
                     }
                 })
             }
+            })
         }
     }
     

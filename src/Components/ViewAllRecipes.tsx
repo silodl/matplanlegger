@@ -28,7 +28,7 @@ export const ViewAllRecipes = (props: Props) => {
                     allRecipes.map((recipe: Recipe) => {
                         return(
                             <div onClick={() => props.action(recipe.id)} key={recipe.id}>
-                                <Card key={recipe.url} recipe={recipe}/>
+                                <Card key={recipe.url} recipe={recipe} clickable={false}/>
                             </div>
                         )
                     })
