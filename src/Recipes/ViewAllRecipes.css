@@ -1,0 +1,36 @@
+.alignRecipes {
+  z-index: 2;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 90vw;
+  height: 100vh;
+  padding: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  column-gap: 20px;
+  row-gap: 20px;
+  padding: 5vw;
+  background-color: white;
+}
+
+
+@media (max-width: 480px) {
+  .alignRecipes {
+    column-gap: 10px;
+    row-gap: 10px;
+  }
+}
+
+.closeButton {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  width: 15px;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  transform: scale(1.2);
+}

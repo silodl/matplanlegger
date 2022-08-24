@@ -21,6 +21,12 @@
     justify-content: flex-start;
   }
 }
+
+@media (max-width: 994px) {
+  .weekplan {
+    justify-content: space-evenly;
+  }
+}
   
 .weekplan::-webkit-scrollbar {
   display: none;
@@ -29,7 +35,7 @@
 .weekday {
   width: 90vw;
   min-width: 340px;
-  background-color: #e3d2c45e;
+  background-color: #e3d2c44D;
   border-radius: 10px;
   margin-bottom: 10px;
 }
@@ -56,6 +62,10 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+.addRecipe:hover {
+  background-color: #e3d2c480;
 }
 
 .addRecipe > span {

@@ -10,6 +10,10 @@
     background-color: white;
 }
 
+.sideCard:hover {
+    transform: scale(1.1);
+}
+
 .sideCard > img {
     width: 120px;
     height: 100px;

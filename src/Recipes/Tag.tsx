@@ -16,5 +16,5 @@ export const Tag = (props:{tags: string[]}) => {
             )
         })}
         </div>
-    )
+    ) 
 }

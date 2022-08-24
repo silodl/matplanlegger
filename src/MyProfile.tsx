@@ -10,7 +10,7 @@ export const MyProfile = () => {
 
     return(
         <AppLayout>
-            <div className='pageTitle'> Min profil </div>
+            <div className='pageHeader title'> Min profil </div>
 
             {user
             ? 

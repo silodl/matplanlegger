@@ -1,6 +1,6 @@
 import { AppLayout } from '../App';
 import { useCookbooks } from './UseCookbooks';
-import { Book } from '../Components/Book';
+import { Book } from './Book';
 import books from '../Images/books.png';
 
 export const LoadCookbook = (id: string) => {
@@ -18,9 +18,10 @@ export const Cookbooks = () => {
             {cookbooks.length > 0 
             ?
             <>
-                <div>
-                    <div className='pageTitle'> Mine kokebøker </div>
-                    <div className='secondaryButton button corner'> 
+                <div className="pageHeader">
+                    <div></div>
+                    <div className='title'> Mine kokebøker </div>
+                    <div className='secondaryButton button'> 
                         <a href="/ny_kokebok"> {isMobile ? "+" : "Ny kokebok"} </a>
                     </div>
                 </div>
@@ -41,7 +42,7 @@ export const Cookbooks = () => {
             </>
             : 
             <div className="emptyState">
-                <div className='pageTitle'> Mine kokebøker </div>
+                <div className='pageHeader title'> Mine kokebøker </div>
                 <div> Du har ingen kokebøker enda </div>
                 <img width={"170px"}
                 src={books} alt="books"/>

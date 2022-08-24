@@ -5,7 +5,7 @@ import { PlanRecipe } from './PlanRecipe';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { usePlannedWeek } from './UsePlannedWeek';
 import book from '../Images/book.png';
-import { ViewAllRecipes } from '../Components/ViewAllRecipes';
+import { ViewAllRecipes } from '../Recipes/ViewAllRecipes';
 
 export const GetWeek = (props: {week: number}) => {
 
@@ -38,7 +38,7 @@ export const GetWeek = (props: {week: number}) => {
                             <div key={plannedRecipes.indexOf(recipes)} className="recipeWrapper">                      
                                 {recipes.length > 0 && recipes.map((recipe: Recipe) => {
                                     return(
-                                        <WeekRecipeCard key={recipe.id} recipe={(recipe)}/>                  
+                                        <WeekRecipeCard key={recipe.id} recipe={(recipe)} week={props.week.toString()} daynr={plannedRecipes.indexOf(recipes).toString()}/>                  
                                     )
                                 })}
                                 

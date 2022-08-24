@@ -39,7 +39,6 @@
     font-size: 18px;
     line-height: 2em;
     background-color: #e3d2c475;
-    /*padding: 80px 50px calc(113px + (1px / 3));*/
     padding: 25px 50px calc(31px + (2px / 3));
     border-radius: 0 10px 10px 0;
     border: 2px solid var(--color-primary);
@@ -54,7 +53,6 @@
     border-radius: 10px;
     border: 2px solid var(--color-primary);
 }
-
 
 /* phone */
 @media (max-width: 480px) {

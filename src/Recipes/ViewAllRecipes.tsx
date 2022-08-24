@@ -1,7 +1,7 @@
 import close from '../Images/Icons/Close.svg';
-import { useRecipes } from '../Recipes/UseRecipes';
+import { useRecipes } from './UseRecipes';
 import book from '../Images/book.png';
-import { Recipe } from '../Recipes/AddRecipe';
+import { Recipe } from './AddRecipe';
 import { Card } from './RecipeCard';
 import './ViewAllRecipes.css';
 
@@ -12,6 +12,7 @@ interface Props {
 
 export const ViewAllRecipes = (props: Props) => {
 
+    
     const allRecipes  = useRecipes();
 
     return (

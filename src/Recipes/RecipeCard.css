@@ -1,0 +1,169 @@
+.cardWrapper {
+  position: relative;
+  top: 15px;
+  padding: 5px 4.4vw 0 4.4vw;
+  height: calc(100vh - 127px);
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  column-gap: 15px;
+  row-gap: 5px;
+}
+
+@media (min-width: 481px) {
+  .cardWrapper {
+    padding: 5px 140px 0 140px;
+    height: calc(100vh - 120px);
+    column-gap: 20px;
+    row-gap: 10px;
+  }
+}
+
+.cardWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  border-radius: 10px;
+  display: flex;
+  text-align: left;
+  box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  flex-direction: column;
+  width: 170px;
+  height: 270px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+.card.clickable:hover {
+  transform: scale(1.1);
+}
+
+.recipeImage {
+  width: 100%;
+  height: 50%;
+  border-radius: 10px 10px 0 0;
+  object-fit: cover;
+}
+
+.recipeInfo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  padding: 5px;
+}
+
+.recipeTitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1em;
+}
+
+.cookTime, .edit {
+  display: flex;
+  column-gap: 10px;
+}
+
+.cookTime img, .edit img {
+  width: 20px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 5px;
+  row-gap: 5px;
+}
+
+.tag {
+  width: fit-content;
+  padding: 0 10px;
+  border-radius: 15px;
+}
+
+.edit:hover {
+  text-decoration: underline;
+}
+
+.edit {
+  position: relative;
+  bottom: 40px;
+  cursor: pointer;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  z-index: 2;
+}
+
+.popupContent {
+  position: absolute;
+  left: 50vw;
+  top: 48vh;
+  transform: translate(-50%, -50%);
+}
+
+.popupContent.card {
+  width: 350px;
+  height: 550px;
+}
+
+.deleteAlert {
+  background-color: white;
+  width: 310px;
+  padding: 10px;
+  text-align: left;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+
+.moreButton {
+  position: absolute;
+  width: 170px;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.moreButton img {
+  width: 20px;
+}
+
+.moreButtonContent {
+  padding: 0 5px;
+  background-color: white;
+  width: fit-content;
+  border-radius: 5px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border: 1px solid var(--color-primary);
+}
+
+.moreButtonContent > div:hover {
+  background-color: var(--color-primary);
+  border-radius: 5px;
+}
+
+.moreButtonContent > div {
+  border-bottom: 1px solid var(--color-primary);
+  width: 100%;
+}
+
+.moreButtonContent:last-child {
+  border-bottom: none;
+}

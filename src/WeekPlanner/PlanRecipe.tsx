@@ -8,7 +8,7 @@ export const PlanRecipe = async(props: {recipeID: string, day: number, week: num
         let docRecipes: {[key: string]: string[]};
         if (docSnap.exists()) {
             docRecipes = docSnap.get("recipes");
-            if(docRecipes[props.day].length > 0) {
+            if(docRecipes[props.day] && docRecipes[props.day].length > 0) {
                 docRecipes[props.day].push(props.recipeID);
             }
             else {

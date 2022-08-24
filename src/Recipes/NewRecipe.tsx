@@ -84,7 +84,7 @@ export const NewRecipe = () => {
               id="urlField"
               className="inputField"
               type="url"
-              size={40}
+              size={35}
               placeholder="matbloggen.no/kyllingsuppe"
               onChange={(e) => setUrl(e.target.value)}
             />
@@ -98,7 +98,7 @@ export const NewRecipe = () => {
         
         <div>
           <div className="fieldTitle"> Tittel </div>
-          <input className='inputField' size={40}
+          <input className='inputField' size={35}
             placeholder='Kyllingsuppe'
             onChange={(e) => setTitle(e.target.value)}
             value={title}/>
@@ -158,7 +158,7 @@ export const NewRecipe = () => {
 
         <div>
           <div className="fieldTitle"> Tags <span style={{fontSize: "14px"}}>(maks 4)</span> </div>
-          <input className='inputField' size={40}
+          <input className='inputField' size={35}
             onChange={(e) => handleTags(e.target.value)}
             placeholder="f.eks. kylling, thai, asiatisk"/>
           </div>

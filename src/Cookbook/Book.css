@@ -11,6 +11,10 @@
     background-position: center;
 }
 
+.book:hover {
+    transform: scale(1.1);
+}
+
 .bookTitle {
     font-size: 16px;
     line-height: 1em;
@@ -23,4 +27,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.editCookbook {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 350px;
+    
 }

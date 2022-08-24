@@ -10,7 +10,6 @@ export const NewCookbook = () => {
   const [name, setName] = useState("");
   const [share, setShare] = useState(false);
   const [owners, setOwners] = useState<string[]>([]);
-  
   const user = useLoggedInUser();
 
   const submit = () => {

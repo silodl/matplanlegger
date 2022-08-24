@@ -3,14 +3,16 @@ import { db } from "../Firebase";
 import { useLoggedInUser } from "../Authentication/UseLoggedInUser";
 import { useState, useEffect } from "react";
 
-export interface Cookbook {
+export interface CookbookProps {
     name: string,
     id: string,
+    recipes: string[],
+    owners: string[],
 }
 
 export const useCookbooks = () => {
 
-    const [cookbooks, setCookboks] = useState<Cookbook[]>([]);
+    const [cookbooks, setCookboks] = useState<CookbookProps[]>([]);
     
     const user = useLoggedInUser();
     const fetchCookbooks = async() => {
@@ -21,9 +23,10 @@ export const useCookbooks = () => {
                 querySnapshot.forEach((doc) => {
                     if(doc.exists()) {
                         const name: string = doc.get("name");
-                        const image: string = doc.get("image");
                         const id: string = doc.id;
-                        setCookboks(old => [...old, {name, image, id}])
+                        const recipes: string[] = doc.get("recipes");
+                        const owners: string[] = doc.get("owners");
+                        setCookboks(old => [...old, {name, id, recipes, owners}])
                     }
                 });
             })

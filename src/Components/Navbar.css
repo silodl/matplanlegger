@@ -18,7 +18,10 @@
     }
     .navbarText a:hover {
         cursor: pointer;
+        /*font-weight: 500;*/
+        transform: scale(1.2);
     }
+
     .navbarText {
         width: 100%;
         display: flex;
@@ -28,6 +31,7 @@
         display: block;
         text-decoration: none;
         color: #333;
+        /*width: 130px;*/
     }
 
     .active {
@@ -50,8 +54,8 @@
         display: block;
     }
     .active {
-        background-color: #e3d2c4;
-        outline: 5px solid #e3d2c4;
+        background-color: var(--color-primary);
+        outline: 5px solid var(--color-primary);
         border-radius: 5px;
     }
 }
