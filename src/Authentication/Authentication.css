@@ -2,17 +2,21 @@
     display: flex;
     justify-content: center; 
     flex-wrap: wrap;
-    align-items: center;
     margin-top: 50px;
+    outline: 10px solid white;
+    height: 350px;
+    min-height: 350px;
+    width: fit-content;
+    border: 2px solid var(--color-primary);
+    border-radius: 10px;
 }
 
 .loginWrapper {
     width: 250px;
-    border: 2px solid var(--color-primary);
-    border-radius: 10px;
-    padding: 30px 30px 50px 30px;
+    padding: 0 30px;
     row-gap: 20px;
     display: flex;
+    height: 100%;
     flex-direction: column;
     justify-content: center;
 }
@@ -39,30 +43,64 @@
     font-size: 18px;
     line-height: 2em;
     background-color: #e3d2c475;
-    padding: 25px 50px calc(31px + (2px / 3));
-    border-radius: 0 10px 10px 0;
-    border: 2px solid var(--color-primary);
-    border-left: none;
+    padding: 0 40px 0 30px;
 }
 
 .landingPageImage {
     margin-top: 10px;
-}
-
-.landingPageImage img {
-    border-radius: 10px;
-    border: 2px solid var(--color-primary);
+    margin-left: 20px;
 }
 
 /* phone */
-@media (max-width: 480px) {
+@media /*(max-width: 480px) and*/ (max-width: 800px) {
     .landingPageTitle {
         font-size: 30px;
     }
+
+    .pc {
+        display: none;
+    }
+
+    .landingpage {
+        border: none;
+    }
+
+    .loginWrapper {
+        border: 2px solid var(--color-primary);
+        border-radius: 10px;
+    }
+
+    .landingPageImage img {
+        border-radius: 10px;
+        border: 2px solid var(--color-primary);
+    }
 }
 
+/* tablet 
+@media only screen and (min-width: 481px) and (max-width: 800px) {
+    .pc {
+        display: none;
+    }
+
+    .landingpage {
+        border: none;
+    }
+
+    .loginWrapper {
+        border: 2px solid var(--color-primary);
+        border-radius: 10px;
+    }
+
+    .landingPageImage img {
+        border-radius: 10px;
+        border: 2px solid var(--color-primary);
+    }
+    
+}*/
+
+
 /* pc */
-@media (min-width: 481px) {
+@media (min-width: 800px) {
     .landingPageTitle img {
         width: 80px;
     }
@@ -75,4 +113,9 @@
     .loginWrapper {
         border-radius: 10px 0 0 10px;
     }
+
+    .mobile {
+        display: none;
+    }
+    
 }
