@@ -4,6 +4,8 @@ import clock from '../Images/Icons/Clock.svg';
 import { useLoggedInUser } from "../Authentication/UseLoggedInUser";
 import { UpdateRecipe } from "./UpdateRecipe";
 import { DeleteRecipe } from "./DeleteRecipe";
+import './RecipeCard.css';
+import recipeCover from '../Images/Icons/EmptyRecipe.svg';
 
 export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
 
@@ -13,6 +15,8 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
     const [tags, setTags] = useState(props.recipe.tags);
     const [viewTimeOptions, setViewTimeOptions] = useState(false);
     const [viewDelete, setViewDelete] = useState(false);
+    const [image, setImage] = useState<File | undefined>();
+    const [previewImage, setPreviewImage] = useState("");
     const user = useLoggedInUser();
 
     const handleTags = (tagString: string) => {
@@ -24,6 +28,14 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
         }
     }
 
+    const handleImageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files && e.target.files[0]) {
+            const imageUrl = URL.createObjectURL(e.target.files[0])
+            setPreviewImage(imageUrl);
+            setImage(e.target.files[0]);
+        }
+    }
+
     const updateRecipe = () => {
         const cookTime = time + " " + timeUnit
         if (user) {
@@ -31,7 +43,7 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
             updatedRecipe.name = name;
             updatedRecipe.tags = tags;
             updatedRecipe.time = cookTime;
-            UpdateRecipe(updatedRecipe)
+            UpdateRecipe({recipe: updatedRecipe, imageFile: image})
             .then(() => 
             props.avbryt())
         }
@@ -48,7 +60,15 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
     return (
         <div className="popup">
             <div className="card popupContent">  
-                <img className='recipeImage' src={props.recipe.image} alt="food"/>
+               {previewImage 
+               ? <img className='recipeImage' src={previewImage} alt="new food cover"/>
+               : (props.recipe.image)
+                    ? <img className='recipeImage' src={props.recipe.image} alt="food" style={{opacity: "0.5"}}/>
+                    : <img className='recipeImage' style={{width: "50%", padding: "0 25%", objectFit: "contain", backgroundColor: "var(--color-primary)", opacity: "0.5"}} src={recipeCover} alt="recipe cover"/>
+                }
+
+                <input type="file" className="imageInput" accept="image/*" onChange={(e) => handleImageInput(e)}/>
+
                 <div className="recipeInfo">
                     <div>
                         <div className="fieldTitle"> Tittel </div>

@@ -28,7 +28,7 @@ export const Recipes = () => {
                 <div className='cardWrapper'>
                     {recipes.map((recipe: Recipe) => {
                         return(
-                            <Card key={recipe.url} recipe={recipe} clickable={true}/>
+                            <Card key={recipe.id} recipe={recipe} clickable={true}/>
                         )
                     })}
                 </div>

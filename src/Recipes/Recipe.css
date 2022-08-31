@@ -1,5 +1,5 @@
 .backbutton {
-    height: 5vh;
+    height: 3vh;
     width: 100vw;
     position: fixed;
     left: 0;
@@ -8,6 +8,7 @@
     align-items: center;
     padding-left: 20px;
     cursor: pointer;
+    background-color: var(--color-primary);
 }
 
 .backbutton a {
@@ -23,10 +24,10 @@
 .recipePreview {
     position: fixed;
     left: 0;
-    top: 5vh;
+    top: 3vh;
     margin: auto;
     width: 100vw;
-    height: 95vh;
+    height: 97vh;
 }
 
 .noPreview {

@@ -14,7 +14,7 @@
     transform: scale(1.1);
 }
 
-.sideCard > img {
+.sideCard .recipeImage {
     width: 120px;
     height: 100px;
     border-radius: 10px 0 0 10px;

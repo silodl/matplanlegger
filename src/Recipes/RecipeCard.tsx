@@ -8,6 +8,7 @@ import more from '../Images/Icons/More.svg';
 import { DeleteRecipe } from './DeleteRecipe';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { RemoveRecipeFromBook } from '../Cookbook/RemoveRecipeFromBook';
+import recipeCover from '../Images/Icons/EmptyRecipe.svg';
 
 export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string}) => {
 
@@ -61,7 +62,10 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
                     </div>
                 )}
                 <div className={props.clickable ? "card clickable" : "card" } onClick={() => (props.clickable ? HandleClick("view") : "")}>  
-                    <img className='recipeImage' src={props.recipe.image} alt="food"/>
+                    {props.recipe.image !== "" 
+                    ? <img className='recipeImage' src={props.recipe.image} alt="food"/>
+                    : <img className='recipeImage' style={{width: "50%", padding: "0 25%", objectFit: "contain", backgroundColor: "var(--color-primary)"}} src={recipeCover} alt="recipe cover"/>
+                    }
                     <div className="recipeInfo">
                         <div className="recipeTitle">{props.recipe.name}</div>
                         <div className="cookTime"><img src={clock} alt="clock"/>{props.recipe.time}</div>

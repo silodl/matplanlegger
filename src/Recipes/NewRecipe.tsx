@@ -1,7 +1,7 @@
 import { AppLayout } from '../App';
 import './NewRecipe.css';
 import { useEffect, useState } from 'react';
-import { AddRecipe, Recipe } from './AddRecipe';
+import { AddRecipe, NewRecipeInterface } from './AddRecipe';
 import fetch from 'node-fetch';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 
@@ -12,7 +12,7 @@ export const NewRecipe = () => {
   const [type, setType] = useState("url");
   const [tags, setTags] = useState<string[]>([]);
   const [url, setUrl] = useState("");
-  const [file, setFile] = useState<FileList | null>();
+  const [file, setFile] = useState<File>();
   const [imageUrl, setImageUrl] = useState("");
   const [category, setCategory] = useState<FoodCategory>("Middag");
   const [viewCategoryOptions, setViewCategoryOptions] = useState(false);
@@ -34,12 +34,18 @@ export const NewRecipe = () => {
     }
   }
 
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  }
+
   const AddNewRecipe = () => {
     const cookTime = time + " " + timeUnit
     if (user) {
       const owner = user.uid;
       const id = "";
-      const newRecipe: Recipe = {url, file, name: title, category, image: imageUrl, time: cookTime, tags, owner, id}
+      const newRecipe: NewRecipeInterface = {url, file, name: title, category, image: imageUrl, time: cookTime, tags, owner, id}
       AddRecipe(newRecipe);
     }
   }
@@ -51,7 +57,7 @@ export const NewRecipe = () => {
     })
     .then((content) => {
       let recipeTitle: string = content["title"]
-      recipeTitle = recipeTitle.charAt(0) + recipeTitle.slice(1).toLowerCase()
+      recipeTitle = recipeTitle.charAt(0).toUpperCase() + recipeTitle.slice(1).toLowerCase();
       setTitle(recipeTitle)
       setImageUrl(content["images"][0])
     })
@@ -62,6 +68,15 @@ export const NewRecipe = () => {
       GetContent();
     }
   },[url])
+
+  useEffect(() => {
+    if(file) {
+      let newTitle = file.name.split(".")[0];
+      newTitle = newTitle.charAt(0).toUpperCase() + newTitle.slice(1).toLowerCase();
+      setTitle(newTitle)  
+    }
+
+  },[file])
 
   return (
     <AppLayout>
@@ -92,7 +107,7 @@ export const NewRecipe = () => {
             id="fileField"
             className="fileInput"
             type="file"
-            onChange={(e) => setFile(e.currentTarget.files)}
+            onChange={(e) => handleFileInput(e)}
             />
         }
         

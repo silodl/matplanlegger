@@ -21,6 +21,8 @@ export const GetWeek = (props: {week: number}) => {
         } 
     }
 
+    console.log(plannedRecipes)
+
     return(
         <>  
             {typeof(planDay) === "number" && (

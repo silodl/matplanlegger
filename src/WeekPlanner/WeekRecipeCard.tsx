@@ -7,6 +7,7 @@ import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import React, { useState } from 'react';
 import { RemovePlanedRecipe } from './RemovePlanedRecipe';
 import { EditRecipe } from '../Recipes/EditRecipe';
+import recipeCover from '../Images/Icons/EmptyRecipe.svg';
 
 
 export const WeekRecipeCard = (props: {recipe: Recipe, week: string, daynr: string}) => {
@@ -33,7 +34,7 @@ export const WeekRecipeCard = (props: {recipe: Recipe, week: string, daynr: stri
         }        
     }
 
-    return(
+    return( 
         <>
             {doEditRecipe && (
                 <EditRecipe recipe={props.recipe} avbryt={() => setDoEditRecipe(false)}/>
@@ -52,7 +53,10 @@ export const WeekRecipeCard = (props: {recipe: Recipe, week: string, daynr: stri
                     </div>
                 </div>
                 <div className="sideCard" onClick={() => LoadRecipe(props.recipe.id)}>  
-                    <img className='recipeImage' src={props.recipe.image} alt="food"/>
+                    {props.recipe.image !== "" 
+                    ? <img className='recipeImage' src={typeof(props.recipe.image) === "string" ? props.recipe.image : ""} alt="food"/>
+                    : <img className='recipeImage' style={{width: "20%", padding: "0 10%", objectFit: "contain", backgroundColor: "var(--color-primary)"}} src={recipeCover} alt="recipe cover"/>
+                    }
                     <div className="recipeInfo">
                         <div className='recipeTitle'> {props.recipe.name} </div>
                         <div className="cookTime"><img src={clock} alt="clock"/>{props.recipe.time}</div>

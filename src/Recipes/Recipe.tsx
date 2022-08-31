@@ -15,19 +15,25 @@ export const Recipe = () => {
                     <span> tilbake til alle oppskrifter </span>
                 </a>
             </div>
-            {recipe && recipe.url 
-            ? <div>
-                <object data={recipe.url} className="recipePreview"
-                type="text/html">
-                    <div className="noPreview">
-                        <div>Kunne ikke hente innholdet</div>
-                        <div> Trykk <a href={recipe.url} target="popup">her</a> for å opne oppskriften i ny fane</div>
-                    </div>
-                </object>
-             </div>
-            : null
-            }
+            {recipe && recipe.url && (
+                <div>
+                    <object data={recipe.url} className="recipePreview"
+                    type="text/html">
+                        <div className="noPreview">
+                            <div> Kunne ikke hente innholdet</div>
+                            <div> Trykk <a href={recipe.url} target="popup">her</a> for å opne oppskriften i ny fane</div>
+                        </div>
+                    </object>
+                </div>
+            )}
             
+            {recipe && recipe.file && (
+                <div className="recipePreview">
+                    <object data={recipe.file}  className="recipePreview"
+                    type="text/html"></object>
+                </div>
+            )}           
+
         </div>   
     )
 }

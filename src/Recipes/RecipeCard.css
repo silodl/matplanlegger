@@ -108,11 +108,13 @@
   left: 50vw;
   top: 48vh;
   transform: translate(-50%, -50%);
+  cursor: auto;
 }
 
 .popupContent.card {
   width: 350px;
   height: 550px;
+  padding-bottom: 10px;
 }
 
 .deleteAlert {
@@ -166,4 +168,16 @@
 
 .moreButtonContent:last-child {
   border-bottom: none;
+}
+
+.imageInput {
+  position: absolute; 
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  width: min-content;
+  cursor: pointer;
 }
