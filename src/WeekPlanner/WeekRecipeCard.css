@@ -11,7 +11,7 @@
 }
 
 .sideCard:hover {
-    transform: scale(1.1);
+    filter: contrast(0.9);
 }
 
 .sideCard .recipeImage {

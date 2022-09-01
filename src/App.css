@@ -15,32 +15,31 @@
   text-align: center;
   font-family: 'Nunito', sans-serif;
   font-weight: 300;
+  user-select: none;
+  user-zoom: none;
 }
 
 .pageHeader {
   margin-top: 65px;
   display: flex;
-  /*justify-content: space-between;*/
-  justify-content: space-around;
   align-items: center;
+  width: calc(100vw - 10px);
   padding: 0 5px;
+  justify-content: center;
 }
 
 .pageHeader img {
   cursor: pointer;
 }
 
-.pageHeader img:hover {
-  transform: scale(1.2);
+.pageHeader > .left {
+  position: absolute;
+  left: 20px;
 }
 
-
-.pageHeader > div {
-  width: 130px;
-}
-
-.pageHeader > .title {
-  width: fit-content;
+.pageHeader > .right {
+  position: absolute;
+  right: 20px;
 }
 
 .title {

@@ -7,13 +7,14 @@ export const Recipe = () => {
     const { id } = useParams();
     const recipe = useRecipe({id}); 
 
+
     return(
         <div className='root'>
-            <div className='backbutton'>
-                <a href="/oppskrifter">
+            <div className='backbutton' onClick={() => window.history.back()}>
+                {/*<a href="/oppskrifter" >*/}
                     <img src={leftArrow} alt="left-arrow"/> 
-                    <span> tilbake til alle oppskrifter </span>
-                </a>
+                    <span> tilbake </span>
+                {/*</a>*/}
             </div>
             {recipe && recipe.url && (
                 <div>
@@ -29,10 +30,9 @@ export const Recipe = () => {
             
             {recipe && recipe.file && (
                 <div className="recipePreview">
-                    <object data={recipe.file}  className="recipePreview"
-                    type="text/html"></object>
+                    <object data={recipe.file}  className="recipePreview" type="text/html"/>
                 </div>
-            )}           
+            )}     
 
         </div>   
     )

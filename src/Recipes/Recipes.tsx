@@ -18,9 +18,9 @@ export const Recipes = () => {
             ?
             <>
                 <div className="pageHeader"> 
-                    <div></div>
+                    <div className="left"/>
                     <div className='title'> Mine oppskrifter </div>
-                    <div className='secondaryButton button'> 
+                    <div className='right secondaryButton button'> 
                         <a href="/ny_oppskrift"> {isMobile ? "+" : "Legg til oppskrift"} </a>
                     </div>
                 </div>

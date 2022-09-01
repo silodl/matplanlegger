@@ -37,12 +37,12 @@ export const NewCookbook = () => {
   return (
     <AppLayout>
 
-      <form className="formWrapper" style={{padding: "0 17vw", width: "66vw"}}>
+      <form className="formWrapper">
         <div className='center' style={{fontSize: "25px"}}> Ny kokebok </div>
 
         <div>
           <div className="fieldTitle"> Navn </div>
-          <input className='inputField' size={30}
+          <input className='inputField maxWidth'
             value={name}
             onChange={(e) => setName(e.target.value)}  
           />    

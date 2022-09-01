@@ -73,7 +73,7 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                     <div>
                         <div className="fieldTitle"> Tittel </div>
                         <input className="inputField" 
-                            value={name} size={35}
+                            value={name} style={{width: "320px"}}
                             onChange={(e) => setName(e.target.value)}/>
                     </div>
                     

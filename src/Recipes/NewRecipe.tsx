@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { AddRecipe, NewRecipeInterface } from './AddRecipe';
 import fetch from 'node-fetch';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
+import { Tag } from './Tag';
+
 
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Drinker";
 
@@ -97,9 +99,7 @@ export const NewRecipe = () => {
         {type === "url" 
           ?  <input
               id="urlField"
-              className="inputField"
-              type="url"
-              size={35}
+              className="inputField maxWidth"
               placeholder="matbloggen.no/kyllingsuppe"
               onChange={(e) => setUrl(e.target.value)}
             />
@@ -113,7 +113,7 @@ export const NewRecipe = () => {
         
         <div>
           <div className="fieldTitle"> Tittel </div>
-          <input className='inputField' size={35}
+          <input className='inputField maxWidth'
             placeholder='Kyllingsuppe'
             onChange={(e) => setTitle(e.target.value)}
             value={title}/>
@@ -177,6 +177,7 @@ export const NewRecipe = () => {
             onChange={(e) => handleTags(e.target.value)}
             placeholder="f.eks. kylling, thai, asiatisk"/>
           </div>
+          {tags.length > 0 && (<Tag tags={tags} />)}
         
         <div className='primaryButton button center' onClick={() => AddNewRecipe()}> Legg til </div>
       </form>

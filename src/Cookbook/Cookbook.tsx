@@ -12,6 +12,7 @@ import settings from '../Images/Icons/Settings.svg';
 import { CookbookProps } from './UseCookbooks';
 import { DeleteCookbook } from './DeleteCookbook';
 import { UpdateCookbook } from './UpdateCookbook';
+import '../App.css';
 
 const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
   const [name, setName] = useState(props.cookbook.name);
@@ -126,9 +127,9 @@ export const Cookbook = () => {
       ?
       <>
         <div className="pageHeader"> 
-          <div onClick={() => setDoEditCookbook(true)}><img src={settings} alt="settings" width="30px"/></div>
+          <div className="left" onClick={() => setDoEditCookbook(true)}><img src={settings} alt="settings" width="30px"/></div>
           <div className='title'> {cookbook?.name} </div>
-          <div className='secondaryButton button' onClick={() => setViewAllRecipes(true)}> 
+          <div className='right secondaryButton button' onClick={() => setViewAllRecipes(true)}> 
             {isMobile ? "+" : "Legg til oppskrift"}
           </div>
         </div>
@@ -144,7 +145,7 @@ export const Cookbook = () => {
       : 
       <div className="emptyState">
         <div className='pageHeader'>
-          <div onClick={() => setDoEditCookbook(true)}><img src={settings} alt="settings" width="30px"/></div>
+          <div className="left" onClick={() => setDoEditCookbook(true)}><img src={settings} alt="settings" width="30px"/></div>
           <div className='title'> {cookbook?.name} </div>
           <div></div>
         </div>

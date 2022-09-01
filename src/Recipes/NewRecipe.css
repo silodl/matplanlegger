@@ -98,7 +98,7 @@ input[type="url"] {
 .fileInput::-webkit-file-upload-button {
     width: 60px;
     background-color: #fff;
-    height: calc(34px + (1px / 3));
+    height: calc(40px + (1px / 3));
     border: 1px solid #333;
     border-radius: 10px;
     cursor: pointer;
@@ -175,6 +175,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="number"] {
     -moz-appearance: textfield;
+}
+
+.maxWidth {
+    width: calc(var(--wrapper-width) - 16px);
 }
 
 .multiField {

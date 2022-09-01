@@ -88,9 +88,9 @@ export const Authentication = () => {
 
 
   return(
-      <div className="root">
+      <div className="root" style={{overflow: "auto"}}>
 
-          {redirect ? <Navigate to="/ukeplanlegger"/> : null}
+          {redirect ? <Navigate to="/oppskrifter"/> : null}
           
           <div className="landingPageTitle"> 
             Matplanlegger 

@@ -5,7 +5,6 @@
     margin-top: 50px;
     outline: 10px solid white;
     height: 350px;
-    min-height: 350px;
     width: fit-content;
     border: 2px solid var(--color-primary);
     border-radius: 10px;
@@ -16,7 +15,7 @@
     padding: 0 30px;
     row-gap: 20px;
     display: flex;
-    height: 100%;
+    height: calc(100% - 4px);
     flex-direction: column;
     justify-content: center;
 }
