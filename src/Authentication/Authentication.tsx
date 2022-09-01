@@ -32,9 +32,9 @@ export const Authentication = () => {
   const login = () =>{
     if(email && password){
       signInWithEmailAndPassword(auth, email, password)
-      .then((user) => {
-        if(user){
-            setRedirect(true);
+      .then((currentUser) => {
+        if(currentUser){
+          setRedirect(true);
         }
       })
       .catch( error => {
@@ -126,20 +126,33 @@ export const Authentication = () => {
                   />
                 </div>
                 
-                <div className="centerElements">
+                {/** 
+                <div>
                     {page === "login" 
                     ? 
                     <>
-                        <div className="secondaryButton button" onClick={() => setPage("register")}> Registrer </div>
-                        <div className="primaryButton button" onClick={login}> Logg inn </div>
+                      <div className="secondaryButton button" onClick={() => setPage("register")}> Registrer </div>
+                      <div className="primaryButton button" onClick={login}> Logg inn </div>
                     </>
                     :
                     <>
-                        <div className="secondaryButton button" onClick={() => setPage("login")}> Logg inn</div>
-                        <div className="primaryButton button" onClick={register}> Registrer </div>
+                      <div className="secondaryButton button" onClick={() => setPage("login")}> Logg inn</div>
+                      <div className="primaryButton button" onClick={register}> Registrer </div>
                     </>
                     }
-                </div>
+                </div>*/}
+                {page === "login" 
+                    ? 
+                    <>
+                      <div className="primaryButton button center" onClick={login}> Logg inn </div>
+                      <div> Ny bruker? <u style={{cursor: "pointer"}} onClick={() => setPage("register")}> Register deg </u> </div>
+                    </>
+                    :
+                    <>
+                      <div className="primaryButton button center" onClick={register}> Registrer </div>
+                      <div> Allerede en bruker? <u style={{cursor: "pointer"}} onClick={() => setPage("login")}> Logg inn </u> </div>
+                    </>
+                    }
             </div>
             
             <div className="landingPageImage mobile">

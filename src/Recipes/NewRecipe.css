@@ -24,8 +24,9 @@
 .formWrapper {
     font-family: 'Nunito', sans-serif;
     width: var(--wrapper-width);
-    padding-left: calc((100vw - var(--wrapper-width)) / 2);
-    padding-right: calc((100vw - var(--wrapper-width)) / 2);
+    /*padding-left: calc((100vw - var(--wrapper-width)) / 2);
+    padding-right: calc((100vw - var(--wrapper-width)) / 2);*/
+    padding: 0 calc((100vw - var(--wrapper-width)) / 2);
     height: calc(100vh - 58px);
     margin-top: var(--wrapper-margin-top);
     overflow-y: auto;
@@ -141,6 +142,10 @@ input[type="url"] {
     top: 10px;
 }
 
+.selectFieldOpen:hover {
+    outline: none;
+}
+
 .selectOptions {
     border-radius: 0 0 10px 10px;
     border-top: none;
@@ -165,7 +170,7 @@ input[type="url"] {
 }
 
 .option:last-child:hover {
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 8px 8px;
 }
 
 input[type="number"]::-webkit-outer-spin-button, 
@@ -178,7 +183,7 @@ input[type="number"] {
 }
 
 .maxWidth {
-    width: calc(var(--wrapper-width) - 16px);
+    width: calc(var(--wrapper-width) - 20px);
 }
 
 .multiField {
@@ -186,21 +191,71 @@ input[type="number"] {
     column-gap: 10px;
 }
 
-.checkBox {
+.multiField .option {
+    margin-left: -1px;
+}
+
+.checkbox {
     width: 15px;
     height: 15px;
     display: inline-flex;
     border-radius: 5px;
     border: 2px solid var(--color-primary);
-    position: relative;
-    top: 4px;
     margin-right: 5px;
     cursor: pointer;
 }
 
 .checkMark {
-    color: var(--color-primary);
     position: relative;
-    bottom: 3.5px;
-    left: 1.5px;
+    bottom: 6px;
+    right: 2.5px;
+    display:inline-block;
+    width: 22px;
+    height:22px;
+    transform: rotate(45deg);
+}
+
+.hiddenCheckMark {
+    display: none;
+}
+
+.checkOption {
+    display: flex;
+    align-items: center;
+}
+
+.checkOption:hover {
+    background-color: transparent;
+}
+
+.checkOption:hover .hiddenCheckMark{
+    display: block;
+    color: var(--color-primary);
+    opacity: 0.5;
+}
+
+@media (max-width: 480px) {
+    .checkOption:hover .hiddenCheckMark{
+        display: none;
+    }
+}
+
+.checkmark_stem {
+    position: absolute;
+    width:2px;
+    height:9px;
+    background-color: var(--color-primary);
+    left:11px;
+    top:6px;
+    border-radius: 5px 5px 5px 0;
+}
+
+.checkmark_kick {
+    position: absolute;
+    width:3px;
+    height:2px;
+    background-color: var(--color-primary);
+    left:8px;
+    top:13px;
+    border-radius: 5px 0 0 5px;
 }

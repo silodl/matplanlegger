@@ -5,6 +5,7 @@ import { AddRecipe, NewRecipeInterface } from './AddRecipe';
 import fetch from 'node-fetch';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { Tag } from './Tag';
+import { CookbookProps, useCookbooks } from '../Cookbook/UseCookbooks';
 
 
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Drinker";
@@ -22,10 +23,21 @@ export const NewRecipe = () => {
   const [timeUnit, setTimeUnit] = useState("minutter");
   const [time, setTime] = useState("");
   const [title, setTitle] = useState("");
-
+  const [viewCookbooks, setViewCookbooks] = useState(false);
+  const [addToCookbook, setAddToCookbook] = useState<CookbookProps[]>([])
   const user = useLoggedInUser();
+  const cookbooks = useCookbooks();
+  const [timeOptions, setTimeOptions] = useState(["minutter", "timer"]);
+  const categories: FoodCategory[] = ["Frokost", "Lunsj", "Middag", "Dessert", "Drinker"];
 
-  const categories: FoodCategory[] = ["Frokost", "Lunsj", "Middag", "Dessert", "Drinker"]
+  useEffect(() => {
+    if(parseInt(time) < 2) {
+      setTimeOptions(["minutter", "time"])
+    } 
+    else if(timeOptions !== ["minutter", "timer"]) {
+      setTimeOptions(["minutter", "timer"])
+    }
+  },[time])
 
   const handleTags = (tagString: string) => {
     if (tagString.includes(",")) {
@@ -39,6 +51,26 @@ export const NewRecipe = () => {
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
+    }
+  }
+
+  const handleAddToCookbook = (cookbook: CookbookProps) => {
+    let checkbox = document.getElementById(cookbook.id);
+    if (addToCookbook.includes(cookbook)) {
+      const newArray = addToCookbook;
+      const index = addToCookbook.indexOf(cookbook);
+      newArray.splice(index, 1);
+      setAddToCookbook(newArray);
+
+      if(checkbox) {
+        checkbox.className = "checkMark hiddenCheckMark"
+      }
+    }
+    else {
+      setAddToCookbook(arr => [...arr, cookbook]);
+      if(checkbox) {
+        checkbox.className = "checkMark"
+      }
     }
   }
 
@@ -77,8 +109,8 @@ export const NewRecipe = () => {
       newTitle = newTitle.charAt(0).toUpperCase() + newTitle.slice(1).toLowerCase();
       setTitle(newTitle)  
     }
-
   },[file])
+
 
   return (
     <AppLayout>
@@ -98,13 +130,11 @@ export const NewRecipe = () => {
 
         {type === "url" 
           ?  <input
-              id="urlField"
               className="inputField maxWidth"
               placeholder="matbloggen.no/kyllingsuppe"
               onChange={(e) => setUrl(e.target.value)}
             />
           : <input
-            id="fileField"
             className="fileInput"
             type="file"
             onChange={(e) => handleFileInput(e)}
@@ -127,20 +157,19 @@ export const NewRecipe = () => {
               onClick={() => setViewCategoryOptions(!viewCategoryOptions)}> {category} <div className="selectFieldArrow"/>
             </div>
 
-            <div style={{position: "absolute", height:"0"}}>
-              {viewCategoryOptions && (
-                  <div className='selectOptions' id="selectOptions" style={{width:"116px"}}>
-                    {categories.map((categoryOption) => {
-                      return(
-                        <div key={categoryOption} className='option' id="option"
-                        onClick={() => (setCategory(categoryOption), setViewCategoryOptions(false))}> {categoryOption} </div>
-                      )
-                    })} 
-                  </div>
-
-              )}
-            </div>
-          </div>  
+            <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
+                {viewCategoryOptions && (
+                    <div className='selectOptions' style={{width:"116px"}}>
+                      {categories.map((categoryOption) => {
+                        return(
+                          <div key={categoryOption} className='option'
+                          onClick={() => (setCategory(categoryOption), setViewCategoryOptions(false))}> {categoryOption} </div>
+                        )
+                      })} 
+                    </div>
+                )}
+            </div></div>
+          </div> 
         </div>
 
         <div>
@@ -154,18 +183,22 @@ export const NewRecipe = () => {
                 onChange={(e) => setTime(e.target.value)}/>
             
               <div tabIndex={0} onBlur={() => setViewTimeOptions(false)}>
-                <div className={viewTimeOptions? "selectField selectFieldOpen" :"selectField"} style={{width: "85px"}}
+                <div className={viewTimeOptions? "selectField selectFieldOpen": "selectField"} style={{width: "85px"}}
                   onClick={() => setViewTimeOptions(!viewTimeOptions)}> {timeUnit} <div className="selectFieldArrow"/> 
                 </div>
 
-                <div style={{position: "absolute", height:"0"}}>
+                <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
                   {viewTimeOptions && (
                     <div className='selectOptions' style={{width: "101px"}}>
-                      <div onClick={() => (setTimeUnit("minutter"), setViewTimeOptions(false))} className="option"> minutter </div>
-                      <div onClick={() => (setTimeUnit("timer"), setViewTimeOptions(false))} className="option"> timer </div>
+                      {timeOptions.map((timeoption) => {
+                        return(
+                          <div key={timeoption} className='option'
+                          onClick={() => (setTimeUnit(timeoption), setViewTimeOptions(false))}> {timeoption} </div>
+                        )
+                      })} 
                     </div>
                   )}
-                </div>
+                </div></div>
               
               </div>
             </div>
@@ -176,10 +209,44 @@ export const NewRecipe = () => {
           <input className='inputField' size={35}
             onChange={(e) => handleTags(e.target.value)}
             placeholder="f.eks. kylling, thai, asiatisk"/>
-          </div>
-          {tags.length > 0 && (<Tag tags={tags} />)}
+        </div>
         
-        <div className='primaryButton button center' onClick={() => AddNewRecipe()}> Legg til </div>
+        {tags.length > 0 && (<Tag tags={tags} />)}
+        
+        {cookbooks && cookbooks.length > 0 && (
+          <div>
+            <div className="fieldTitle"> Legg til i kokebok </div>
+
+            <div tabIndex={0} onBlur={() => setViewCookbooks(false)}>
+              <div className={viewCookbooks? "selectField selectFieldOpen" :"selectField"} style={{width: "120px"}}
+                onClick={() => setViewCookbooks(!viewCookbooks)}> Velg <div className="selectFieldArrow"/>
+              </div>
+            
+              <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
+                {viewCookbooks && (
+                    <div className='selectOptions' style={{width:"136px"}}>
+                      {cookbooks.map((cookbook) => {
+                        return(
+                          <div key={cookbook.id} className='option checkOption' 
+                          onClick={() => handleAddToCookbook(cookbook)}> 
+                            <div className="checkbox">
+                              <div id={cookbook.id} className={addToCookbook.includes(cookbook) ? "checkMark" : "checkMark hiddenCheckMark"}>
+                                <div className="checkmark_stem"/>
+                                <div className="checkmark_kick"/>
+                              </div>
+                            </div> 
+                            {cookbook.name} </div>
+                        )
+                      })} 
+                    </div>
+                )}
+              </div></div>
+            </div> 
+  
+          </div>
+        )}
+        
+        <div className='primaryButton button center bigbutton' onClick={() => AddNewRecipe()}> Legg til </div>
       </form>
     </AppLayout>
   );

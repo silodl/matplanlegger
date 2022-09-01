@@ -11,10 +11,8 @@ export const Recipe = () => {
     return(
         <div className='root'>
             <div className='backbutton' onClick={() => window.history.back()}>
-                {/*<a href="/oppskrifter" >*/}
-                    <img src={leftArrow} alt="left-arrow"/> 
-                    <span> tilbake </span>
-                {/*</a>*/}
+                <img src={leftArrow} alt="left-arrow"/> 
+                <span> tilbake </span>
             </div>
             {recipe && recipe.url && (
                 <div>

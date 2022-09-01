@@ -97,7 +97,7 @@
   }
 
   .weekdayHeader {
-    width: calc(33vw - 5px);
+    width: calc(35vw - 13px);
     min-width: 335px;
   }
 }

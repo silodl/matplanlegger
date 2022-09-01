@@ -31,11 +31,6 @@ export const AddRecipe = async (props: NewRecipeInterface) => {
         if(props.file) {
             const storage = getStorage();
             const fileRef = ref(storage, `files/${props.file}`);
-            /*let image = props.image;
-            if(props.image) {
-                const imageRef = ref(storage, `images/${props.image}`);
-                image = imageRef.fullPath;
-            }*/
             uploadBytesResumable(fileRef, props.file);
             await getDownloadURL(fileRef)
             .then(async(file) => {

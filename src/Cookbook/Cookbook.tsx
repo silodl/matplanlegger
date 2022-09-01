@@ -62,8 +62,13 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
 
           <div>
           <div className="fieldTitle"> 
-              <span onClick={() => setShare(!share)} className="checkBox">
-                  {share ? <span className="checkMark">&#10004;</span> : null}    
+              <span onClick={() => setShare(!share)} className="checkbox">
+                {share && (
+                    <div className="checkMark">
+                      <div className="checkmark_stem"></div>
+                      <div className="checkmark_kick"></div>
+                    </div>
+                  )}     
               </span> 
               Del med andre 
           </div></div>

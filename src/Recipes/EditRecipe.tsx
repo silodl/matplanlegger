@@ -91,14 +91,14 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                                 onClick={() => setViewTimeOptions(!viewTimeOptions)}> {timeUnit} <div className="selectFieldArrow"/> 
                                 </div>
 
-                                <div style={{position: "absolute", height:"0"}}>
+                                <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
                                 {viewTimeOptions && (
                                     <div className='selectOptions' style={{width: "101px"}}>
                                     <div onClick={() => (setTimeUnit("minutter"), setViewTimeOptions(false))} className="option"> minutter </div>
                                     <div onClick={() => (setTimeUnit("timer"), setViewTimeOptions(false))} className="option"> timer </div>
                                     </div>
                                 )}
-                                </div>
+                                </div></div>
           
                             </div>
                         </div>
