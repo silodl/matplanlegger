@@ -78,9 +78,8 @@ export const NewRecipe = () => {
     const cookTime = time + " " + timeUnit
     if (user) {
       const owner = user.uid;
-      const id = "";
-      const newRecipe: NewRecipeInterface = {url, file, name: title, category, image: imageUrl, time: cookTime, tags, owner, id}
-      AddRecipe(newRecipe);
+      const newRecipe: NewRecipeInterface = {url, file, name: title, category, image: imageUrl, time: cookTime, tags, owner}
+      AddRecipe(newRecipe, addToCookbook);
     }
   }
 
@@ -227,7 +226,7 @@ export const NewRecipe = () => {
                     <div className='selectOptions' style={{width:"136px"}}>
                       {cookbooks.map((cookbook) => {
                         return(
-                          <div key={cookbook.id} className='option checkOption' 
+                          <div key={cookbook.id} className='option alignCheckbox' 
                           onClick={() => handleAddToCookbook(cookbook)}> 
                             <div className="checkbox">
                               <div id={cookbook.id} className={addToCookbook.includes(cookbook) ? "checkMark" : "checkMark hiddenCheckMark"}>

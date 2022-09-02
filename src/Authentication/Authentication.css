@@ -75,29 +75,6 @@
     }
 }
 
-/* tablet 
-@media only screen and (min-width: 481px) and (max-width: 800px) {
-    .pc {
-        display: none;
-    }
-
-    .landingpage {
-        border: none;
-    }
-
-    .loginWrapper {
-        border: 2px solid var(--color-primary);
-        border-radius: 10px;
-    }
-
-    .landingPageImage img {
-        border-radius: 10px;
-        border: 2px solid var(--color-primary);
-    }
-    
-}*/
-
-
 /* pc */
 @media (min-width: 800px) {
     .landingPageTitle img {
@@ -116,5 +93,4 @@
     .mobile {
         display: none;
     }
-    
 }

@@ -125,22 +125,7 @@ export const Authentication = () => {
                   onChange={(e) => setPassword(e.target.value)}  
                   />
                 </div>
-                
-                {/** 
-                <div>
-                    {page === "login" 
-                    ? 
-                    <>
-                      <div className="secondaryButton button" onClick={() => setPage("register")}> Registrer </div>
-                      <div className="primaryButton button" onClick={login}> Logg inn </div>
-                    </>
-                    :
-                    <>
-                      <div className="secondaryButton button" onClick={() => setPage("login")}> Logg inn</div>
-                      <div className="primaryButton button" onClick={register}> Registrer </div>
-                    </>
-                    }
-                </div>*/}
+
                 {page === "login" 
                     ? 
                     <>

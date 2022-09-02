@@ -24,8 +24,6 @@
 .formWrapper {
     font-family: 'Nunito', sans-serif;
     width: var(--wrapper-width);
-    /*padding-left: calc((100vw - var(--wrapper-width)) / 2);
-    padding-right: calc((100vw - var(--wrapper-width)) / 2);*/
     padding: 0 calc((100vw - var(--wrapper-width)) / 2);
     height: calc(100vh - 58px);
     margin-top: var(--wrapper-margin-top);
@@ -219,16 +217,16 @@ input[type="number"] {
     display: none;
 }
 
-.checkOption {
+.alignCheckbox {
     display: flex;
     align-items: center;
 }
 
-.checkOption:hover {
+.alignCheckbox:hover {
     background-color: transparent;
 }
 
-.checkOption:hover .hiddenCheckMark{
+.alignCheckbox:hover .hiddenCheckMark{
     display: block;
     color: var(--color-primary);
     opacity: 0.5;

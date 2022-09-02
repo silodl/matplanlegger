@@ -9,7 +9,6 @@ import book from '../Images/book.png';
 export const Recipes = () => {
 
     const recipes = useRecipes();
-    const isMobile = (window.innerWidth < 481) ? true : false;
 
     return (
         <AppLayout>    
@@ -21,7 +20,9 @@ export const Recipes = () => {
                     <div className="left"/>
                     <div className='title'> Mine oppskrifter </div>
                     <div className='right secondaryButton button'> 
-                        <a href="/ny_oppskrift"> {isMobile ? "+" : "Legg til oppskrift"} </a>
+                        <a href="/ny_oppskrift">
+                            <span className="mobile"> + </span> <span className="desktop"> Legg til oppskrift </span>
+                        </a>
                     </div>
                 </div>
             

@@ -55,25 +55,26 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
         <div className="popupContent editCookbook">
           <div>
             <div className="fieldTitle"> Navn </div>
-            <input className='inputField' size={35}
+            <input className='inputField' style={{width: "330px"}}
               value={name} onChange={(e) => setName(e.target.value)}  
             />    
           </div>
 
           <div>
-          <div className="fieldTitle"> 
-              <span onClick={() => setShare(!share)} className="checkbox">
-                {share && (
-                    <div className="checkMark">
-                      <div className="checkmark_stem"></div>
-                      <div className="checkmark_kick"></div>
-                    </div>
-                  )}     
-              </span> 
-              Del med andre 
-          </div></div>
+            <div className="fieldTitle alignCheckbox"> 
+                <span onClick={() => setShare(!share)} className="checkbox">
+                  {share && (
+                      <div className="checkMark">
+                        <div className="checkmark_stem"></div>
+                        <div className="checkmark_kick"></div>
+                      </div>
+                    )}     
+                </span> 
+                Del med andre 
+            </div>
+          </div>
           {share ? 
-            <input className='inputField' size={30}
+            <input className='inputField' style={{width: "330px"}}
             value={owners} onChange={(e) => handleOwners(e)}/>  
           : null}
         
@@ -106,10 +107,10 @@ export const Cookbook = () => {
 
   const { id } = useParams();
   const {cookbook, recipes} = useCookbook({id});
-  const isMobile = (window.innerWidth < 481) ? true : false;
   const user = useLoggedInUser();
   const [viewAllRecipes, setViewAllRecipes] = useState(false);
   const [doEditCookbook, setDoEditCookbook] = useState(false);
+
 
   const AddRecipe = async(recipeID: string) => {
     if (user && id) {
@@ -134,8 +135,8 @@ export const Cookbook = () => {
         <div className="pageHeader"> 
           <div className="left" onClick={() => setDoEditCookbook(true)}><img src={settings} alt="settings" width="30px"/></div>
           <div className='title'> {cookbook?.name} </div>
-          <div className='right secondaryButton button' onClick={() => setViewAllRecipes(true)}> 
-            {isMobile ? "+" : "Legg til oppskrift"}
+          <div className='right' onClick={() => setViewAllRecipes(true)}> 
+            <span className="mobile secondaryButton"> + </span> <span className="desktop button secondaryButton"> Legg til oppskrift </span>
           </div>
         </div>
 

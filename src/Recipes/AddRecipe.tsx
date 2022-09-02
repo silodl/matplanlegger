@@ -1,6 +1,8 @@
 import {db} from '../Firebase';
 import {addDoc, collection} from 'firebase/firestore';
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { CookbookProps } from '../Cookbook/UseCookbooks';
+import { AddRecipeToCookbook } from '../Cookbook/AddRecipeToCookbook';
 
 export interface NewRecipeInterface {
     url?: string,
@@ -11,7 +13,6 @@ export interface NewRecipeInterface {
     time: string,
     tags: string[],
     owner: string,
-    id: string, 
 }
 
 export interface Recipe {
@@ -26,7 +27,14 @@ export interface Recipe {
     id: string,
 }
 
-export const AddRecipe = async (props: NewRecipeInterface) => {
+const AddToCookbook = (recipeID: string, userID: string, books: CookbookProps[]) => {
+    books.forEach((cookbook) => {
+        AddRecipeToCookbook({recipeID, userID, bookID: cookbook.id});
+    })
+    window.location.href = "/oppskrifter";
+}
+
+export const AddRecipe = async (props: NewRecipeInterface, addToCookbook: CookbookProps[]) => {
     if(props.owner){
         if(props.file) {
             const storage = getStorage();
@@ -43,8 +51,9 @@ export const AddRecipe = async (props: NewRecipeInterface) => {
                 tags: props.tags,
                 owner: props.owner,
                 })
-                .then( () => {
-                    window.location.href = "/oppskrifter";
+                .then((document) => {
+                    AddToCookbook(document.id, props.owner, addToCookbook);
+                    //window.location.href = "/oppskrifter";
                 })
             })
             
@@ -59,10 +68,12 @@ export const AddRecipe = async (props: NewRecipeInterface) => {
                 tags: props.tags,
                 owner: props.owner,
             })
-            .then( () => {
-                window.location.href = "/oppskrifter";
+            .then((document) => {
+                AddToCookbook(document.id, props.owner, addToCookbook);
+                //window.location.href = "/oppskrifter";
             })
         }
-        
-    }      
+
+
+    }   
 }

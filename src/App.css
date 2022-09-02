@@ -26,6 +26,7 @@
   width: calc(100vw - 10px);
   padding: 0 5px;
   justify-content: center;
+  height: 42px;
 }
 
 .pageHeader img {
@@ -34,12 +35,12 @@
 
 .pageHeader > .left {
   position: absolute;
-  left: 20px;
+  left: 5vw;
 }
 
 .pageHeader > .right {
   position: absolute;
-  right: 20px;
+  right: 5vw;
 }
 
 .title {
@@ -59,6 +60,7 @@
   height: 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   font-weight: 400;
 }
@@ -91,6 +93,11 @@
 
 .secondaryButton {
   border: 2px solid var(--color-primary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .deleteButton {
@@ -110,21 +117,6 @@
   margin: 10px auto;
 }
 
-.corner {
-  position: fixed;
-  top: 65px;
-  right: 20px;
-  height: 30px;
-}
-
-@media (max-width: 480px) {
-  .corner {
-    top: 17px;
-    font-size: 25px;
-    padding: 0 10px;
-  }
-}
-
 .centerElements {
   display: flex;
   justify-content: space-between;
@@ -135,4 +127,22 @@
   flex-direction: column;
   row-gap: 50px;
   align-items: center;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
+    font-size: 25px;
+    width: 32px;
+    height: 32px;
+    padding: 0; 
+  }
 }

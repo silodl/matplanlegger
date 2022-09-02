@@ -12,7 +12,7 @@ export const Navbar = () => {
         <div className="navbar">
             <div className="navbarText">
                 <a className={path === "/ukeplanlegger" ? "active" : ""} href="/ukeplanlegger"> Ukeplanlegger </a> 
-                <a className={path === "/kokebok" ? "active" : ""} href="/kokebok"> Kokebok </a> 
+                <a className={path === "/kokebok" ? "active" : ""} href="/kokebok"> Mine kokebøker </a> 
                 <a className={path === "/oppskrifter" ? "active" : ""} href="/oppskrifter"> Mine oppskrifter </a>
                 <a className={path === "/min_profil" ? "active" : ""} href="/min_profil"> Min profil </a>
             </div>

@@ -49,7 +49,7 @@ export const NewCookbook = () => {
         </div>
 
         <div>
-        <div className="fieldTitle"> 
+        <div className="fieldTitle alignCheckbox"> 
             <span onClick={() => setShare(!share)} className="checkbox">
                 {share && (
                   <div className="checkMark">

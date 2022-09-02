@@ -21,40 +21,36 @@ export const GetWeek = (props: {week: number}) => {
         } 
     }
 
-    console.log(plannedRecipes)
-
     return(
         <>  
             {typeof(planDay) === "number" && (
                 <ViewAllRecipes close={() => setPlanDay(undefined)} action={(recipeID: string) => AddRecipeToPlan(recipeID)} />
             )}
 
-            {plannedRecipes && (
-                plannedRecipes.map((recipes) => {
-                    return(
-                        <div className="weekday" key={weeknames[plannedRecipes.indexOf(recipes)]}> 
-                            <div className="weekdayHeader">
-                                <div>{weeknames[plannedRecipes.indexOf(recipes)]} </div>
-                                <div className="addRecipe" onClick={() => setPlanDay(plannedRecipes.indexOf(recipes))}> Planlegg <span> + </span> </div>
-                            </div>
-                            <div key={plannedRecipes.indexOf(recipes)} className="recipeWrapper">                      
-                                {recipes.length > 0 && recipes.map((recipe: Recipe) => {
-                                    return(
-                                        <WeekRecipeCard key={recipe.id} recipe={(recipe)} week={props.week.toString()} daynr={plannedRecipes.indexOf(recipes).toString()}/>                  
-                                    )
-                                })}
-                                
-                                {recipes.length === 0 && (
-                                    <div className="noCards">
-                                        <div> Ingen planlagte oppskrifter </div>
-                                        <img src={book} alt="book" width="100px"/>
-                                    </div>                                    
-                                )}
-                            </div>
+            {Object.entries(plannedRecipes).map(([day, recipes]) => {
+                return(
+                    <div className="weekday" key={weeknames[parseInt(day)]}> 
+                        <div className="weekdayHeader">
+                            <div>{weeknames[parseInt(day)]} </div>
+                            <div className="addRecipe" onClick={() => setPlanDay(parseInt(day))}> Planlegg <span> + </span> </div>
                         </div>
-                    )
-                })  
-            )}
+                        <div key={parseInt(day)} className="recipeWrapper">                      
+                            {recipes.length > 0 && recipes.map((recipe: Recipe) => {
+                                return(
+                                    <WeekRecipeCard key={recipe.id} recipe={(recipe)} week={props.week.toString()} daynr={day}/>                  
+                                )
+                            })}
+                            
+                            {recipes.length === 0 && (
+                                <div className="noCards">
+                                    <div> Ingen planlagte oppskrifter </div>
+                                    <img src={book} alt="book" width="100px"/>
+                                </div>                                    
+                            )}
+                        </div>
+                    </div>
+                )
+            })}
         </>
     )
 }
