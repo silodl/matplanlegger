@@ -4,6 +4,7 @@
     :root {
         --wrapper-width: 40vw;
         --wrapper-margin-top: 57px;
+        --wrapper-height: calc(100vh - 58px);
     } 
 }
 
@@ -11,13 +12,15 @@
     :root {
         --wrapper-width:50vw;
         --wrapper-margin-top: 57px;
+        --wrapper-height: calc(100vh - 58px);
     } 
 }
 
 @media (max-width: 480px) {
     :root {
         --wrapper-width: 90vw;
-        --wrapper-margin-top: 2vh;
+        --wrapper-margin-top: 1vh;
+        --wrapper-height: calc(100vh - 83px);
     } 
 }
 
@@ -25,7 +28,7 @@
     font-family: 'Nunito', sans-serif;
     width: var(--wrapper-width);
     padding: 0 calc((100vw - var(--wrapper-width)) / 2);
-    height: calc(100vh - 58px);
+    height: var(--wrapper-height);
     margin-top: var(--wrapper-margin-top);
     overflow-y: auto;
     display: flex;
@@ -58,7 +61,15 @@
     height: 30px;
     width: 120px;
     background-repeat: no-repeat;
-    background: radial-gradient(70px 55px, var(--color-primary) 40%, transparent 40%);
+}
+
+.toggle {
+    height: 32px;
+    width: 60px;
+    border-radius: 20px;
+    background-color: var(--color-primary);
+    position: absolute;
+    z-index: -1;
 }
 
 .toggleWrapper > div {
@@ -66,23 +77,22 @@
 }
 
 .leftToggle {
-    background-position: -32px;
     animation: toggleLeft 0.5s;
 }
 
 .rightToggle {
-    background-position: 32px;
+    left: 63px;
     animation: toggleRight 0.5s;
 }
 
 @keyframes toggleRight {
-    from {background-position: -32px;}
-    to {background-position: 32px;}
+    from {left: 0;}
+    to {left: 63px;}
 }
 
 @keyframes toggleLeft {
-    from {background-position: 32px}
-    to {background-position: -32px}
+    from {left: 63px}
+    to {left: 0}
 }
 
 input[type="url"] {

@@ -39,8 +39,8 @@ export const WeekRecipeCard = (props: {recipe: Recipe, week: string, daynr: stri
             {doEditRecipe && (
                 <EditRecipe recipe={props.recipe} avbryt={() => setDoEditRecipe(false)}/>
             )}
-            <div>
-                <div className="moreButton" style={{width: "300px"}} onClick={() => setViewMoreOptions(!viewMoreOptions)}> 
+            <div className="side">
+                <div className="moreButton" onClick={() => setViewMoreOptions(!viewMoreOptions)}> 
                     <div className="moreButtonContent">
                         <img src={more} alt="remove"/>
                         

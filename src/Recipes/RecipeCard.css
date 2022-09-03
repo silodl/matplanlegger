@@ -2,7 +2,7 @@
   position: relative;
   top: 15px;
   padding: 5px 4.4vw 0 4.4vw;
-  height: calc(100vh - 127px);
+  height: calc(100vh - 154px);
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
@@ -129,7 +129,6 @@
   flex-direction: column;
   row-gap: 15px;
 }
-
 
 .moreButton {
   position: absolute;

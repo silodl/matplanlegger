@@ -1,6 +1,5 @@
 .navbar {
-    /*height: 56px;*/
-    height: 75px;
+    height: 70px;
     width: 100vw;
     position: fixed;
     bottom: 0;
@@ -40,6 +39,11 @@
 }
 
 @media (max-width: 480px) {
+    .navbar {
+        align-items: flex-start;
+        padding-top: 5px;
+    }
+    
     .navbarText {
         display: none;
     }

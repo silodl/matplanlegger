@@ -119,10 +119,10 @@ export const NewRecipe = () => {
 
         <div>
           <div className="fieldTitle"> Hvor henter du oppskriften fra? </div>
+            <div style={{position: "relative"}}> <div className={type === "url" ? "toggle leftToggle" : "toggle rightToggle"}/> </div>
             <div className={type === "url" ? "toggleWrapper leftToggle" : "toggleWrapper rightToggle"}>
-
-              <div onClick={() => setType("url")} className={type === "url" ? "lTest" : ""}> link </div>
-              <div onClick={() => setType("file")} className={type === "url" ? "" : "rTest"}> fil </div>
+              <div onClick={() => setType("url")}> link </div>
+              <div onClick={() => setType("file")}> fil </div>
             </div>
             
         </div>
@@ -245,7 +245,7 @@ export const NewRecipe = () => {
           </div>
         )}
         
-        <div className='primaryButton button center bigbutton' onClick={() => AddNewRecipe()}> Legg til </div>
+        <div className='primaryButton button center' onClick={() => AddNewRecipe()}> Legg til </div>
       </form>
     </AppLayout>
   );

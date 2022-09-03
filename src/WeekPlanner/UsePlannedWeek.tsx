@@ -40,9 +40,10 @@ export const usePlannedWeek = (props: {week: string}) => {
                                     else {
                                         plannedWeek[day] = [recipe];
                                     }
-                                    setRecipes(plannedWeek);
+                                    //setRecipes(plannedWeek);
                                 }
                             })
+                            setRecipes(plannedWeek);
                         })                        
                     }
                 })

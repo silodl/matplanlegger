@@ -19,9 +19,9 @@ export const Cookbooks = () => {
             <>
                 <div className="pageHeader">
                     <div className='title'> Mine kokebøker </div>
-                    <div className='right secondaryButton button'> 
+                    <div className='right secondaryButton'> 
                         <a href="/ny_kokebok">
-                            <span className="mobile"> + </span> <span className="desktop"> Ny kokebok </span>
+                            <span className="mobile mobileButton"> + </span> <span className="desktop button"> Ny kokebok </span>
                         </a>
                     </div>
                 </div>

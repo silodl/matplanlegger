@@ -20,8 +20,20 @@
     border-radius: 10px 0 0 10px;
 }
 
+.sideCard .recipeTitle {
+    max-width: 165px;
+}
+
+.side .moreButton {
+    width: 330px;
+}
+
 @media (min-width: 481px) {
     .sideCard {
+        width: 300px;
+    }
+    
+    .side .moreButton {
         width: 300px;
     }
 }

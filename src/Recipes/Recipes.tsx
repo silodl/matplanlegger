@@ -19,9 +19,9 @@ export const Recipes = () => {
                 <div className="pageHeader"> 
                     <div className="left"/>
                     <div className='title'> Mine oppskrifter </div>
-                    <div className='right secondaryButton button'> 
+                    <div className='right secondaryButton'> 
                         <a href="/ny_oppskrift">
-                            <span className="mobile"> + </span> <span className="desktop"> Legg til oppskrift </span>
+                            <span className="mobile mobileButton"> + </span> <span className="desktop button"> Legg til oppskrift </span>
                         </a>
                     </div>
                 </div>

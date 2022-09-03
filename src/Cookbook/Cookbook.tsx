@@ -135,8 +135,8 @@ export const Cookbook = () => {
         <div className="pageHeader"> 
           <div className="left" onClick={() => setDoEditCookbook(true)}><img src={settings} alt="settings" width="30px"/></div>
           <div className='title'> {cookbook?.name} </div>
-          <div className='right' onClick={() => setViewAllRecipes(true)}> 
-            <span className="mobile secondaryButton"> + </span> <span className="desktop button secondaryButton"> Legg til oppskrift </span>
+          <div className='right secondaryButton' onClick={() => setViewAllRecipes(true)}> 
+            <span className="mobile mobileButton"> + </span> <span className="desktop button"> Legg til oppskrift </span>
           </div>
         </div>
 
