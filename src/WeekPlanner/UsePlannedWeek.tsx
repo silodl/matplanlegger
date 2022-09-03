@@ -22,8 +22,8 @@ export const usePlannedWeek = (props: {week: string}) => {
                         Object.entries(docRecipes).forEach(([day, plannedRecipes]) => {
                             plannedRecipes.forEach(async(recipeID) => {
                                 const docRef = doc(db, "recipes", recipeID);
-                                await getDoc(docRef)
-                                .then((docSnaps) => {
+                                const docSnaps= await getDoc(docRef)
+                                if(docSnaps.exists()) {
                                     const url = docSnaps.get("url");
                                     const file = docSnaps.get("file");
                                     const name = docSnaps.get("name");
@@ -41,7 +41,7 @@ export const usePlannedWeek = (props: {week: string}) => {
                                         plannedWeek[day] = [recipe];
                                     }
                                     setRecipes(plannedWeek);
-                                })
+                                }
                             })
                         })
                     }    

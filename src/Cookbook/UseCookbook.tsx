@@ -11,8 +11,7 @@ export const useCookbook = (props: {id: string | undefined}) => {
     const [cookbook, setCookbook] = useState<CookbookProps>();
     const user = useLoggedInUser();
 
-    const fetchCookbook = async() => {
-
+    useEffect(() => {
         if(user && props.id) {
             onSnapshot(doc(db, "cookbooks", props.id), (docSnap) => {
             if (docSnap.exists()) {
@@ -42,11 +41,7 @@ export const useCookbook = (props: {id: string | undefined}) => {
                 })
             }
             })
-        }
-    }
-    
-    useEffect(() => {
-        fetchCookbook(); 
+        }  
     },[user, props.id]);
     
     return {cookbook, recipes};
