@@ -84,11 +84,8 @@ export const Authentication = () => {
     }
   }
 
-  console.log(window.innerWidth)
-
-
   return(
-      <div className="root" style={{overflow: "auto"}}>
+      <div className="root" style={{overflowY: "auto"}}>
 
           {redirect ? <Navigate to="/oppskrifter"/> : null}
           

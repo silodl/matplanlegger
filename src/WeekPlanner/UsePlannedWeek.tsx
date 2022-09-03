@@ -10,20 +10,20 @@ export const usePlannedWeek = (props: {week: string}) => {
     const user = useLoggedInUser();
 
     useEffect(() => {
-        const fetchDay = async() => {
-            if(user && props.week) {
-                onSnapshot(doc(db, "users", user.uid, "weeks", props.week), (docSnap) => {
-                    if (docSnap.exists()) {
-                        const docRecipes: {[Key: string]: string[]} = docSnap.get("recipes");
-                        let plannedWeek: {[Key: string]: Recipe[]} = {};
-
+        if(user && props.week) {
+            onSnapshot(doc(db, "users", user.uid, "weeks", props.week), (docSnap) => {
+                if (docSnap.exists()) {
+                    const docRecipes: {[Key: string]: string[]} = docSnap.get("recipes");
+                    let plannedWeek: {[Key: string]: Recipe[]} = {"0": [], "1": [], "2": [], "3": [], "4": [], "5": [], "6": []};
+                    if(Object.entries(docRecipes).length === 0) {
+                        setRecipes(plannedWeek);
+                    }
+                    else {
                         Object.entries(docRecipes).forEach(([day, plannedRecipes]) => {
-                            plannedWeek[day] = [];
-
                             plannedRecipes.forEach(async(recipeID) => {
                                 const docRef = doc(db, "recipes", recipeID);
-                                const docSnaps = await getDoc(docRef);
-                                if (docSnaps.exists()) {
+                                await getDoc(docRef)
+                                .then((docSnaps) => {
                                     const url = docSnaps.get("url");
                                     const file = docSnaps.get("file");
                                     const name = docSnaps.get("name");
@@ -33,23 +33,25 @@ export const usePlannedWeek = (props: {week: string}) => {
                                     const tags = docSnaps.get("tags");
                                     const owner = user.uid
                                     const recipe = {url, file, name, category, image, time, tags, owner, id: recipeID};
-
+    
                                     if(plannedWeek[day].length > 0) {
                                         plannedWeek[day].push(recipe)
                                     } 
                                     else {
                                         plannedWeek[day] = [recipe];
                                     }
-                                    //setRecipes(plannedWeek);
-                                }
+                                    setRecipes(plannedWeek);
+                                })
                             })
-                            setRecipes(plannedWeek);
-                        })                        
-                    }
-                })
-            }
+                        })
+                    }    
+                }
+                else {
+                    let plannedWeek: {[Key: string]: Recipe[]} = {"0": [], "1": [], "2": [], "3": [], "4": [], "5": [], "6": []};
+                    setRecipes(plannedWeek);
+                }
+            })
         }
-        fetchDay() 
     },[user, props.week])
 
     return recipes;

@@ -6,6 +6,7 @@ import { UpdateRecipe } from "./UpdateRecipe";
 import { DeleteRecipe } from "./DeleteRecipe";
 import './RecipeCard.css';
 import recipeCover from '../Images/Icons/EmptyRecipe.svg';
+import { Tag } from "./Tag";
 
 export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
 
@@ -109,6 +110,9 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                         <input className="inputField" value={tags} size={30}
                             onChange={(e) => handleTags(e.target.value)}/>
                     </div>
+
+                    {tags.length > 0 && (<Tag tags={tags} />)}
+                    
                 </div>
 
                 <div className="centerElements" style={{padding: "10px"}}>
