@@ -2,6 +2,7 @@ import { AppLayout } from '../App';
 import { useCookbooks } from './UseCookbooks';
 import { Book } from './Book';
 import books from '../Images/books.png';
+import { useState, useEffect } from 'react';
 
 export const LoadCookbook = (id: string) => {
     window.location.href = `/kokebok/${id}`;
@@ -10,9 +11,24 @@ export const LoadCookbook = (id: string) => {
 export const Cookbooks = () => {
 
     const cookbooks = useCookbooks();
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadCount, setLoadCount] = useState(1);
+
+    useEffect(() => {
+        if(loadCount > 1) {
+            setIsLoading(false);
+        }
+        setLoadCount(loadCount + 1);
+    }, [cookbooks])
 
     return (
         <AppLayout>
+
+            {isLoading && (
+                <div className="popup" style={{backdropFilter: "blur(5px)"}}>
+                    <div className="loading"/>
+                </div>
+            )} 
             
             {cookbooks.length > 0 
             ?

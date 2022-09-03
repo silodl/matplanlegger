@@ -7,7 +7,6 @@ import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { Tag } from './Tag';
 import { CookbookProps, useCookbooks } from '../Cookbook/UseCookbooks';
 
-
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Drinker";
 
 export const NewRecipe = () => {
@@ -28,6 +27,9 @@ export const NewRecipe = () => {
   const user = useLoggedInUser();
   const cookbooks = useCookbooks();
   const [timeOptions, setTimeOptions] = useState(["minutter", "timer"]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadCount, setLoadCount] = useState(1);
+
   const categories: FoodCategory[] = ["Frokost", "Lunsj", "Middag", "Dessert", "Drinker"];
 
   useEffect(() => {
@@ -38,6 +40,13 @@ export const NewRecipe = () => {
       setTimeOptions(["minutter", "timer"])
     }
   },[time])
+
+  useEffect(() => {
+    if(loadCount > 1) {
+      setIsLoading(false);
+    }
+    setLoadCount(loadCount + 1);
+  },[cookbooks])
 
   const handleTags = (tagString: string) => {
     if (tagString.includes(",")) {
@@ -83,7 +92,8 @@ export const NewRecipe = () => {
     }
   }
 
-  const GetContent = () => {        
+  const GetContent = () => {  
+    setIsLoading(true);
     fetch(`https://jsonlink.io/api/extract?url=${url}`)
     .then((res) => {
       return res.json();
@@ -93,26 +103,40 @@ export const NewRecipe = () => {
       recipeTitle = recipeTitle.charAt(0).toUpperCase() + recipeTitle.slice(1).toLowerCase();
       setTitle(recipeTitle)
       setImageUrl(content["images"][0])
+      setIsLoading(false);
+    })
+    .catch(() => {
+      setIsLoading(false);
     })
   }
 
   useEffect(() => {
-    if( url !== "") {
+    if( url !== "" && url.includes(".") && url.includes("/")) {
       GetContent();
     }
   },[url])
 
   useEffect(() => {
+    setIsLoading(true);
     if(file) {
       let newTitle = file.name.split(".")[0];
       newTitle = newTitle.charAt(0).toUpperCase() + newTitle.slice(1).toLowerCase();
-      setTitle(newTitle)  
+      setTitle(newTitle);
+      setIsLoading(false);
     }
   },[file])
 
 
   return (
     <AppLayout>
+
+      {isLoading && (
+        <div className="popup" style={{backdropFilter: "blur(1px)"}}>
+          <div className="function"> 
+            <div className="loading"/>
+          </div> 
+        </div>
+      )} 
 
       <form className="formWrapper">
         <div className="formTitle"> Ny oppskrift </div>

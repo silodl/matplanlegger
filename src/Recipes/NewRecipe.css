@@ -120,6 +120,7 @@ input[type="url"] {
     text-align: left;
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
+    user-select: auto;
 }
 
 .inputField:focus, .inputField:hover, .selectField:hover {
@@ -266,4 +267,23 @@ input[type="number"] {
     left:8px;
     top:13px;
     border-radius: 5px 0 0 5px;
+}
+
+.function {
+    position: relative;
+    top: 40vh;
+    left: 50vw;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.function .loading {
+    position: static;
 }

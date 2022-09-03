@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppLayout } from '../App';
 import { Card } from '../Recipes/RecipeCard';
 import { Recipe } from '../Recipes/AddRecipe';
@@ -110,7 +110,15 @@ export const Cookbook = () => {
   const user = useLoggedInUser();
   const [viewAllRecipes, setViewAllRecipes] = useState(false);
   const [doEditCookbook, setDoEditCookbook] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadCount, setLoadCount] = useState(1);
 
+  useEffect(() => {
+    if(loadCount > 1) {
+      setIsLoading(false);
+    }
+    setLoadCount(loadCount + 1);
+  }, [cookbook])
 
   const AddRecipe = async(recipeID: string) => {
     if (user && id) {
@@ -120,7 +128,14 @@ export const Cookbook = () => {
   }
 
   return (
-    <AppLayout>     
+    <AppLayout>   
+
+      {isLoading && (
+        <div className="popup" style={{backdropFilter: "blur(5px)"}}>
+            <div className="loading"/>
+        </div>
+      )}
+
       {viewAllRecipes && (
         <ViewAllRecipes close={() => setViewAllRecipes(false)} action={(recipeID: string) => AddRecipe(recipeID)}/>
       )}

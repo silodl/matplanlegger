@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { WeekRecipeCard } from './WeekRecipeCard';
 import { Recipe } from '../Recipes/AddRecipe';
 import { PlanRecipe } from './PlanRecipe';
@@ -12,6 +12,9 @@ export const GetWeek = (props: {week: number}) => {
     const [planDay, setPlanDay] = useState<number | undefined>();
     const user = useLoggedInUser();
     const plannedRecipes = usePlannedWeek({week: props.week.toString()});
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadCount, setLoadCount] = useState(1);
+
     const weeknames = ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"];
 
     const AddRecipeToPlan = async(recipeID: string) => {
@@ -21,8 +24,21 @@ export const GetWeek = (props: {week: number}) => {
         } 
     }
 
+    useEffect(() => {
+        if(loadCount > 1) {
+            setIsLoading(false);
+        }
+        setLoadCount(loadCount + 1);
+    }, [plannedRecipes])
+
     return(
         <>  
+            {isLoading && (
+                <div className="popup" style={{backdropFilter: "blur(5px)"}}>
+                    <div className="loading"/>
+                </div>
+            )} 
+
             {typeof(planDay) === "number" && (
                 <ViewAllRecipes close={() => setPlanDay(undefined)} action={(recipeID: string) => AddRecipeToPlan(recipeID)} />
             )}

@@ -5,13 +5,29 @@ import { Recipe } from "./AddRecipe";
 import './NewRecipe.css';
 import './RecipeCard.css';
 import book from '../Images/book.png';
+import { useEffect, useState } from "react";
 
 export const Recipes = () => {
 
     const recipes = useRecipes();
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadCount, setLoadCount] = useState(1);
+
+    useEffect(() => {
+        if(loadCount > 1) {
+            setIsLoading(false);
+        }
+        setLoadCount(loadCount + 1);
+    }, [recipes])
 
     return (
-        <AppLayout>    
+        <AppLayout>  
+
+            {isLoading && (
+                <div className="popup" style={{backdropFilter: "blur(5px)"}}>
+                    <div className="loading"/>
+                </div>
+            )}  
 
             {recipes.length > 0 
             ?
@@ -26,7 +42,7 @@ export const Recipes = () => {
                     </div>
                 </div>
             
-                <div className='cardWrapper'>
+                <div className='cardWrapper' onLoad={() => setIsLoading(false)}>
                     {recipes.map((recipe: Recipe) => {
                         return(
                             <Card key={recipe.id} recipe={recipe} clickable={true}/>
@@ -43,9 +59,9 @@ export const Recipes = () => {
                 <div className='primaryButton button'> 
                     <a href="/ny_oppskrift"> Legg til din første oppskrift </a>
                 </div>
-              </div>
+            </div>
             }
-            
+
         </AppLayout>
     )
 }
