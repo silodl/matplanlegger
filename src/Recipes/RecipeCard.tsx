@@ -9,6 +9,7 @@ import { DeleteRecipe } from './DeleteRecipe';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { RemoveRecipeFromBook } from '../Cookbook/RemoveRecipeFromBook';
 import recipeCover from '../Images/Icons/EmptyRecipe.svg';
+import checkmark from '../Images/Icons/Checkmark_color.svg';
 
 export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string}) => {
 
@@ -16,6 +17,9 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
     const [viewMoreOptions, setViewMoreOptions] = useState(false);
     const options = (window.location.pathname) === "/oppskrifter" ? ["endre", "slett"] : ["endre", "fjern"];
     const user = useLoggedInUser();
+    const [viewDelete, setViewDelete] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [isFinishedDeleting, setIsFinishedDeleting] = useState(false);
 
     const LoadRecipe = (id: string) => {
         window.location.href = `/oppskrifter/${id}`;
@@ -23,20 +27,25 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
 
     const HandleClick = (action: string) => {
 
-        if (action === "edit") {
+        if (action === "endre") {
             setDoEditRecipe(true); 
         }
-        else if (action === "delete") {
-            if(window.location.pathname === "/oppskrifter" && user) {
-                DeleteRecipe({recipe: props.recipe, user})
-            }
-            else if(window.location.pathname.includes("/kokebok") && user) {
-                RemoveRecipeFromBook({recipeID: props.recipe.id, user, bookID: props.bookID})
-            }
+        else if (action === "slett") {
+            setViewDelete(true);
+        }
+        else if(action === "fjern" && user) {
+            RemoveRecipeFromBook({recipeID: props.recipe.id, user, bookID: props.bookID})
         }
         else if (action === "view") {
             LoadRecipe(props.recipe.id)
         }        
+    }
+
+    const deleteRecipe = () => {
+        if(window.location.pathname === "/oppskrifter" && user) {
+            setIsDeleting(true);
+            DeleteRecipe({recipe: props.recipe, user})
+        }
     }
 
     return(
@@ -46,6 +55,36 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
             <EditRecipe recipe={props.recipe} avbryt={() => setDoEditRecipe(false)}/>
             :
             <div>
+                {viewDelete && (
+                    <div className="popup">
+                        <div className="popupContent deleteAlert">
+                            <div style={{display: "flex", flexWrap: "wrap"}}> Er du sikker på at du vil slette {props.recipe.name} ? </div>
+                            <div className="centerElements">
+                                <div className="secondaryButton button" onClick={() => setViewDelete(false)}> Avbryt </div>
+                                <div className="deleteButton button" onClick={() => deleteRecipe()}> Slett </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {isDeleting && (
+                    <div className="popup dataLoader">
+                        <div className="function">
+                        {isFinishedDeleting
+                        ? <> 
+                            <div> Slettet! </div>
+                            <div className="checkmarkCircle"><img src={checkmark} width="40px" alt="checkmark"/></div>
+                        </>
+                        : <>
+                            <div> Sletter oppskriften </div>
+                            <div className="loading"/>
+                            </>
+                        }
+                        
+                        </div>
+                    </div>
+                )}
+
                 {props.clickable && (
                     <div className="moreButton" onClick={() => setViewMoreOptions(!viewMoreOptions)} 
                     tabIndex={0} onBlur={() => setViewMoreOptions(false)}> 
@@ -54,8 +93,8 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
                         
                             {viewMoreOptions && (
                                 <>
-                                    <div onClick={() => HandleClick("edit")}> endre </div>
-                                    <div onClick={() => HandleClick("delete")}> {options[1]} </div>
+                                    <div onClick={() => HandleClick("endre")}> endre </div>
+                                    <div onClick={() => HandleClick(options[1].toString())}> {options[1]} </div>
                                 </>
                             )}
                         </div>

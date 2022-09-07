@@ -16,7 +16,6 @@
   font-family: 'Nunito', sans-serif;
   font-weight: 300;
   user-select: none;
-  /*user-select: auto;*/
 }
 
 .pageHeader {
@@ -35,12 +34,12 @@
 
 .pageHeader > .left {
   position: absolute;
-  left: 5vw;
+  left: 10vw;
 }
 
 .pageHeader > .right {
   position: absolute;
-  right: 5vw;
+  right: 10vw;
 }
 
 .title {
@@ -50,6 +49,14 @@
 @media (max-width: 480px) {
   .pageHeader {
     margin-top: 2vh;
+  }
+
+  .pageHeader > .left {
+    left: 4.4vw;
+  }
+
+  .pageHeader > .right {
+    right: 4.4vw;
   }
 }
 
@@ -149,7 +156,8 @@
 .loading {
   width: 48px;
   height: 48px;
-  border: 5px solid grey;
+  /*border: 3px solid rgb(116, 115, 115);*/
+  border: 4px solid var(--color-primary);
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;

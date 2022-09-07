@@ -22,10 +22,19 @@ export const Recipes = () => {
 
     return (
         <AppLayout>  
-
+ 
             {isLoading && (
-                <div className="popup" style={{backdropFilter: "blur(5px)"}}>
-                    <div className="loading"/>
+                <div className="cardloading">
+                    {Array.from(Array(3).keys()).map((i) => {
+                        return(
+                            <div className="emptyCard" key={i}>
+                                <div className="emptyContent">
+                                    <div className="emptyText" style={{width: "90%"}}/>
+                                    <div className="emptyText" style={{width: "70%"}}/>
+                                </div> 
+                            </div>
+                        )
+                    })}
                 </div>
             )}  
 
@@ -37,7 +46,7 @@ export const Recipes = () => {
                     <div className='title'> Mine oppskrifter </div>
                     <div className='right secondaryButton'> 
                         <a href="/ny_oppskrift">
-                            <span className="mobile mobileButton"> + </span> <span className="desktop button"> Legg til oppskrift </span>
+                            <span className="mobile mobileButton"> + </span> <span className="desktop button"> Ny oppskrift </span>
                         </a>
                     </div>
                 </div>

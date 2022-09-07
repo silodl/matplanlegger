@@ -13,6 +13,7 @@ import { CookbookProps } from './UseCookbooks';
 import { DeleteCookbook } from './DeleteCookbook';
 import { UpdateCookbook } from './UpdateCookbook';
 import '../App.css';
+import checkmark from '../Images/Icons/Checkmark_color.svg';
 
 const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
   const [name, setName] = useState(props.cookbook.name);
@@ -20,6 +21,8 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
   const [owners, setOwners] = useState<string[]>(props.cookbook.owners);
   const [viewDelete, setViewDelete] = useState(false);
   const user = useLoggedInUser();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isFinishedDeleting, setIsFinishedDeleting] = useState(false);
 
   const handleOwners = (e: React.ChangeEvent<HTMLInputElement>) => {
     const ownersString = e.target.value;
@@ -33,9 +36,12 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
 
   const deleteCookbook = () => {
     if(user) {
+      setIsDeleting(true);
       DeleteCookbook({cookbook: props.cookbook, user})
-      .then(() =>
-      window.location.href = "/kokebok")
+      .then(() => {
+        setIsFinishedDeleting(true);
+        setTimeout(window.location.href = "/kokebok", 1000)
+      })
     }
   }
 
@@ -52,6 +58,26 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
 
   return(
       <div className="popup">
+
+        {isDeleting && (
+          <div className="popup dataLoader">
+            <div className="function">
+              {isFinishedDeleting
+              ? <> 
+                  <div> Slettet! </div>
+                  <div className="checkmarkCircle"><img src={checkmark} width="40px" alt="checkmark"/></div>
+              </>
+              : <>
+                  <div> Sletter kokeboken </div>
+                  <div className="loading"/>
+                </>
+              }
+              
+            </div>
+          </div>
+        )}
+
+
         <div className="popupContent editCookbook">
           <div>
             <div className="fieldTitle"> Navn </div>
@@ -64,10 +90,7 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
             <div className="fieldTitle alignCheckbox"> 
                 <span onClick={() => setShare(!share)} className="checkbox">
                   {share && (
-                      <div className="checkMark">
-                        <div className="checkmark_stem"></div>
-                        <div className="checkmark_kick"></div>
-                      </div>
+                      <img src={checkmark} id="checkmark" width="12px" alt="checkmark"/>
                     )}     
                 </span> 
                 Del med andre 
@@ -131,10 +154,19 @@ export const Cookbook = () => {
     <AppLayout>   
 
       {isLoading && (
-        <div className="popup" style={{backdropFilter: "blur(5px)"}}>
-            <div className="loading"/>
+        <div className="cardloading">
+            {Array.from(Array(3).keys()).map((i) => {
+              return(
+                <div className="emptyCard" key={i}>
+                  <div className="emptyContent">
+                    <div className="emptyText" style={{width: "90%"}}/>
+                    <div className="emptyText" style={{width: "70%"}}/>
+                  </div> 
+                </div>
+              )
+            })}
         </div>
-      )}
+      )} 
 
       {viewAllRecipes && (
         <ViewAllRecipes close={() => setViewAllRecipes(false)} action={(recipeID: string) => AddRecipe(recipeID)}/>

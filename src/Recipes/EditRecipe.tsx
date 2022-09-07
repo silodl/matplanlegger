@@ -7,6 +7,7 @@ import { DeleteRecipe } from "./DeleteRecipe";
 import './RecipeCard.css';
 import recipeCover from '../Images/Icons/EmptyRecipe.svg';
 import { Tag } from "./Tag";
+import checkmark from '../Images/Icons/Checkmark_color.svg';
 
 export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
 
@@ -19,6 +20,8 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
     const [image, setImage] = useState<File | undefined>();
     const [previewImage, setPreviewImage] = useState("");
     const user = useLoggedInUser();
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [isFinishedDeleting, setIsFinishedDeleting] = useState(false);
 
     const handleTags = (tagString: string) => {
         if (tagString.includes(",")) {
@@ -50,16 +53,34 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
         }
     }
 
-    const deleteRecipe = (recipe: Recipe) => {
+    const deleteRecipe = () => {
         if(user) {
-           DeleteRecipe({recipe: recipe, user})
-            .then(() => 
-            props.avbryt()) 
+            setIsDeleting(true);
+            DeleteRecipe({recipe: props.recipe, user})
         }
     }
 
     return (
         <div className="popup">
+
+            {isDeleting && (
+            <div className="popup dataLoader">
+                <div className="function">
+                {isFinishedDeleting
+                ? <> 
+                    <div> Slettet! </div>
+                    <div className="checkmarkCircle"><img src={checkmark} width="40px" alt="checkmark"/></div>
+                </>
+                : <>
+                    <div> Sletter oppskriften </div>
+                    <div className="loading"/>
+                    </>
+                }
+                
+                </div>
+            </div>
+            )}
+
             <div className="card popupContent">  
                {previewImage 
                ? <img className='recipeImage' src={previewImage} alt="new food cover"/>
@@ -126,16 +147,16 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
             </div>
 
             {viewDelete && (
-                    <div className="popup">
-                        <div className="popupContent deleteAlert">
-                            <div style={{display: "flex", flexWrap: "wrap"}}> Er du sikker på at du vil slette {props.recipe.name} ? </div>
-                            <div className="centerElements">
-                                <div className="secondaryButton button" onClick={() => setViewDelete(false)}> Avbryt </div>
-                                <div className="deleteButton button" onClick={() => deleteRecipe(props.recipe)}> Slett </div>
-                            </div>
+                <div className="popup">
+                    <div className="popupContent deleteAlert">
+                        <div style={{display: "flex", flexWrap: "wrap"}}> Er du sikker på at du vil slette {props.recipe.name} ? </div>
+                        <div className="centerElements">
+                            <div className="secondaryButton button" onClick={() => setViewDelete(false)}> Avbryt </div>
+                            <div className="deleteButton button" onClick={() => deleteRecipe()}> Slett </div>
                         </div>
                     </div>
-                )}
+                </div>
+            )}
         </div>
     )
 }

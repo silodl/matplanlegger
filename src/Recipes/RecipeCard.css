@@ -13,7 +13,7 @@
 
 @media (min-width: 481px) {
   .cardWrapper {
-    padding: 5px 140px 0 140px;
+    padding: 0 10vw 0 10vw;
     height: calc(100vh - 120px);
     column-gap: 20px;
     row-gap: 10px;

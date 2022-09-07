@@ -25,10 +25,25 @@ export const Cookbooks = () => {
         <AppLayout>
 
             {isLoading && (
-                <div className="popup" style={{backdropFilter: "blur(5px)"}}>
-                    <div className="loading"/>
+                <div className="cardloading" style={{columnGap: "40px"}}>
+                {Array.from(Array(3).keys()).map((i) => {
+                    return(
+                        <div className="book bookLoading" key={i}>
+                            <div className="inner-book">
+                                <div className="coverPage"></div>
+                                <div className="page"></div>
+                                <div className="page page-2"></div>
+                                <div className="page page-3"></div>
+                                <div className="page page-4"></div>
+                                <div className="page page-5"></div>
+                                <div className="final-page">
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
                 </div>
-            )} 
+            )}
             
             {cookbooks.length > 0 
             ?
@@ -42,15 +57,11 @@ export const Cookbooks = () => {
                     </div>
                 </div>
 
-                <div className='cardWrapper'>
+                <div className='cardWrapper' style={{columnGap: "40px", rowGap: "30px"}} onLoad={() => setIsLoading(false)}>
                     {cookbooks.map((book) => {
                         return(
                             <div onClick={() => LoadCookbook(book.id)} key={book.id}>
-                                <Book key={book.id}>
-                                    <div className='bookTitle'>
-                                        {book.name}
-                                    </div> 
-                                </Book> 
+                                <Book booktitle={book.name} />   
                             </div>
                         )
                     })}

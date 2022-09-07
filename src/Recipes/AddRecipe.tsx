@@ -28,13 +28,23 @@ export interface Recipe {
 }
 
 const AddToCookbook = (recipeID: string, userID: string, books: CookbookProps[]) => {
-    books.forEach((cookbook) => {
-        AddRecipeToCookbook({recipeID, userID, bookID: cookbook.id});
+    return new Promise<void>((resolve, reject) => {
+        if(books.length === 0) {
+            resolve()
+        }
+        books.forEach((cookbook) => {
+            AddRecipeToCookbook({recipeID, userID, bookID: cookbook.id})
+            .then(() => {
+                if(books.indexOf(cookbook) === books.length - 1) {
+                    resolve()
+                }
+            })
+        })
     })
-    window.location.href = "/oppskrifter";
 }
 
 export const AddRecipe = async (props: NewRecipeInterface, addToCookbook: CookbookProps[]) => {
+
     if(props.owner){
         if(props.file) {
             const storage = getStorage();
@@ -53,27 +63,28 @@ export const AddRecipe = async (props: NewRecipeInterface, addToCookbook: Cookbo
                 })
                 .then((document) => {
                     AddToCookbook(document.id, props.owner, addToCookbook);
-                    //window.location.href = "/oppskrifter";
                 })
             })
             
         }
         else if(props.url) {
-            await addDoc(collection(db, "recipes"), {
-                url: props.url,
-                name: props.name,
-                category: props.category,
-                image: props.image,
-                time: props.time,
-                tags: props.tags,
-                owner: props.owner,
-            })
-            .then((document) => {
-                AddToCookbook(document.id, props.owner, addToCookbook);
-                //window.location.href = "/oppskrifter";
+            return new Promise<void>((resolve, reject) => {
+                addDoc(collection(db, "recipes"), {
+                    url: props.url,
+                    name: props.name,
+                    category: props.category,
+                    image: props.image,
+                    time: props.time,
+                    tags: props.tags,
+                    owner: props.owner,
+                })
+                .then((document) => {
+                    AddToCookbook(document.id, props.owner, addToCookbook)
+                    .then(() => {
+                        resolve()
+                    })
+                })
             })
         }
-
-
     }   
 }

@@ -15,7 +15,7 @@ export const usePlannedWeek = (props: {week: string}) => {
                 if (docSnap.exists()) {
                     const docRecipes: {[Key: string]: string[]} = docSnap.get("recipes");
                     let plannedWeek: {[Key: string]: Recipe[]} = {"0": [], "1": [], "2": [], "3": [], "4": [], "5": [], "6": []};
-                    if(Object.entries(docRecipes).length === 0) {
+                    if(Object.entries(docRecipes).length === 0 || Object.values(docRecipes).every((value) => value.length === 0)) {
                         setRecipes(plannedWeek);
                     }
                     else {

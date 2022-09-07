@@ -4,6 +4,7 @@ import '../App.css';
 import { useState } from 'react';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { AddCookbook } from './AddCookbook';
+import checkmark from '../Images/Icons/Checkmark_color.svg';
 
 export const NewCookbook = () => {
 
@@ -11,15 +12,25 @@ export const NewCookbook = () => {
   const [share, setShare] = useState(false);
   const [owners, setOwners] = useState<string[]>([]);
   const user = useLoggedInUser();
+  const [isSending, setIsSending] = useState(false);
+  const [isFinishedSending, setIsFinishedSending] = useState(false);
 
   const submit = () => {
     if(owners) {
+      setIsSending(true);
       if( owners.length === 0 && user && user.email) {
-        AddCookbook({name, owners: [user.email]});
+        AddCookbook({name, owners: [user.email]})
+        .then(() => {
+          setIsFinishedSending(true);
+          setTimeout( window.location.href = "/kokebok", 1000)
+        })
       }
       else {
-        AddCookbook({name, owners});
-
+        AddCookbook({name, owners})
+        .then(() => {
+          setIsFinishedSending(true);
+          setTimeout( window.location.href = "/kokebok", 1000)
+        })
       }
     }
   }
@@ -37,6 +48,24 @@ export const NewCookbook = () => {
   return (
     <AppLayout>
 
+      {isSending && (
+        <div className="popup dataLoader">
+          <div className="function">
+            {isFinishedSending 
+            ? <> 
+                <div> Oprettet! </div>
+                <div className="checkmarkCircle"><img src={checkmark} width="40px" alt="checkmark"/></div>
+             </>
+            : <>
+                <div> Oppretter kokeboken </div>
+                <div className="loading"/>
+              </>
+            }
+            
+          </div>
+        </div>
+      )}
+
       <form className="formWrapper">
         <div className='center' style={{fontSize: "25px"}}> Ny kokebok </div>
 
@@ -52,10 +81,7 @@ export const NewCookbook = () => {
         <div className="fieldTitle alignCheckbox"> 
             <span onClick={() => setShare(!share)} className="checkbox">
                 {share && (
-                  <div className="checkMark">
-                    <div className="checkmark_stem"></div>
-                    <div className="checkmark_kick"></div>
-                  </div>
+                  <img src={checkmark} id="checkmark" width="12px" alt="checkmark"/>
                 )}    
             </span> 
             Del med andre 

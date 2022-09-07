@@ -9,15 +9,11 @@ export type CookbookComponent = {
 export const AddCookbook = async (cookbook: CookbookComponent) => {
 
     if (cookbook.owners) {
-       const newDoc = await addDoc(collection(db, "cookbooks"), {
+        await addDoc(collection(db, "cookbooks"), {
             name: cookbook.name,
             owners: cookbook.owners,
             recipes: [],
         }) 
-
-        if (newDoc) {
-            window.location.href = "/kokebok";
-        }
     }
  
 }

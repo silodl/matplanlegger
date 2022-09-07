@@ -5,7 +5,7 @@ import { Tag } from "../Recipes/Tag";
 import more from '../Images/Icons/More.svg';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import React, { useState } from 'react';
-import { RemovePlanedRecipe } from './RemovePlanedRecipe';
+import { RemovePlannedRecipe } from './RemovePlannedRecipe';
 import { EditRecipe } from '../Recipes/EditRecipe';
 import recipeCover from '../Images/Icons/EmptyRecipe.svg';
 
@@ -27,7 +27,7 @@ export const WeekRecipeCard = (props: {recipe: Recipe, week: string, daynr: stri
             setDoEditRecipe(true); 
         }
         else if (action === "delete" && user) {
-            RemovePlanedRecipe({recipeID: props.recipe.id, user, weekID: props.week, daynr: props.daynr})
+            RemovePlannedRecipe({recipeID: props.recipe.id, user, weekID: props.week, daynr: props.daynr})
         }
         else if (action === "view") {
             LoadRecipe(props.recipe.id)

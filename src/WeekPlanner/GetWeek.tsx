@@ -34,10 +34,22 @@ export const GetWeek = (props: {week: number}) => {
     return(
         <>  
             {isLoading && (
-                <div className="popup" style={{backdropFilter: "blur(5px)"}}>
-                    <div className="loading"/>
+                <div className="cardloading weekloader">
+                    {Array.from(Array(7).keys()).map((i: number) => {
+                        return(
+                            <div className="emptySideCard emptyCard" key={i}>
+                                <div className="headerLoader"> 
+                                    <div className="emptyText" style={{width: "25%"}}/> <div className="emptyText" style={{width: "20%"}}/> 
+                                </div>
+                                <div className="emptyContent">
+                                    <div className="emptyText" style={{width: "40%"}}/>
+                                    <div className="emptyText" style={{width: "30%"}}/>
+                                </div> 
+                            </div>
+                        )
+                    })}
                 </div>
-            )} 
+            )}  
 
             {typeof(planDay) === "number" && (
                 <ViewAllRecipes close={() => setPlanDay(undefined)} action={(recipeID: string) => AddRecipeToPlan(recipeID)} />
@@ -45,7 +57,7 @@ export const GetWeek = (props: {week: number}) => {
 
             {Object.entries(plannedRecipes).map(([day, recipes]) => {
                 return(
-                    <div className="weekday" key={weeknames[parseInt(day)]}> 
+                    <div className="weekday" key={weeknames[parseInt(day)]} onLoad={() => setIsLoading(false)} > 
                         <div className="weekdayHeader">
                             <div>{weeknames[parseInt(day)]} </div>
                             <div className="addRecipe" onClick={() => setPlanDay(parseInt(day))}> Planlegg <span> + </span> </div>
