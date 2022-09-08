@@ -221,7 +221,7 @@ export const NewRecipe = () => {
             <input
               className="inputField maxWidth"
               placeholder="matbloggen.no/kyllingsuppe"
-              onChange={(e) => setUrl(e.target.value)}
+              onChange={(e) => (setUrl(e.target.value), urlError && (setUrlError(undefined)))}
             />
             {urlError && (<div className="errorMessage"> {urlError} </div> )}  
           </div>
@@ -232,7 +232,7 @@ export const NewRecipe = () => {
             <input
               className="fileInput"
               type="file"
-              onChange={(e) => handleFileInput(e)}
+              onChange={(e) => (handleFileInput(e), fileError && (setFileError(undefined)))}
             />
             {fileError && (<div className="errorMessage"> {fileError} </div> )}  
           </div>
@@ -242,7 +242,7 @@ export const NewRecipe = () => {
           <div className="fieldTitle"> Tittel </div>
           <input className='inputField maxWidth'
             placeholder='Kyllingsuppe'
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => (setTitle(e.target.value), titleError && (setTitleError(undefined)))}
             value={title}/>
             {titleError && (<div className="errorMessage"> {titleError} </div> )} 
         </div>
@@ -278,7 +278,7 @@ export const NewRecipe = () => {
                 type="number"
                 placeholder='30'
                 style={{width: "50px"}}
-                onChange={(e) => setTime(e.target.value)}/>
+                onChange={(e) => (setTime(e.target.value), timeError && (setTimeError(undefined)))}/>
             
               <div tabIndex={0} onBlur={() => setViewTimeOptions(false)}>
                 <div className={viewTimeOptions? "selectField selectFieldOpen": "selectField"} style={{width: "85px"}}

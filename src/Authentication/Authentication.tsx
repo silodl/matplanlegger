@@ -61,6 +61,15 @@ export const Authentication = () => {
       });  
   }
 
+  useEffect(() => {
+    if(emailError) {
+      setEmailError(undefined);
+    }
+    if(passwordError) {
+      setPasswordError(undefined);
+    }
+  },[page])
+
   const register = () => {
     if(email && password){
       createUserWithEmailAndPassword(auth, email, password)
@@ -110,7 +119,7 @@ export const Authentication = () => {
                   type="email"
                   value={email}
                   size={25}
-                  onChange={(e) => setEmail(e.target.value)}  
+                  onChange={(e) => (setEmail(e.target.value), emailError && (setEmailError(undefined)))}  
                   />
                   {emailError && (<div className="errorMessage"> {emailError} </div> )}  
                 </div>
@@ -121,7 +130,7 @@ export const Authentication = () => {
                   type="password"
                   size={25}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}  
+                  onChange={(e) => (setPassword(e.target.value), passwordError && (setPasswordError(undefined)))}  
                   />
                     {passwordError && (<div className="errorMessage"> {passwordError} </div> )}  
                 </div>

@@ -78,7 +78,7 @@ export const NewCookbook = () => {
           <div className="fieldTitle"> Navn </div>
           <input className='inputField maxWidth'
             value={name}
-            onChange={(e) => (setName(e.target.value), setNameError(undefined))}  
+            onChange={(e) => (setName(e.target.value), nameError && (setNameError(undefined)))}  
           />  
           {nameError && (<div className="errorMessage"> {nameError} </div> )}  
         </div>
