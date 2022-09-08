@@ -4,7 +4,7 @@ import '../App.css';
 import { useState } from 'react';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { AddCookbook } from './AddCookbook';
-import checkmark from '../Images/Icons/Checkmark_color.svg';
+import checkmark from '../Images/Icons/Checkmark_black.svg';
 
 export const NewCookbook = () => {
 
@@ -15,8 +15,10 @@ export const NewCookbook = () => {
   const [isSending, setIsSending] = useState(false);
   const [isFinishedSending, setIsFinishedSending] = useState(false);
 
+  const [nameError, setNameError] = useState<string | undefined>();
+
   const submit = () => {
-    if(owners) {
+    if(owners && name !== "") {
       setIsSending(true);
       if( owners.length === 0 && user && user.email) {
         AddCookbook({name, owners: [user.email]})
@@ -32,6 +34,9 @@ export const NewCookbook = () => {
           setTimeout( window.location.href = "/kokebok", 1000)
         })
       }
+    }
+    else {
+      setNameError("Du må gi navn til kokeboken din!")
     }
   }
 
@@ -73,21 +78,22 @@ export const NewCookbook = () => {
           <div className="fieldTitle"> Navn </div>
           <input className='inputField maxWidth'
             value={name}
-            onChange={(e) => setName(e.target.value)}  
-          />    
+            onChange={(e) => (setName(e.target.value), setNameError(undefined))}  
+          />  
+          {nameError && (<div className="errorMessage"> {nameError} </div> )}  
         </div>
 
         <div>
         <div className="fieldTitle alignCheckbox"> 
-            <span onClick={() => setShare(!share)} className="checkbox">
-                {share && (
-                  <img src={checkmark} id="checkmark" width="12px" alt="checkmark"/>
-                )}    
+            <span onClick={() => setShare(!share)} className={share? "checkbox checked" : "checkbox"}>
+              {share && (
+                <img src={checkmark} id="checkmark" width="12px" alt="checkmark"/>
+              )}    
             </span> 
             Del med andre 
         </div></div>
         {share ? 
-          <input className='inputField' size={30}
+          <input className='inputField maxWidth'
           placeholder='F.eks. ola@gmail.com, kari@gmail.com'
           onChange={(e) => handleOwners(e)}/>  
         : null}

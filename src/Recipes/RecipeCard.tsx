@@ -9,7 +9,7 @@ import { DeleteRecipe } from './DeleteRecipe';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { RemoveRecipeFromBook } from '../Cookbook/RemoveRecipeFromBook';
 import recipeCover from '../Images/Icons/EmptyRecipe.svg';
-import checkmark from '../Images/Icons/Checkmark_color.svg';
+import checkmark from '../Images/Icons/Checkmark_black.svg';
 
 export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string}) => {
 

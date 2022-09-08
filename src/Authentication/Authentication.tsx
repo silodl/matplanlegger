@@ -17,9 +17,10 @@ export const Authentication = () => {
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [error, setError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
   const [page, setPage] = useState("login");
+
+  const [emailError, setEmailError] = useState<string | undefined>();
+  const [passwordError, setPasswordError] = useState<string | undefined>();
 
   const user = useLoggedInUser();
 
@@ -111,6 +112,7 @@ export const Authentication = () => {
                   size={25}
                   onChange={(e) => setEmail(e.target.value)}  
                   />
+                  {emailError && (<div className="errorMessage"> {emailError} </div> )}  
                 </div>
                 
                 <div>
@@ -121,6 +123,7 @@ export const Authentication = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}  
                   />
+                    {passwordError && (<div className="errorMessage"> {passwordError} </div> )}  
                 </div>
 
                 {page === "login" 

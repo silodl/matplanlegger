@@ -8,12 +8,12 @@ import './ViewAllRecipes.css';
 interface Props {
     action: Function,
     close: Function,
+    addedRecipes?: string[],
 }
 
 export const ViewAllRecipes = (props: Props) => {
-
     
-    const allRecipes  = useRecipes();
+    const allRecipes  = useRecipes(props.addedRecipes);
 
     return (
         <>

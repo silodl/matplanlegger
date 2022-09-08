@@ -6,10 +6,7 @@ import fetch from 'node-fetch';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { Tag } from './Tag';
 import { CookbookProps, useCookbooks } from '../Cookbook/UseCookbooks';
-import checkmark from '../Images/Icons/Checkmark_color.svg';
-import { AddRecipeToCookbook } from '../Cookbook/AddRecipeToCookbook';
-import { DocumentReference } from 'firebase/firestore';
-
+import checkmark from '../Images/Icons/Checkmark_black.svg';
 
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Bakverk" | "Drinker";
 
@@ -37,7 +34,10 @@ export const NewRecipe = () => {
   const [isSending, setIsSending] = useState(false);
   const [isFinishedSending, setIsFinishedSending] = useState(false);
 
-  //TODO: legge inn feilmeldinger dersom noe info mangler eller er feil
+  const [urlError, setUrlError] = useState<string | undefined>();
+  const [fileError, setFileError] = useState<string | undefined>();
+  const [titleError, setTitleError] = useState<string | undefined>();
+  const [timeError, setTimeError] = useState<string | undefined>();
 
   const categories: FoodCategory[] = ["Frokost", "Lunsj", "Middag", "Dessert", "Bakverk", "Drinker"];
 
@@ -74,6 +74,7 @@ export const NewRecipe = () => {
 
   const handleAddToCookbook = (cookbook: CookbookProps) => {
     let checkmark = document.getElementById(`checkmark${cookbook.id}`);
+    let checkbox = document.getElementById(`checkbox${cookbook.id}`);
     if (addToCookbook.includes(cookbook)) {
       const newArray = addToCookbook;
       const index = addToCookbook.indexOf(cookbook);
@@ -83,26 +84,49 @@ export const NewRecipe = () => {
       if(checkmark) {
         checkmark.className = "hiddenCheckmark"
       }
+      if(checkbox) {
+        checkbox.className = "checkbox"
+      }
     }
     else {
       setAddToCookbook(arr => [...arr, cookbook]);
       if(checkmark) {
         checkmark.className = ""
       }
+      if(checkbox) {
+        checkbox.className = "checkbox checked"
+      }
     }
   }
 
   const AddNewRecipe = async() => {
-    setIsSending(true)
     const cookTime = time + " " + timeUnit
     if (user) {
-      const owner = user.uid;
-      const newRecipe: NewRecipeInterface = {url, file, name: title, category, image: imageUrl, time: cookTime, tags, owner}
-      await AddRecipe(newRecipe, addToCookbook)
-      .then(() => {
-        setIsFinishedSending(true);
-        setTimeout(window.location.href = "/oppskrifter", 1000);
-      })
+      if ((url === "" && type === "url") || (!file && type === "file") || title === "" || time === "") {
+        if(url === "" && type === "url") {
+          setUrlError("Legg inn link til oppskriften")
+        }
+        if(!file && type === "file") {
+          setFileError("Mangler fil")
+        }
+        if(title === "") {
+          setTitleError("Legg til tittel")
+        }
+        if(time === "") {
+          setTimeError("Legg til en estimert tid")
+        }
+      }
+      else {
+        setIsSending(true)
+        const owner = user.uid;
+        const newRecipe: NewRecipeInterface = {url, file, name: title, category, image: imageUrl, time: cookTime, tags, owner}
+        await AddRecipe(newRecipe, addToCookbook)
+        .then(() => {
+          setIsFinishedSending(true);
+          setTimeout(window.location.href = "/oppskrifter", 1000);
+        })
+      }
+      
     }
   }
 
@@ -167,7 +191,6 @@ export const NewRecipe = () => {
                 <div className="loading"/>
               </>
             }
-            
           </div>
         </div>
       )}
@@ -191,10 +214,8 @@ export const NewRecipe = () => {
               <div onClick={() => setType("url")}> link </div>
               <div onClick={() => setType("file")}> fil </div>
             </div>
-            
         </div>
 
-        
         {type === "url" && (
           <div>
             <input
@@ -202,6 +223,7 @@ export const NewRecipe = () => {
               placeholder="matbloggen.no/kyllingsuppe"
               onChange={(e) => setUrl(e.target.value)}
             />
+            {urlError && (<div className="errorMessage"> {urlError} </div> )}  
           </div>
         )}
 
@@ -212,6 +234,7 @@ export const NewRecipe = () => {
               type="file"
               onChange={(e) => handleFileInput(e)}
             />
+            {fileError && (<div className="errorMessage"> {fileError} </div> )}  
           </div>
         )} 
         
@@ -221,6 +244,7 @@ export const NewRecipe = () => {
             placeholder='Kyllingsuppe'
             onChange={(e) => setTitle(e.target.value)}
             value={title}/>
+            {titleError && (<div className="errorMessage"> {titleError} </div> )} 
         </div>
 
         <div>
@@ -276,6 +300,7 @@ export const NewRecipe = () => {
               
               </div>
             </div>
+            {timeError && (<div className="errorMessage"> {timeError} </div> )} 
         </div>
 
         <div>
@@ -292,23 +317,22 @@ export const NewRecipe = () => {
             <div className="fieldTitle"> Legg til i kokebok </div>
 
             <div tabIndex={0} onBlur={() => setViewCookbooks(false)}>
-              <div className={viewCookbooks? "selectField selectFieldOpen" :"selectField"} style={{width: "120px"}}
+              <div className={viewCookbooks? "selectField selectFieldOpen" :"selectField"} style={{width: "250px"}}
                 onClick={() => setViewCookbooks(!viewCookbooks)}> Velg <div className="selectFieldArrow"/>
               </div>
             
               <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
                 {viewCookbooks && (
-                    <div className='selectOptions' style={{width:"136px"}}>
+                    <div className='selectOptions' style={{width:"266px"}}>
                       {cookbooks.map((cookbook) => {
                         return(
                           <div key={cookbook.id} className='option alignCheckbox' 
                           onClick={() => handleAddToCookbook(cookbook)}> 
-                            <div className="checkbox">
-                              <div id={cookbook.id}>
-                                <img src={checkmark} id={`checkmark${cookbook.id}`} width="12px" alt="checkmark" className={addToCookbook.includes(cookbook) ? "" : "hiddenCheckmark"}/>
-                              </div>
+                            <div id={`checkbox${cookbook.id}`} className={addToCookbook.includes(cookbook) ? "checkbox checked" : "checkbox"}>
+                              <img src={checkmark} id={`checkmark${cookbook.id}`} width="12px" alt="checkmark" className={addToCookbook.includes(cookbook) ? "" : "hiddenCheckmark"}/>
                             </div> 
-                            {cookbook.name} </div>
+                            {cookbook.name} 
+                          </div>
                         )
                       })} 
                     </div>

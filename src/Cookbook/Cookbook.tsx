@@ -13,7 +13,7 @@ import { CookbookProps } from './UseCookbooks';
 import { DeleteCookbook } from './DeleteCookbook';
 import { UpdateCookbook } from './UpdateCookbook';
 import '../App.css';
-import checkmark from '../Images/Icons/Checkmark_color.svg';
+import checkmark from '../Images/Icons/Checkmark_black.svg';
 
 const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
   const [name, setName] = useState(props.cookbook.name);
@@ -47,12 +47,12 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
 
   const updateCookbook = () => {
     if (user) {
-        const updatedCookbook: CookbookProps = props.cookbook;
-        updatedCookbook.name = name;
-        updatedCookbook.owners = owners;
-        UpdateCookbook(updatedCookbook)
-        .then(() => 
-        props.avbryt())
+      const updatedCookbook: CookbookProps = props.cookbook;
+      updatedCookbook.name = name;
+      updatedCookbook.owners = owners;
+      UpdateCookbook(updatedCookbook)
+      .then(() => 
+      props.avbryt())
     }
 }
 
@@ -135,6 +135,7 @@ export const Cookbook = () => {
   const [doEditCookbook, setDoEditCookbook] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadCount, setLoadCount] = useState(1);
+  const [recipeIDs, setRecipeIDs] = useState<string[]>([]);
 
   useEffect(() => {
     if(loadCount > 1) {
@@ -143,7 +144,14 @@ export const Cookbook = () => {
     setLoadCount(loadCount + 1);
   }, [cookbook])
 
-  const AddRecipe = async(recipeID: string) => {
+  useEffect(() => {
+    setRecipeIDs([]);
+    recipes.forEach((recipe) => {
+      setRecipeIDs(old => [...old, recipe.id]);
+    })
+  },[recipes])
+
+  const AddRecipeToBook = async(recipeID: string) => {
     if (user && id) {
       AddRecipeToCookbook({recipeID, userID: user.uid, bookID: id})
       .then(() => setViewAllRecipes(false))
@@ -169,7 +177,7 @@ export const Cookbook = () => {
       )} 
 
       {viewAllRecipes && (
-        <ViewAllRecipes close={() => setViewAllRecipes(false)} action={(recipeID: string) => AddRecipe(recipeID)}/>
+        <ViewAllRecipes addedRecipes={recipeIDs} close={() => setViewAllRecipes(false)} action={(recipeID: string) => AddRecipeToBook(recipeID)}/>
       )}
 
       {doEditCookbook && cookbook && (

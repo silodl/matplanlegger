@@ -228,6 +228,10 @@ input[type="number"] {
     cursor: pointer;
 }
 
+.checked {
+    background-color: var(--color-primary);
+}
+
 .hiddenCheckmark {
     display: none;
 }
@@ -307,4 +311,6 @@ input[type="number"] {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background-color: var(--color-primary);
 }
