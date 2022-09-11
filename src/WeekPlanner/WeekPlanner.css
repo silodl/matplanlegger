@@ -1,7 +1,7 @@
 .weekplan {
   position: relative;
   top: 5px;
-  padding: 5px calc(5vw - 2px) 0 calc(5vw - 2px);
+  padding: 5px calc(50vw - 175px) 0 calc(50vw - 175px);
   height: calc(100vh - 166px);
   overflow-y: auto;
   display: flex;
@@ -14,27 +14,11 @@
 
 @media (min-width: 481px) {
   .weekplan {
-    padding: 5px calc(15vw - 2px) 0 calc(15vw - 2px);
+    padding: 5px calc(50vw - 360px) 0 calc(50vw - 360px);
     height: calc(100vh - 131px);
     column-gap: 20px;
     row-gap: 20px;
     justify-content: flex-start;
-  }
-
-  .weekday, .noCards {
-    width: calc(35vw - 8px) !important;
-    min-width: 340px !important;
-  }
-
-  .weekdayHeader {
-    width: calc(35vw - 13px) !important;
-    min-width: 335px !important;
-  }
-}
-
-@media (max-width: 994px) {
-  .weekplan {
-    justify-content: space-evenly;
   }
 }
   
@@ -43,8 +27,7 @@
 }
 
 .weekday {
-  width: 90vw;
-  min-width: 340px;
+  width: 350px;
   background-color: #e3d2c44D;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -55,7 +38,7 @@
 }
 
 .weekdayHeader {
-  width: calc(90vw - 5px);
+  width: 345px;
   padding: 0 0px 5px 5px;
   border-radius: 8px 8px 0 0;
   display: flex;
@@ -106,8 +89,7 @@
 }
 
 .emptyCard.emptySideCard {
-  width: 90vw;
-  min-width: 340px;
+  width: 350px;
   height: 150px;
   display: flex;
   flex-direction: column;
@@ -134,11 +116,4 @@
   padding: 0 5%;
   display: flex;
   justify-content: space-between;
-}
-
-@media (min-width: 481px) {
-  .emptyCard.emptySideCard {
-    width: calc(35vw - 8px);
-    min-width: 340px;
-  }
 }

@@ -27,13 +27,3 @@
 .side .moreButton {
     width: 330px;
 }
-
-@media (min-width: 481px) {
-    .sideCard {
-        width: 300px;
-    }
-    
-    .side .moreButton {
-        width: 300px;
-    }
-}
