@@ -22,23 +22,8 @@ export const Recipes = () => {
 
     return (
         <AppLayout>  
- 
-            {isLoading && (
-                <div className="cardloading">
-                    {Array.from(Array(3).keys()).map((i) => {
-                        return(
-                            <div className="emptyCard" key={i}>
-                                <div className="emptyContent">
-                                    <div className="emptyText" style={{width: "90%"}}/>
-                                    <div className="emptyText" style={{width: "70%"}}/>
-                                </div> 
-                            </div>
-                        )
-                    })}
-                </div>
-            )}  
 
-            {recipes.length > 0 
+            {recipes.length > 0 || isLoading
             ?
             <>
                 <div className="pageHeader"> 
@@ -50,14 +35,33 @@ export const Recipes = () => {
                         </a>
                     </div>
                 </div>
-            
-                <div className='cardWrapper' onLoad={() => setIsLoading(false)}>
-                    {recipes.map((recipe: Recipe) => {
-                        return(
-                            <Card key={recipe.id} recipe={recipe} clickable={true}/>
-                        )
-                    })}
-                </div>
+                
+                {!isLoading && (
+                   <div className='cardWrapper' onLoad={() => setIsLoading(false)}>
+                        {recipes.map((recipe: Recipe) => {
+                            return(
+                                <Card key={recipe.id} recipe={recipe} clickable={true}/>
+                            )
+                        })}
+                    </div> 
+                )}
+                
+
+                 
+                {isLoading && (
+                    <div className="cardWrapper cardloading">
+                        {Array.from(Array(3).keys()).map((i) => {
+                            return(
+                                <div className="emptyCard" key={i}>
+                                    <div className="emptyContent">
+                                        <div className="emptyText" style={{width: "90%"}}/>
+                                        <div className="emptyText" style={{width: "70%"}}/>
+                                    </div> 
+                                </div>
+                            )
+                        })}
+                    </div>
+                )}  
             </>
 
             : <div className="emptyState">

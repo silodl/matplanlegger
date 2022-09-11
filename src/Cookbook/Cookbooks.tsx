@@ -23,9 +23,34 @@ export const Cookbooks = () => {
 
     return (
         <AppLayout>
+            
+            {cookbooks.length > 0 || isLoading
+            ?
+            <>
+                <div className="pageHeader">
+                    <div className='title'> Mine kokebøker </div>
+                    <div className='right secondaryButton'> 
+                        <a href="/ny_kokebok">
+                            <span className="mobile mobileButton"> + </span> <span className="desktop button"> Ny kokebok </span>
+                        </a>
+                    </div>
+                </div>
 
-            {isLoading && (
-                <div className="cardloading" style={{columnGap: "40px"}}>
+                {!isLoading && (
+                    <div className='cardWrapper' style={{columnGap: "40px", rowGap: "30px"}} onLoad={() => setIsLoading(false)}>
+                        {cookbooks.map((book) => {
+                            return(
+                                <div onClick={() => LoadCookbook(book.id)} key={book.id}>
+                                    <Book booktitle={book.name} />   
+                                </div>
+                            )
+                        })}
+                    </div>
+                )}
+                
+
+                {isLoading && (
+                <div className="cardWrapper cardloading" style={{columnGap: "40px"}}>
                 {Array.from(Array(3).keys()).map((i) => {
                     return(
                         <div className="book bookLoading" key={i}>
@@ -44,28 +69,6 @@ export const Cookbooks = () => {
                 })}
                 </div>
             )}
-            
-            {cookbooks.length > 0 
-            ?
-            <>
-                <div className="pageHeader">
-                    <div className='title'> Mine kokebøker </div>
-                    <div className='right secondaryButton'> 
-                        <a href="/ny_kokebok">
-                            <span className="mobile mobileButton"> + </span> <span className="desktop button"> Ny kokebok </span>
-                        </a>
-                    </div>
-                </div>
-
-                <div className='cardWrapper' style={{columnGap: "40px", rowGap: "30px"}} onLoad={() => setIsLoading(false)}>
-                    {cookbooks.map((book) => {
-                        return(
-                            <div onClick={() => LoadCookbook(book.id)} key={book.id}>
-                                <Book booktitle={book.name} />   
-                            </div>
-                        )
-                    })}
-                </div>
             </>
             : 
             <div className="emptyState">

@@ -161,8 +161,38 @@ export const Cookbook = () => {
   return (
     <AppLayout>   
 
-      {isLoading && (
-        <div className="cardloading">
+      {viewAllRecipes && (
+        <ViewAllRecipes addedRecipes={recipeIDs} close={() => setViewAllRecipes(false)} action={(recipeID: string) => AddRecipeToBook(recipeID)}/>
+      )}
+
+      {doEditCookbook && cookbook && (
+        <EditCookbook cookbook={cookbook} avbryt={() => setDoEditCookbook(false)}/>
+      )}
+
+      {recipes.length > 0 || isLoading
+      ?
+      <>
+        <div className="pageHeader"> 
+          <div className="left" onClick={() => setDoEditCookbook(true)}><img src={settings} alt="settings" width="30px"/></div>
+          <div className='title'> {cookbook?.name} </div>
+          <div className='right secondaryButton' onClick={() => setViewAllRecipes(true)}> 
+            <span className="mobile mobileButton"> + </span> <span className="desktop button"> Legg til oppskrift </span>
+          </div>
+        </div>
+
+        {!isLoading && (
+          <div className='cardWrapper'>
+            {recipes.map((recipe: Recipe) => {
+              return(
+                <Card key={recipe.url} recipe={recipe} clickable={true} bookID={id}/>
+              )
+            })}
+          </div>
+        )}
+        
+
+        {isLoading && (
+        <div className="cardWrapper cardloading">
             {Array.from(Array(3).keys()).map((i) => {
               return(
                 <div className="emptyCard" key={i}>
@@ -175,33 +205,6 @@ export const Cookbook = () => {
             })}
         </div>
       )} 
-
-      {viewAllRecipes && (
-        <ViewAllRecipes addedRecipes={recipeIDs} close={() => setViewAllRecipes(false)} action={(recipeID: string) => AddRecipeToBook(recipeID)}/>
-      )}
-
-      {doEditCookbook && cookbook && (
-        <EditCookbook cookbook={cookbook} avbryt={() => setDoEditCookbook(false)}/>
-      )}
-
-      {recipes.length > 0 
-      ?
-      <>
-        <div className="pageHeader"> 
-          <div className="left" onClick={() => setDoEditCookbook(true)}><img src={settings} alt="settings" width="30px"/></div>
-          <div className='title'> {cookbook?.name} </div>
-          <div className='right secondaryButton' onClick={() => setViewAllRecipes(true)}> 
-            <span className="mobile mobileButton"> + </span> <span className="desktop button"> Legg til oppskrift </span>
-          </div>
-        </div>
-
-        <div className='cardWrapper'>
-          {recipes.map((recipe: Recipe) => {
-            return(
-              <Card key={recipe.url} recipe={recipe} clickable={true} bookID={id}/>
-            )
-          })}
-        </div>
       </>
       : 
       <div className="emptyState">

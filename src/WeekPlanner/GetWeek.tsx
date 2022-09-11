@@ -55,7 +55,7 @@ export const GetWeek = (props: {week: number}) => {
                 <ViewAllRecipes close={() => setPlanDay(undefined)} action={(recipeID: string) => AddRecipeToPlan(recipeID)} />
             )}
 
-            {Object.entries(plannedRecipes).map(([day, recipes]) => {
+            {!isLoading && Object.entries(plannedRecipes).map(([day, recipes]) => {
                 return(
                     <div className="weekday" key={weeknames[parseInt(day)]} onLoad={() => setIsLoading(false)} > 
                         <div className="weekdayHeader">

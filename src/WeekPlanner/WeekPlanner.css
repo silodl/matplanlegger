@@ -12,6 +12,10 @@
   justify-content: space-evenly;
 }
 
+.weekplan .cardloading {
+  overflow-y: hidden;
+}
+
 @media (min-width: 481px) {
   .weekplan {
     padding: 5px calc(50vw - 360px) 0 calc(50vw - 360px);
@@ -80,16 +84,10 @@
   align-items: center;
   row-gap: 10px;
   padding-bottom: 10px;
-  width: 90vw;
-}
-
-.cardloading.weekloader {
-  top: 0;
-  padding: 0;
 }
 
 .emptyCard.emptySideCard {
-  width: 350px;
+  width: 345px;
   height: 150px;
   display: flex;
   flex-direction: column;
