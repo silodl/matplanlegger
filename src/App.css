@@ -23,7 +23,6 @@
   display: flex;
   align-items: center;
   width: calc(100vw - 10px);
-  padding: 0 5px;
   justify-content: center;
   height: 42px;
 }
@@ -44,6 +43,12 @@
 
 .title {
   font-size: 25px;
+  line-height: 0.9em;
+}
+
+.fullHeader .title {
+  max-width: calc(80vw - 170px - 135px);
+  padding-left: 35px;
 }
 
 @media (max-width: 480px) {
@@ -57,6 +62,15 @@
 
   .pageHeader > .right {
     right: 4.4vw;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .fullHeader .title {
+    max-width: calc(91.2vw - 180px);
+    padding-left: 0;
   }
 }
 
@@ -77,9 +91,9 @@
   background-color: #e3d2c480;
 }
 
-.button a {
+.button a, .secondaryButton a, .button, .secondaryButton, a {
   text-decoration: none;
-  color: black;
+  color: #333;
 }
 
 .primaryButton {
@@ -96,11 +110,6 @@
   cursor: pointer;
 }
 
-.secondaryButton a {
-  text-decoration: none;
-  color: black;
-}
-
 .deleteButton {
   background-color: #fdbfbf;
   border: 2px solid #fdbfbf;
@@ -108,10 +117,6 @@
 
 .deleteButton:hover {
   background-color: #fdbfbf80;
-}
-
-.secondaryButton a {
-  color: #333;
 }
 
 .mobileButton {
@@ -132,6 +137,10 @@
   justify-content: space-between;
 }
 
+.left.centerElements, .right.centerElements {
+  column-gap: 8px;
+}
+
 .emptyState {
   display: flex;
   flex-direction: column;
@@ -140,16 +149,16 @@
 }
 
 .mobile {
-  display: none;
+  display: none !important;
 }
 
 @media (max-width: 480px) {
   .desktop {
-    display: none;
+    display: none !important;
   }
 
   .mobile {
-    display: flex;
+    display: flex !important;
   }
 }
 

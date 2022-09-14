@@ -83,6 +83,14 @@
   border-radius: 15px;
 }
 
+.removeTag {
+  position: relative;
+  left: 5px;
+  /*bottom: 5px;*/
+  width: 10px;
+  cursor: pointer;
+}
+
 .edit:hover {
   text-decoration: underline;
 }
@@ -113,8 +121,14 @@
 
 .popupContent.card {
   width: 350px;
-  height: 600px;
+  height: fit-content;
   padding-bottom: 10px;
+}
+
+.popupContent .recipeImage {
+  opacity: 0.5;
+  /*height: 30%;*/
+  height: 220px;
 }
 
 .deleteAlert {
@@ -174,7 +188,7 @@
 .imageInput {
   position: absolute; 
   left: 50%;
-  top: 25%;
+  top: 20%;
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 5px;

@@ -23,12 +23,30 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
     const [isDeleting, setIsDeleting] = useState(false);
     const [isFinishedDeleting, setIsFinishedDeleting] = useState(false);
 
-    const handleTags = (tagString: string) => {
-        if (tagString.includes(",")) {
-            setTags(tagString.split(","))
+    const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if(e.key === "Enter" && e.target.value !== "") {
+            if(tags) {
+                let newArray = tags;
+                newArray.push(e.target.value)
+                setTags([...newArray])
+            }
+            else {
+                setTags([e.target.value])
+            }
+            let tagField = window.document.getElementById("tagField") as HTMLInputElement
+            if(tagField) {
+                console.log(tagField.innerHTML, tagField.innerText, tagField.value)
+                tagField.value = ""
+            }
         }
-        else {
-            setTags([tagString])
+    }
+
+    const removeTag = (tag: string) => {
+        if(tag && tags && tags.includes(tag)) {
+            let newArray = tags;
+            const index = tags?.indexOf(tag)
+            newArray?.splice(index, 1)
+            setTags([...newArray]) 
         }
     }
 
@@ -85,8 +103,8 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                {previewImage 
                ? <img className='recipeImage' src={previewImage} alt="new food cover"/>
                : (props.recipe.image)
-                    ? <img className='recipeImage' src={props.recipe.image} alt="food" style={{opacity: "0.5"}}/>
-                    : <img className='recipeImage' style={{width: "50%", padding: "0 25%", objectFit: "contain", backgroundColor: "var(--color-primary)", opacity: "0.5"}} src={recipeCover} alt="recipe cover"/>
+                    ? <img className='recipeImage' src={props.recipe.image} alt="food"/>
+                    : <img className='recipeImage' style={{width: "50%", padding: "0 25%", objectFit: "contain", backgroundColor: "var(--color-primary)"}} src={recipeCover} alt="recipe cover"/>
                 }
 
                 <input type="file" className="imageInput" accept="image/*" onChange={(e) => handleImageInput(e)}/>
@@ -128,11 +146,10 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                     
                     <div>
                         <div className="fieldTitle"> Tags <span style={{fontSize: "14px"}}>(maks 4)</span> </div>
-                        <input className="inputField" value={tags} size={30}
-                            onChange={(e) => handleTags(e.target.value)}/>
+                        <input type="text" id="tagField" className="inputField" onKeyDown={(e) => handleTags(e)}/>
                     </div>
 
-                    {tags.length > 0 && (<Tag tags={tags} />)}
+                    {tags && (<Tag tags={tags} removable={true} onRemove={(tag) => removeTag(tag)} />)}
                     
                 </div>
 

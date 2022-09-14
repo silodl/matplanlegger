@@ -170,7 +170,7 @@ input[type="url"] {
     border-radius: 0 0 10px 10px;
     border-top: none;
     padding: 0;
-    z-index: 1;
+    z-index: 2;
     position: relative;
     background-color: white;
 }
@@ -178,6 +178,8 @@ input[type="url"] {
 .option {
     border-bottom: 1px solid var(--color-primary);
     padding: 5px;
+    width: calc(100% - 8px);
+    margin-left: -1px;
 }
 
 .option:last-child {
@@ -191,6 +193,7 @@ input[type="url"] {
 
 .option:last-child:hover {
     border-radius: 0 0 8px 8px;
+    box-shadow: 0 1px 0 var(--color-primary);
 }
 
 input[type="number"]::-webkit-outer-spin-button, 
@@ -239,10 +242,12 @@ input[type="number"] {
 .alignCheckbox {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .alignCheckbox:hover {
     background-color: transparent;
+    box-shadow: none !important;
 }
 
 .alignCheckbox:hover .hiddenCheckmark {

@@ -46,8 +46,9 @@
 
 @media (max-width: 480px) {
     .cardloading {
-        top: 75px;
-        column-gap: 20px;
+        top: 15px;
+        column-gap: 15px;
+        row-gap: 15px;
     }
 }
 
@@ -83,4 +84,104 @@
     margin-top: 10px;
     background-color: var(--color-primary);
     border-radius: 10px;
+}
+
+.filterButton {
+    padding: 9px 5px;
+    column-gap: 8px;
+}
+
+@media (max-width: 480px) {
+    .filterButton {
+        padding: 5px;
+    }
+}
+
+.searchField {
+    width: 0px;
+    padding: 0 25px 0 8px;
+    border: 2px solid var(--color-primary);
+    background-image: url("../Images/Icons/Search.svg");
+    background-repeat: no-repeat;
+    background-position: right 6px top 50%;
+    background-size: 18px;
+}
+
+.searchField.desktop {
+    width: 40px;
+}
+
+.searchAnimation.mobile {
+    animation: search 0.3s linear forwards;
+}
+
+.searchAnimation.desktop {
+    animation: searchBig 0.3s linear forwards;
+}
+
+@keyframes search {
+    from {width: 25px }
+    to {width: 171px}
+}
+
+@keyframes searchBig {
+    from {width: 77px}
+    to {width: 200px}
+}
+
+.smaller {
+    padding-left: calc(175px + 5vw);
+}
+
+.sideBox {
+    position: fixed;
+    left: 0vw;
+    top: 0;
+    height: calc(100vh - 115px);
+    width: 135px;
+    background-color: white;
+    box-shadow: 4px -4px 15px rgb(0 0 0 / 20%);
+    padding: 20px;
+    text-align: left;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.sideBox div {
+    line-height: 2em;
+}
+
+.sideBox span {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.sideBox .inputField {
+    padding: 4px 8px;
+}
+
+.sideBox input[type="number"] {
+    width: 35px;
+    display: flex;
+}
+
+.space {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+@media (min-width: 481px) {
+    .sideBox {
+        top: 58px;
+        height: calc(100vh - 99px);
+        box-shadow: 4px 4px 15px rgb(0 0 0 / 20%);
+        width: 172px;
+    }
+
+    .smaller {
+        padding-left: calc(212px + 5vw);
+    }
 }

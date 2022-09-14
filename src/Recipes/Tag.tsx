@@ -1,16 +1,26 @@
 import './RecipeCard.css';
+import close from '../Images/Icons/Close.svg';
 
-export const Tag = (props:{tags: string[]}) => {
+export const Tag = (props:{tags: string[], removable?: boolean, onRemove?(tag: string): void}) => {
 
-    const colors: string[] = ["#e1f1f6", "#dff0d0", "#f5dbd9", "#feecb5"];
+    const colors: string[] = ["#e1f1f6", "#dff0d0", "#feecb5", "#f5dbd9", "#e9d5c5"];
+
+    const setColor = (tag: string) => {
+        let index = props.tags.indexOf(tag);
+        if(index > 4) {
+            index = index % 5;
+        }
+        return colors[index]
+    }
 
     return(
         <div className="tags">
         {props.tags.map((tag) => {
             return(
                 (tag.length > 1 && (
-                    <div key={tag} className="tag" style={{backgroundColor: colors[props.tags.indexOf(tag)]}}> 
+                    <div key={tag} id={tag} className="tag" style={{backgroundColor: setColor(tag)}}> 
                         {tag} 
+                        {props.removable && (<img src={close} alt="close" className="removeTag" onClick={() => {props.onRemove && (props.onRemove(tag))}}/>)}
                     </div> 
                 )) 
             )

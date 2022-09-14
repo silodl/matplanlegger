@@ -10,6 +10,8 @@ import checkmark from '../Images/Icons/Checkmark_black.svg';
 
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Bakverk" | "Drinker";
 
+export const categories: FoodCategory[] = ["Frokost", "Lunsj", "Middag", "Dessert", "Bakverk", "Drinker"];
+
 export const NewRecipe = () => {
 
   const [type, setType] = useState("url");
@@ -39,8 +41,6 @@ export const NewRecipe = () => {
   const [titleError, setTitleError] = useState<string | undefined>();
   const [timeError, setTimeError] = useState<string | undefined>();
 
-  const categories: FoodCategory[] = ["Frokost", "Lunsj", "Middag", "Dessert", "Bakverk", "Drinker"];
-
   useEffect(() => {
     if(parseInt(time) < 2) {
       setTimeOptions(["minutter", "time"])
@@ -57,12 +57,30 @@ export const NewRecipe = () => {
     setLoadCount(loadCount + 1);
   },[cookbooks])
 
-  const handleTags = (tagString: string) => {
-    if (tagString.includes(",")) {
-      setTags(tagString.split(","))
-    }
-    else {
-      setTags([tagString])
+  const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === "Enter" && e.target.value !== "") {
+      if(tags) {
+        let newArray = tags;
+        newArray.push(e.target.value)
+        setTags([...newArray])
+      }
+      else {
+        setTags([e.target.value])
+      }
+      let tagField = window.document.getElementById("tagField") as HTMLInputElement
+      if(tagField) {
+        console.log(tagField.innerHTML, tagField.innerText, tagField.value)
+        tagField.value = ""
+      }
+    } 
+  }
+
+  const removeTag = (tag: string) => {
+    if(tag && tags && tags.includes(tag)) {
+      let newArray = tags;
+      const index = tags?.indexOf(tag)
+      newArray?.splice(index, 1)
+      setTags([...newArray]) 
     }
   }
 
@@ -126,7 +144,6 @@ export const NewRecipe = () => {
           setTimeout(window.location.href = "/oppskrifter", 1000);
         })
       }
-      
     }
   }
 
@@ -305,12 +322,13 @@ export const NewRecipe = () => {
 
         <div>
           <div className="fieldTitle"> Tags <span style={{fontSize: "14px"}}>(maks 4)</span> </div>
-          <input className='inputField' size={35}
-            onChange={(e) => handleTags(e.target.value)}
-            placeholder="f.eks. kylling, thai, asiatisk"/>
+          <input className='inputField maxWidth' type="text" 
+            onKeyDown={(e) => handleTags(e)}
+            id={"tagField"}
+            placeholder="trykk enter for å legge til"/>
         </div>
         
-        {tags.length > 0 && (<Tag tags={tags} />)}
+        {tags.length > 0 && (<Tag tags={tags} removable={true} onRemove={(tag) => removeTag(tag)} />)}
         
         {cookbooks && cookbooks.length > 0 && (
           <div>

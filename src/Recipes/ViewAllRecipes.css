@@ -3,16 +3,24 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: 90vw;
+  width: 80vw;
   height: 100vh;
-  padding: 20px 0;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
   column-gap: 20px;
   row-gap: 20px;
-  padding: 5vw;
+  padding: 20px 10vw;
   background-color: white;
+  overflow-y: auto;
+}
+
+.alignRecipes::-webkit-scrollbar {
+  display: none;
+}
+
+.alignRecipes.smaller {
+  width: calc(80vw - 170px);
 }
 
 
@@ -20,17 +28,32 @@
   .alignRecipes {
     column-gap: 10px;
     row-gap: 10px;
+    padding: 20px 4.4vw;
+    width: calc(100vw - 8.8vw);
+  }
+
+  .alignRecipes.smaller {
+    width: calc(100vw - 8.8vw - 175px);
   }
 }
 
 .closeButton {
-  position: fixed;
+  position: absolute;
   right: 10px;
   top: 10px;
   width: 15px;
   cursor: pointer;
 }
 
-.closeButton:hover {
-  transform: scale(1.2);
+.alignRecipes .pageHeader {
+  margin-top: 10px;
+}
+
+.alignRecipes .pageHeader .searchField {
+  padding: 8px;
+}
+
+.alignRecipes .sideBox {
+  top: 0;
+  height: calc(100vh - 40px);
 }

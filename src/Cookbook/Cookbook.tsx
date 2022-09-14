@@ -14,6 +14,10 @@ import { DeleteCookbook } from './DeleteCookbook';
 import { UpdateCookbook } from './UpdateCookbook';
 import '../App.css';
 import checkmark from '../Images/Icons/Checkmark_black.svg';
+import { categories } from "../Recipes/NewRecipe";
+import { Tag } from "../Recipes/Tag";
+import filter from '../Images/Icons/Filter.svg';
+import close from '../Images/Icons/Close.svg';
 
 const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
   const [name, setName] = useState(props.cookbook.name);
@@ -129,13 +133,19 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
 export const Cookbook = () => {
 
   const { id } = useParams();
-  const {cookbook, recipes} = useCookbook({id});
   const user = useLoggedInUser();
   const [viewAllRecipes, setViewAllRecipes] = useState(false);
   const [doEditCookbook, setDoEditCookbook] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadCount, setLoadCount] = useState(1);
   const [recipeIDs, setRecipeIDs] = useState<string[]>([]);
+  const [viewFilters, setViewFilters] = useState(false);
+  const [chosenCategories, setChosenCategories] = useState<string[]>();
+  const [tags, setTags] = useState<string[]>();
+  const [time, setTime] = useState<string>();
+  const [viewSearchField, setViewSearchField] = useState(false);
+  const [searchWords, setSearchWords] = useState<string[]>([]);
+  const {cookbook, recipes} = useCookbook(id, time, chosenCategories, tags, searchWords);
 
   useEffect(() => {
     if(loadCount > 1) {
@@ -158,8 +168,175 @@ export const Cookbook = () => {
     }
   }
 
+  const handleCategories = (category: string) => {
+    let checkmark = document.getElementById(`checkmark${category}`);
+    let checkbox = document.getElementById(`checkbox${category}`);
+
+    if(chosenCategories && chosenCategories.includes(category) && chosenCategories.length !== 6) {
+        if(chosenCategories.length === 1) {
+            setChosenCategories(undefined)
+        }
+        else {
+            let newArray = chosenCategories;
+            const index = newArray.indexOf(category);
+            newArray.splice(index, 1);
+            setChosenCategories([...newArray])
+        }
+
+        if(checkmark) {
+            checkmark.className = "hiddenCheckmark"
+        }
+        if(checkbox) {
+        checkbox.className = "checkbox"
+        }
+    }
+    else {
+        if(chosenCategories && chosenCategories.length !== 6) {
+            let newArray = chosenCategories;
+            newArray.push(category);
+            setChosenCategories([...newArray])
+        }
+        else {
+            setChosenCategories([category])
+        }
+
+        if(checkmark) {
+            checkmark.className = ""
+        }
+        if(checkbox) {
+            checkbox.className = "checkbox checked"
+        }
+    }
+  }
+
+  const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if(e.key === "Enter" && e.target.value !== "") {
+          if(tags) {
+              let newArray = tags;
+              newArray.push(e.target.value)
+              setTags([...newArray])
+          }
+          else {
+              setTags([e.target.value])
+          }
+      }
+  }
+
+  const removeTag = (tag: string) => {
+      if(tag && tags && tags.includes(tag)) {
+          let newArray = tags;
+          const index = tags?.indexOf(tag)
+          newArray?.splice(index, 1)
+          setTags([...newArray]) 
+      }
+  }
+
+  const Header = () => {
+    return (
+        <div className="pageHeader fullHeader"> 
+            <div className="left centerElements"> 
+              <div className="secondaryButton filterButton" onClick={() => setViewFilters(true)}>
+                <img src={filter} alt="filter" width="20px"/>  
+                <span className="desktop"> Filtrer </span> 
+              </div>
+
+              <input className="searchField inputField desktop" type="text"  key="search"
+                defaultValue={searchWords.toString().replaceAll(",", " ")}
+                placeholder="Søk"
+                onClick={(e) => e.currentTarget.className += " searchAnimation"}
+                autoFocus={viewSearchField}
+                onFocus={() => setTimeout(() => {
+                    setViewSearchField(true)
+                }, 300)}
+                style={{width: (viewSearchField  ? "200px" : "40px")}}
+                onChange={(e) => setSearchWords([...e.target.value.split(" ")])}
+                onBlur={() => setViewSearchField(false)}
+              />
+
+              <img src={settings} className="mobile" onClick={() => setDoEditCookbook(true)} alt="settings" width="28px"/>
+
+            </div>
+            
+
+            <div className='title'> {cookbook?.name} </div>
+
+            <div className='right centerElements'> 
+
+              <img src={settings} className="desktop" onClick={() => setDoEditCookbook(true)} alt="settings" width="28px"/>
+
+              <input type="text" key="searchMobile" className="searchField inputField mobile"
+                autoFocus={viewSearchField}
+                onClick={(e) => e.currentTarget.className += " searchAnimation"}
+                defaultValue={searchWords.toString().replaceAll(",", " ")}
+                onFocus={() => setTimeout(() => {
+                    setViewSearchField(true)
+                }, 300)}
+                style={{width: (viewSearchField  ? "171px" : "0px")}}
+                onChange={(e) => setSearchWords([...e.target.value.toLowerCase().split(" ")])}
+                onBlur={() => setViewSearchField(false)}
+              />
+
+              <div onClick={() => setViewAllRecipes(true)}>
+                <span className="mobile mobileButton secondaryButton"> + </span> <span className="desktop button secondaryButton"> Legg til oppskrift </span>
+              </div>
+
+            </div>
+        </div>
+    )
+  }
+
+  const Filters = () => {
+    return (
+        <>
+        {viewFilters && (
+          <>
+            <div className="sideBox"> 
+
+              <div>
+                <span> Kategorier </span>
+
+                {categories.map((category) => {
+                  return(
+                    <div key={category} className='alignCheckbox' 
+                    onClick={() => handleCategories(category)}> 
+                      <div id={`checkbox${category}`} className={chosenCategories && chosenCategories.includes(category) ? "checkbox checked" : "checkbox"}>
+                        <img src={checkmark} id={`checkmark${category}`} width="12px" alt="checkmark" className={chosenCategories && chosenCategories.includes(category) ? "" : "hiddenCheckmark"}/>
+                      </div>
+                      {category} 
+                    </div>
+                  )
+                })}
+              </div>
+          
+              <div className="space">
+                <span> Tags </span>
+                <input type="text" className="inputField" onKeyDown={(e) => handleTags(e)}/>
+                
+                {tags && (<Tag tags={tags} removable={true} onRemove={(tag) => removeTag(tag)} />)}
+              </div>
+          
+              <div>
+                  <span> Tid </span>
+                  <div className="centerElements">
+                    Maks 
+                    <input type="number" className="inputField" style={{width: "30px", fontSize: "14px"}} onChange={(e) => setTime(time)}/>
+                    timer
+                  </div>
+              </div>
+
+              <img src={close} alt="close" className="closeButton" onClick={() => setViewFilters(false)}/>
+
+            </div>
+          </>
+        )}
+        </>
+    )
+  }
+
   return (
     <AppLayout>   
+
+      <Filters/>
 
       {viewAllRecipes && (
         <ViewAllRecipes addedRecipes={recipeIDs} close={() => setViewAllRecipes(false)} action={(recipeID: string) => AddRecipeToBook(recipeID)}/>
@@ -172,16 +349,10 @@ export const Cookbook = () => {
       {recipes.length > 0 || isLoading
       ?
       <>
-        <div className="pageHeader"> 
-          <div className="left" onClick={() => setDoEditCookbook(true)}><img src={settings} alt="settings" width="30px"/></div>
-          <div className='title'> {cookbook?.name} </div>
-          <div className='right secondaryButton' onClick={() => setViewAllRecipes(true)}> 
-            <span className="mobile mobileButton"> + </span> <span className="desktop button"> Legg til oppskrift </span>
-          </div>
-        </div>
+        <Header/>
 
         {!isLoading && (
-          <div className='cardWrapper'>
+          <div className={viewFilters ? 'cardWrapper smaller' : 'cardWrapper'}>
             {recipes.map((recipe: Recipe) => {
               return(
                 <Card key={recipe.url} recipe={recipe} clickable={true} bookID={id}/>
@@ -208,13 +379,20 @@ export const Cookbook = () => {
       </>
       : 
       <div className="emptyState">
-        <div className='pageHeader'>
-          <div className="left" onClick={() => setDoEditCookbook(true)}><img src={settings} alt="settings" width="30px"/></div>
-          <div className='title'> {cookbook?.name} </div>
-          <div></div>
-        </div>
+        {(chosenCategories || tags || time || searchWords.length > 0) && (
+          <>
+          <Header/>
+            <div> Boken har ingen oppskrifter som matcher filterene </div>
+          </>
+        )}
+
+        {!(chosenCategories || tags || time || searchWords.length > 0) && (
+          <>
+            <Header/>
+            <div> Boken har ingen oppskrifter enda </div>
+          </>
+        )}
         
-        <div> Boken har ingen oppskrifter enda </div>
         <img width={"200px"} src={book} alt="book"/>
         <div className='primaryButton button' onClick={() => setViewAllRecipes(true)}> 
           Legg til dens første oppskrift
