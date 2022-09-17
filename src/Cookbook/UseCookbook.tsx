@@ -18,6 +18,7 @@ export const useCookbook = (id: string | undefined, time?: string[], categories?
                     const name: string = cookbook.get("name");
                     const id = cookbook.id;
                     const owners: string[] = cookbook.get("owners");
+                    console.log(owners)
                     const recipeIDs: string[] = cookbook.get("recipes");
                     const book: CookbookProps = {name, id, recipes: recipeIDs, owners}
                     setCookbook(book);

@@ -131,7 +131,7 @@ export const NewRecipe = () => {
         await AddRecipe(newRecipe, addToCookbook)
         .then(() => {
           setIsFinishedSending(true);
-          setTimeout(window.location.href = "/oppskrifter", 1000);
+          setTimeout(window.location.pathname = "/oppskrifter", 1000);
         })
       }
     }

@@ -124,3 +124,38 @@
     background: var(--color-primary);
     padding-top: calc(0.38 * 140px);
 }
+
+.owners {
+    border: 1.5px solid var(--color-primary);
+    border-radius: 10px;
+    display: flex;
+    column-gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.owners:hover {
+    border: 2.5px solid var(--color-primary);
+    margin: -1px 0;
+}
+
+.owners input, .owner input:hover {
+    border: none;
+    outline: none;
+    margin: 1px 0;
+}
+
+.owners input:hover {
+    margin: 1px 0;
+}
+
+.owner:first-child {
+    margin-left: 5px; 
+}
+
+.owner {
+    border: 1px solid var(--color-primary);
+    padding: 0 10px 0 4px;
+    border-radius: 10px;
+    display: flex;
+}

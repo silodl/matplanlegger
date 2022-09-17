@@ -5,7 +5,7 @@ import books from '../Images/books.png';
 import { useState, useEffect } from 'react';
 
 export const LoadCookbook = (id: string) => {
-    window.location.href = `/kokebok/${id}`;
+    window.location.pathname = `/kokebok/${id}`;
 }
 
 export const Cookbooks = () => {

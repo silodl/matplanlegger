@@ -18,24 +18,62 @@ import { categories, timeOptions } from "../Recipes/NewRecipe";
 import { Tag } from "../Recipes/Tag";
 import filter from '../Images/Icons/Filter.svg';
 import close from '../Images/Icons/Close.svg';
+import { useCheckUser } from './UseCheckUser';
 
 const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
   const [name, setName] = useState(props.cookbook.name);
-  const [share, setShare] = useState(props.cookbook.owners.length > 1 ? true: false);
-  const [owners, setOwners] = useState<string[]>(props.cookbook.owners);
+  const [share, setShare] = useState(props.cookbook.owners.length > 1);
+  const [owners, setOwners] = useState<string[]>([]);
   const [viewDelete, setViewDelete] = useState(false);
   const user = useLoggedInUser();
   const [isDeleting, setIsDeleting] = useState(false);
   const [isFinishedDeleting, setIsFinishedDeleting] = useState(false);
+  const [newOwner, setNewOwner] = useState("");
+  const isNewUser = useCheckUser(newOwner);
 
-  const handleOwners = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const ownersString = e.target.value;
-    if (ownersString.includes(",") && user && user.email) {
-      setOwners(ownersString.split(",").concat([user.email]))
+  const [nameError, setNameError] = useState<string | undefined>();
+  const [ownerError, setOwnerError] = useState<string | undefined>();
+
+  console.log(props.cookbook)
+
+  useEffect(() => {
+    if(user && user.email) {
+      let cookBookOwners = props.cookbook.owners;
+      const index = cookBookOwners.indexOf(user.email);
+      cookBookOwners.splice(index, 1);
+      setOwners([...cookBookOwners]);
+      console.log("?---?", cookBookOwners, props.cookbook.owners)
+      if(cookBookOwners.length >= 1) {
+        setShare(true);
+        console.log("??")
+      }
     }
-    else if (user && user.email) {
-      setOwners([ownersString, user.email])
+  },[props.cookbook, user])
+
+  const handleOwners = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === "Enter" && e.target.value !== "") {
+      if(isNewUser && !owners.includes(e.target.value) && user && e.target.value !== user.email ) {
+        if(owners) {
+          let newArray = owners;
+          newArray.push(e.target.value)
+          setOwners([...newArray])
+        }
+        else {
+          setOwners([e.target.value])
+        }
+        setNewOwner("");
+      }
+      else {
+        setOwnerError("Finner ikke brukeren")
+      }
     }
+  }
+
+  const removeOwner = (owner: string) => {
+    let newOwners = owners;
+    const index = newOwners.indexOf(owner);
+    newOwners.splice(index, 1);
+    setOwners([...newOwners]);
   }
 
   const deleteCookbook = () => {
@@ -44,19 +82,24 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
       DeleteCookbook({cookbook: props.cookbook, user})
       .then(() => {
         setIsFinishedDeleting(true);
-        setTimeout(window.location.href = "/kokebok", 1000)
+        setTimeout(window.location.pathname = "/kokebok", 1000)
       })
     }
   }
 
   const updateCookbook = () => {
-    if (user) {
+    if (user && user.email && name) {
       const updatedCookbook: CookbookProps = props.cookbook;
       updatedCookbook.name = name;
-      updatedCookbook.owners = owners;
+      updatedCookbook.owners = owners.concat([user.email]);
       UpdateCookbook(updatedCookbook)
       .then(() => 
       props.avbryt())
+    }
+    else {
+      if(!name) {
+        setNameError("Du må gi navn til kokeboken din!")
+      }
     }
 }
 
@@ -81,18 +124,18 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
           </div>
         )}
 
-
         <div className="popupContent editCookbook">
           <div>
             <div className="fieldTitle"> Navn </div>
             <input className='inputField' style={{width: "330px"}}
               value={name} onChange={(e) => setName(e.target.value)}  
-            />    
+            />
+            {nameError && (<div className="errorMessage">{nameError}</div>)}    
           </div>
 
           <div>
             <div className="fieldTitle alignCheckbox"> 
-                <span onClick={() => setShare(!share)} className="checkbox">
+                <span onClick={() => (setShare(!share), setOwners([]))} className={share? "checkbox checked" : "checkbox"}>
                   {share && (
                       <img src={checkmark} id="checkmark" width="12px" alt="checkmark"/>
                     )}     
@@ -100,10 +143,22 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
                 Del med andre 
             </div>
           </div>
-          {share ? 
-            <input className='inputField' style={{width: "330px"}}
-            value={owners} onChange={(e) => handleOwners(e)}/>  
-          : null}
+          {share && (
+            <>
+            <div className="owners">
+              {owners.map((owner) => {
+                return(
+                  <div className="owner" key={owner}>{owner} <img src={close} className="removeTag" alt="close" onClick={() => removeOwner(owner)}/></div>
+                )
+              })}
+              <input className='inputField' style={{width: "330px"}}
+              value={newOwner} 
+              onChange={(e) => (setNewOwner(e.target.value), setOwnerError(undefined))} onKeyDown={(e) => handleOwners(e)}
+              />
+            </div>
+            {ownerError && (<div className="errorMessage"> {ownerError} </div>)}
+            </>
+          )}
         
           <div className="centerElements" style={{marginTop: "15px"}}>
             <div className="deleteButton button" onClick={() => setViewDelete(true)}> Slett </div>
@@ -146,6 +201,8 @@ export const Cookbook = () => {
   const [viewSearchField, setViewSearchField] = useState(false);
   const [searchWords, setSearchWords] = useState<string[]>([]);
   const {cookbook, recipes} = useCookbook(id, time, chosenCategories, tags, searchWords);
+
+  console.log(cookbook)
 
   useEffect(() => {
     if(loadCount > 1) {
@@ -251,16 +308,16 @@ export const Cookbook = () => {
 }
 
   const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if(e.key === "Enter" && e.target.value !== "") {
-          if(tags) {
-              let newArray = tags;
-              newArray.push(e.target.value)
-              setTags([...newArray])
-          }
-          else {
-              setTags([e.target.value])
-          }
+    if(e.key === "Enter" && e.target.value !== "") {
+      if(tags) {
+        let newArray = tags;
+        newArray.push(e.target.value)
+        setTags([...newArray])
       }
+      else {
+        setTags([e.target.value])
+      }
+    }
   }
 
   const removeTag = (tag: string) => {

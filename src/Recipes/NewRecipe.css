@@ -108,14 +108,17 @@ input[type="url"] {
 .fileInput {
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
+    color: #333;
     cursor: pointer;
 }
 
 .fileInput::-webkit-file-upload-button {
     background-color: #fff;
-    padding: 8px 10px;
+    padding: 8px 10px !important;
     border: 1.5px solid var(--color-primary);
     border-radius: 10px;
+    font-size: 16px;
+    color: #333;
     font-family: 'Nunito', sans-serif;
     cursor: pointer;
 }

@@ -22,7 +22,7 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
     const [isFinishedDeleting, setIsFinishedDeleting] = useState(false);
 
     const LoadRecipe = (id: string) => {
-        window.location.href = `/oppskrifter/${id}`;
+        window.location.pathname = `/oppskrifter/${id}`;
     }
 
     const HandleClick = (action: string) => {

@@ -22,12 +22,19 @@ export const Authentication = () => {
   const [emailError, setEmailError] = useState<string | undefined>();
   const [passwordError, setPasswordError] = useState<string | undefined>();
 
+  const [isLoading, setIsLoading] = useState(true);
+  //const [loadCount, setLoadCount] = useState(1);
+
   const user = useLoggedInUser();
 
   useEffect(() => {
     if(user){
       setRedirect(true);
     }
+    else {
+      setIsLoading(false);
+    }
+    //setLoadCount(loadCount + 1)
   },[user])
 
   const login = () =>{
@@ -95,7 +102,9 @@ export const Authentication = () => {
   }
 
   return(
-      <div className="root" style={{overflowY: "auto"}}>
+      <div className="root" style={{overflowY: (isLoading ? "hidden" : "auto"), overflowX: "hidden"}}>
+
+          {(isLoading || user) && (<div className="mobile loadingpage"> <img src={hat} alt="hat" width="50px" style={{marginLeft: "calc(50vw - 25px"}} /></div>)}
 
           {redirect && (<Navigate to="/oppskrifter"/>)}
           

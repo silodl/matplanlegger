@@ -21,14 +21,14 @@ import { auth } from "./Firebase";
 export const AppRouter = () => {
 
     useEffect(() => {
-        const unlisten = onAuthStateChanged(auth, (user) => {
-          if (!user) {
-            window.location.href = "/";
-          }
-        });
-        return () => {
-          unlisten();
+      const unlisten = onAuthStateChanged(auth, (user) => {
+        if (!user && window.location.pathname !== "/") {
+          window.location.pathname = "/";
         }
+      });
+      return () => {
+        unlisten();
+      }
     },[])
 
     return (

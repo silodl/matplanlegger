@@ -94,3 +94,15 @@
         display: none;
     }
 }
+
+.loadingpage {
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    z-index: 1;
+    animation: loading infinite 1s ease-in;
+}
+
+@keyframes loading {
+    50% {transform: scale(1.2);}
+}

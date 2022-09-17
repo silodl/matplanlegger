@@ -18,7 +18,7 @@ export const WeekRecipeCard = (props: {recipe: Recipe, week: string, daynr: stri
     const user = useLoggedInUser();
 
     const LoadRecipe = (id: string) => {
-        window.location.href = `/oppskrifter/${id}`;
+        window.location.pathname = `/oppskrifter/${id}`;
     }
 
     const HandleClick = (action: string) => {

@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { AddCookbook } from './AddCookbook';
 import checkmark from '../Images/Icons/Checkmark_black.svg';
+import { useCheckUser } from './UseCheckUser';
+import close from '../Images/Icons/Close.svg';
 
 export const NewCookbook = () => {
 
@@ -14,8 +16,12 @@ export const NewCookbook = () => {
   const user = useLoggedInUser();
   const [isSending, setIsSending] = useState(false);
   const [isFinishedSending, setIsFinishedSending] = useState(false);
+  const [newOwner, setNewOwner] = useState("");
+  const isNewUser = useCheckUser(newOwner);
 
   const [nameError, setNameError] = useState<string | undefined>();
+  const [ownerError, setOwnerError] = useState<string | undefined>();
+
 
   const submit = () => {
     if(owners && name !== "") {
@@ -24,14 +30,14 @@ export const NewCookbook = () => {
         AddCookbook({name, owners: [user.email]})
         .then(() => {
           setIsFinishedSending(true);
-          setTimeout( window.location.href = "/kokebok", 1000)
+          setTimeout( window.location.pathname = "/kokebok", 1000)
         })
       }
       else {
         AddCookbook({name, owners})
         .then(() => {
           setIsFinishedSending(true);
-          setTimeout( window.location.href = "/kokebok", 1000)
+          setTimeout( window.location.pathname = "/kokebok", 1000)
         })
       }
     }
@@ -40,14 +46,35 @@ export const NewCookbook = () => {
     }
   }
 
-  const handleOwners = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const ownersString = e.target.value;
-    if (ownersString.includes(",") && user && user.email) {
-      setOwners(ownersString.split(",").concat([user.email]))
+  const handleOwners = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === "Enter" && e.target.value !== "") {
+      if(isNewUser && !owners.includes(e.target.value) && user && e.target.value !== user.email) {
+        if(owners) {
+          let newArray = owners;
+          newArray.push(e.target.value)
+          setOwners([...newArray])
+        }
+        else {
+          setOwners([e.target.value])
+        }
+        setNewOwner("");
+      }
+      else {
+        if(user && e.target.value === user.email) {
+          setOwnerError("Du trenger ikke dele med deg selv")
+        }
+        else(
+          setOwnerError("Finner ikke brukeren")
+        )
+      }
     }
-    else if (user && user.email) {
-      setOwners([ownersString, user.email])
-    }
+  }
+
+  const removeOwner = (owner: string) => {
+    let newOwners = owners;
+    const index = newOwners.indexOf(owner);
+    newOwners.splice(index, 1);
+    setOwners([...newOwners]);
   }
 
   return (
@@ -84,19 +111,30 @@ export const NewCookbook = () => {
         </div>
 
         <div>
-        <div className="fieldTitle alignCheckbox"> 
+          <div className="fieldTitle alignCheckbox"> 
             <span onClick={() => setShare(!share)} className={share? "checkbox checked" : "checkbox"}>
               {share && (
                 <img src={checkmark} id="checkmark" width="12px" alt="checkmark"/>
               )}    
             </span> 
             Del med andre 
-        </div></div>
-        {share ? 
-          <input className='inputField maxWidth'
-          placeholder='F.eks. ola@gmail.com, kari@gmail.com'
-          onChange={(e) => handleOwners(e)}/>  
-        : null}
+          </div>
+        </div>
+        {share && (
+            <>
+            <div className="owners">
+              {owners.map((owner) => {
+                return(
+                  <div className="owner" key={owner}>{owner} <img src={close} className="removeTag" alt="close" onClick={() => removeOwner(owner)}/></div>
+                )
+              })}
+              <input className='inputField' value={newOwner} 
+              onChange={(e) => (setNewOwner(e.target.value), setOwnerError(undefined))} onKeyDown={(e) => handleOwners(e)}
+              />
+            </div>
+            {ownerError && (<div className="errorMessage"> {ownerError} </div>)}
+            </>
+          )}
 
         <div className='primaryButton button center' onClick={() => submit()}> Legg til </div> 
       

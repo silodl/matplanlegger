@@ -15,7 +15,7 @@ export const useCookbooks = () => {
     const [cookbooks, setCookboks] = useState<CookbookProps[]>([]);
     
     const user = useLoggedInUser();
-    const fetchCookbooks = async() => {
+    useEffect(() => {
         if(user && user.email) {
             const q = query(collection(db, "cookbooks"), where("owners", "array-contains", user.email));
             onSnapshot(q, (querySnapshot) => {
@@ -31,10 +31,6 @@ export const useCookbooks = () => {
                 });
             })
         }
-    }
-    
-    useEffect(() => {
-        fetchCookbooks(); 
     },[user]);
     
     return cookbooks;
