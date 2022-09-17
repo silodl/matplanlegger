@@ -35,7 +35,6 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
             }
             let tagField = window.document.getElementById("tagField") as HTMLInputElement
             if(tagField) {
-                console.log(tagField.innerHTML, tagField.innerText, tagField.value)
                 tagField.value = ""
             }
         }

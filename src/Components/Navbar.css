@@ -19,7 +19,7 @@
     }
     .navbarText a:hover {
         cursor: pointer;
-        transform: scale(1.2);
+        text-shadow: 0px 0px 1px; 
     }
 
     .navbarText {

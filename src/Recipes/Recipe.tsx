@@ -5,8 +5,7 @@ import leftArrow from '../Images/Icons/LeftArrow.svg';
 
 export const Recipe = () => {
     const { id } = useParams();
-    const recipe = useRecipe({id}); 
-
+    const recipe = useRecipe({id});
 
     return(
         <div className='root'>

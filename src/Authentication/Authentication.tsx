@@ -97,7 +97,7 @@ export const Authentication = () => {
   return(
       <div className="root" style={{overflowY: "auto"}}>
 
-          {redirect ? <Navigate to="/oppskrifter"/> : null}
+          {redirect && (<Navigate to="/oppskrifter"/>)}
           
           <div className="landingPageTitle"> 
             Matplanlegger 
@@ -106,7 +106,7 @@ export const Authentication = () => {
 
           <div className="landingpage center">
 
-            <div className="loginWrapper">
+            <form className="loginWrapper">
                 <div className='title'> {page === "login" ? "Logg inn" : "Registrer"} </div>
                 
                 {error && (
@@ -147,7 +147,7 @@ export const Authentication = () => {
                       <div> Allerede en bruker? <u style={{cursor: "pointer"}} onClick={() => setPage("login")}> Logg inn </u> </div>
                     </>
                     }
-            </div>
+            </form>
             
             <div className="landingPageImage mobile">
               <img src={food1} alt="pasta" style={{width:"130px", rotate:"-83deg", position: "relative", left: "30px"}}/>

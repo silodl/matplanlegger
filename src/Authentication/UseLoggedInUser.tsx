@@ -11,6 +11,9 @@ export const useLoggedInUser = () => {
       if (user) {
         setCurrUser(user);
       }
+      else {
+        console.log("finner ikke bruker")
+      }
     });
     return () => {
       unlisten();

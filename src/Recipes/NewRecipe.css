@@ -35,6 +35,7 @@
     flex-direction: column;
     align-items: flex-start;
     row-gap: 12px;
+    overflow-y: auto;
 }
 
 .formWrapper::-webkit-scrollbar {
@@ -134,8 +135,11 @@ input[type="url"] {
     user-select: auto;
 }
 
-.inputField:focus, .inputField:hover, .selectField:hover {
-    outline: 1px solid var(--color-primary);
+.inputField:focus, .inputField:hover, .selectField:hover, 
+.inputField:active, .inputField:active, .selectField:active {
+    outline: none;
+    border-width: 2.5px;
+    margin: -1px 0;
 }
 
 .selectField {
@@ -155,6 +159,11 @@ input[type="url"] {
 
 .selectFieldOpen {
     border-radius: 10px 10px 0 0;
+}
+
+.selectField.selectFieldOpen:hover {
+    border-width: 1.5px;
+    margin: 0;
 }
 
 .selectFieldOpen .selectFieldArrow {

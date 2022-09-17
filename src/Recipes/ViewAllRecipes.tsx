@@ -6,7 +6,7 @@ import { Card } from './RecipeCard';
 import './ViewAllRecipes.css';
 import filter from '../Images/Icons/Filter.svg';
 import { useState } from 'react';
-import { categories } from "./NewRecipe";
+import { categories, timeOptions } from "./NewRecipe";
 import { Tag } from "./Tag";
 import checkmark from '../Images/Icons/Checkmark_black.svg';
 
@@ -22,7 +22,7 @@ export const ViewAllRecipes = (props: Props) => {
     const [viewFilters, setViewFilters] = useState(false);
     const [chosenCategories, setChosenCategories] = useState<string[]>();
     const [tags, setTags] = useState<string[]>(); 
-    const [time, setTime] = useState<string>();
+    const [time, setTime] = useState<string[]>();
     const [searchWords, setSearchWords] = useState<string[]>([]);
     const recipes = useRecipes(props.addedRecipes, time, chosenCategories, tags, searchWords);
 
@@ -56,6 +56,47 @@ export const ViewAllRecipes = (props: Props) => {
             }
             else {
                 setChosenCategories([category])
+            }
+
+            if(checkmark) {
+                checkmark.className = ""
+            }
+            if(checkbox) {
+                checkbox.className = "checkbox checked"
+            }
+        }
+    }
+
+    const handleTime = (timeOption: string) => {
+        let checkmark = document.getElementById(`checkmark${timeOption}`);
+        let checkbox = document.getElementById(`checkbox${timeOption}`);
+
+        if(time && time.includes(timeOption) && time.length !== 5) {
+            if(time.length === 1) {
+                setTime(undefined)
+            }
+            else {
+                let newArray = time;
+                const index = newArray.indexOf(timeOption);
+                newArray.splice(index, 1);
+                setTime([...newArray])
+            }
+
+            if(checkmark) {
+                checkmark.className = "hiddenCheckmark"
+            }
+            if(checkbox) {
+            checkbox.className = "checkbox"
+            }
+        }
+        else {
+            if(time && time.length !== 5) {
+                let newArray = time;
+                newArray.push(timeOption);
+                setTime([...newArray])
+            }
+            else {
+                setTime([timeOption])
             }
 
             if(checkmark) {
@@ -120,11 +161,17 @@ export const ViewAllRecipes = (props: Props) => {
                     
                         <div>
                             <span> Tid </span>
-                            <div className="centerElements">
-                                Maks 
-                                <input type="number" className="inputField" style={{width: "30px", fontSize: "14px"}} onChange={(e) => setTime(time)}/>
-                                timer
-                            </div>
+                            {timeOptions.map((timeOption) => {
+                                return(
+                                    <div key={timeOption} className='alignCheckbox' 
+                                    onClick={() => handleTime(timeOption)}> 
+                                        <div id={`checkbox${timeOption}`} className={time && time.includes(timeOption) ? "checkbox checked" : "checkbox"}>
+                                            <img src={checkmark} id={`checkmark${timeOption}`} width="12px" alt="checkmark" className={time && time.includes(timeOption) ? "" : "hiddenCheckmark"}/>
+                                        </div>
+                                        {timeOption} 
+                                    </div>
+                                )
+                            })}
                         </div>
 
                         <img src={close} alt="close" className="closeButton" onClick={() => setViewFilters(false)}/>

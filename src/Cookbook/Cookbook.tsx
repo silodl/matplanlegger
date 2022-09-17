@@ -14,7 +14,7 @@ import { DeleteCookbook } from './DeleteCookbook';
 import { UpdateCookbook } from './UpdateCookbook';
 import '../App.css';
 import checkmark from '../Images/Icons/Checkmark_black.svg';
-import { categories } from "../Recipes/NewRecipe";
+import { categories, timeOptions } from "../Recipes/NewRecipe";
 import { Tag } from "../Recipes/Tag";
 import filter from '../Images/Icons/Filter.svg';
 import close from '../Images/Icons/Close.svg';
@@ -142,7 +142,7 @@ export const Cookbook = () => {
   const [viewFilters, setViewFilters] = useState(false);
   const [chosenCategories, setChosenCategories] = useState<string[]>();
   const [tags, setTags] = useState<string[]>();
-  const [time, setTime] = useState<string>();
+  const [time, setTime] = useState<string[]>();
   const [viewSearchField, setViewSearchField] = useState(false);
   const [searchWords, setSearchWords] = useState<string[]>([]);
   const {cookbook, recipes} = useCookbook(id, time, chosenCategories, tags, searchWords);
@@ -208,6 +208,47 @@ export const Cookbook = () => {
         }
     }
   }
+
+  const handleTime = (timeOption: string) => {
+    let checkmark = document.getElementById(`checkmark${timeOption}`);
+    let checkbox = document.getElementById(`checkbox${timeOption}`);
+
+    if(time && time.includes(timeOption) && time.length !== 5) {
+        if(time.length === 1) {
+            setTime(undefined)
+        }
+        else {
+            let newArray = time;
+            const index = newArray.indexOf(timeOption);
+            newArray.splice(index, 1);
+            setTime([...newArray])
+        }
+
+        if(checkmark) {
+            checkmark.className = "hiddenCheckmark"
+        }
+        if(checkbox) {
+        checkbox.className = "checkbox"
+        }
+    }
+    else {
+        if(time && time.length !== 5) {
+            let newArray = time;
+            newArray.push(timeOption);
+            setTime([...newArray])
+        }
+        else {
+            setTime([timeOption])
+        }
+
+        if(checkmark) {
+            checkmark.className = ""
+        }
+        if(checkbox) {
+            checkbox.className = "checkbox checked"
+        }
+    }
+}
 
   const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if(e.key === "Enter" && e.target.value !== "") {
@@ -317,11 +358,17 @@ export const Cookbook = () => {
           
               <div>
                   <span> Tid </span>
-                  <div className="centerElements">
-                    Maks 
-                    <input type="number" className="inputField" style={{width: "30px", fontSize: "14px"}} onChange={(e) => setTime(time)}/>
-                    timer
-                  </div>
+                  {timeOptions.map((timeOption) => {
+                      return(
+                        <div key={timeOption} className='alignCheckbox' 
+                        onClick={() => handleTime(timeOption)}> 
+                            <div id={`checkbox${timeOption}`} className={time && time.includes(timeOption) ? "checkbox checked" : "checkbox"}>
+                                <img src={checkmark} id={`checkmark${timeOption}`} width="12px" alt="checkmark" className={time && time.includes(timeOption) ? "" : "hiddenCheckmark"}/>
+                            </div>
+                            {timeOption} 
+                        </div>
+                      )
+                  })}
               </div>
 
               <img src={close} alt="close" className="closeButton" onClick={() => setViewFilters(false)}/>

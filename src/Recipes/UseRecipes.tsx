@@ -4,7 +4,7 @@ import { useLoggedInUser } from "../Authentication/UseLoggedInUser";
 import { useEffect, useState } from "react";
 import { Recipe } from "./AddRecipe";
 
-export const useRecipes = (addedRecipes?: string[], time?: string, categories?: string[], tags?: string[], searchWords?: string[]) => {
+export const useRecipes = (addedRecipes?: string[], time?: string[], categories?: string[], tags?: string[], searchWords?: string[]) => {
 
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const user = useLoggedInUser();
@@ -22,6 +22,7 @@ export const useRecipes = (addedRecipes?: string[], time?: string, categories?: 
                         if(doc.exists() && !addedRecipes?.includes(doc.id) 
                             && (!categories || (categories && categories.includes(doc.get("category"))))
                             && (!tags || (tags && tags.every(tag => doc.get("tags").includes(tag))))
+                            && (!time || (time && time.includes(doc.get("time"))))
                             && (!searchWords || (searchWords && searchWords.every(word => (doc.get("name") as string).toLowerCase().includes(word))))
                             ) {
                             const url = doc.get("url");
@@ -56,6 +57,7 @@ export const useRecipes = (addedRecipes?: string[], time?: string, categories?: 
                                         if(!addedRecipes?.includes(docSnap2.id)
                                             && (!categories || (categories && categories.includes(docSnap2.get("category"))))
                                             && (!tags || (tags && tags.every(tag => docSnap2.get("tags").includes(tag))))
+                                            && (!time || (time && time.includes(docSnap2.get("time"))))
                                             && (!searchWords || (searchWords && searchWords.every(word => (docSnap2.get("name") as string).toLowerCase().includes(word))))
                                         ) {
                                             const url = docSnap2.get("url");

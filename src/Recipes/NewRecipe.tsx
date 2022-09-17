@@ -11,6 +11,7 @@ import checkmark from '../Images/Icons/Checkmark_black.svg';
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Bakverk" | "Drinker";
 
 export const categories: FoodCategory[] = ["Frokost", "Lunsj", "Middag", "Dessert", "Bakverk", "Drinker"];
+export const timeOptions = ["Under 20 min", "20-40 min", "40-60 min", "1-2 timer", "Over 2 timer"];
 
 export const NewRecipe = () => {
 
@@ -23,13 +24,12 @@ export const NewRecipe = () => {
   const [viewCategoryOptions, setViewCategoryOptions] = useState(false);
   const [viewTimeOptions, setViewTimeOptions] = useState(false);
   const [timeUnit, setTimeUnit] = useState("minutter");
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState("20-40 min");
   const [title, setTitle] = useState("");
   const [viewCookbooks, setViewCookbooks] = useState(false);
   const [addToCookbook, setAddToCookbook] = useState<CookbookProps[]>([])
   const user = useLoggedInUser();
   const cookbooks = useCookbooks();
-  const [timeOptions, setTimeOptions] = useState(["minutter", "timer"]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingPage, setIsLoadingPage] = useState(true);
   const [loadCount, setLoadCount] = useState(1);
@@ -40,15 +40,6 @@ export const NewRecipe = () => {
   const [fileError, setFileError] = useState<string | undefined>();
   const [titleError, setTitleError] = useState<string | undefined>();
   const [timeError, setTimeError] = useState<string | undefined>();
-
-  useEffect(() => {
-    if(parseInt(time) < 2) {
-      setTimeOptions(["minutter", "time"])
-    } 
-    else if(timeOptions[1] !== "timer") {
-      setTimeOptions(["minutter", "timer"])
-    }
-  },[time])
 
   useEffect(() => {
     if(loadCount > 1) {
@@ -69,7 +60,6 @@ export const NewRecipe = () => {
       }
       let tagField = window.document.getElementById("tagField") as HTMLInputElement
       if(tagField) {
-        console.log(tagField.innerHTML, tagField.innerText, tagField.value)
         tagField.value = ""
       }
     } 
@@ -288,35 +278,25 @@ export const NewRecipe = () => {
         </div>
 
         <div>
-          <div className="fieldTitle"> Tidsbruk </div>
-            <div className="multiField">
-              <input 
-                className='inputField'
-                type="number"
-                placeholder='30'
-                style={{width: "50px"}}
-                onChange={(e) => (setTime(e.target.value), timeError && (setTimeError(undefined)))}/>
-            
-              <div tabIndex={0} onBlur={() => setViewTimeOptions(false)}>
-                <div className={viewTimeOptions? "selectField selectFieldOpen": "selectField"} style={{width: "85px"}}
-                  onClick={() => setViewTimeOptions(!viewTimeOptions)}> {timeUnit} <div className="selectFieldArrow"/> 
-                </div>
+          <div className="fieldTitle"> Tid </div>
+            <div tabIndex={0} onBlur={() => setViewTimeOptions(false)}>
+              <div className={viewTimeOptions ? "selectField selectFieldOpen" :"selectField"} style={{width: "100px"}}
+                onClick={() => setViewTimeOptions(!viewTimeOptions)}> {time} <div className="selectFieldArrow"/>
+              </div>
 
-                <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
+              <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
                   {viewTimeOptions && (
-                    <div className='selectOptions' style={{width: "101px"}}>
-                      {timeOptions.map((timeoption) => {
-                        return(
-                          <div key={timeoption} className='option'
-                          onClick={() => (setTimeUnit(timeoption), setViewTimeOptions(false))}> {timeoption} </div>
-                        )
-                      })} 
+                      <div className='selectOptions' style={{width:"116px"}}>
+                        {timeOptions.map((timeOption) => {
+                          return(
+                            <div key={timeOption} className='option'
+                            onClick={() => (setTime(timeOption), setViewTimeOptions(false))}> {timeOption} </div>
+                          )
+                        })} 
                     </div>
                   )}
-                </div></div>
-              
-              </div>
-            </div>
+              </div></div>
+            </div> 
             {timeError && (<div className="errorMessage"> {timeError} </div> )} 
         </div>
 

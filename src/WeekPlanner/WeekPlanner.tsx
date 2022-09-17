@@ -1,4 +1,3 @@
-import React from 'react';
 import { AppLayout } from '../App';
 import '../App.css';
 import './WeekPlanner.css';

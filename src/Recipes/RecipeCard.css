@@ -18,6 +18,46 @@
     column-gap: 20px;
     row-gap: 10px;
   }
+  
+  .card {
+    --cards: 2;
+    width: calc((80vw - calc(var(--cards) - 1) * 20px) / var(--cards)) !important;
+  }
+
+  .moreButton {
+    --cards: 2;
+    width: calc((80vw - calc(var(--cards) - 1) * 20px) / var(--cards)) !important;
+  }
+}
+
+@media (min-width: 700px) {
+  .card {
+    --cards: 3;
+  }
+
+  .moreButton {
+    --cards: 3;
+  }
+}
+
+@media (min-width: 920px) {
+  .card {
+    --cards: 4;
+  }
+
+  .moreButton {
+    --cards: 4;
+  }
+}
+
+@media (min-width: 1250px) {
+  .card {
+    --cards: 5;
+  }
+
+  .moreButton {
+    --cards: 5;
+  }
 }
 
 .cardWrapper::-webkit-scrollbar {
@@ -31,7 +71,7 @@
   box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   flex-direction: column;
-  width: 170px;
+  width: calc(50vw - 4.4vw - 10px);
   height: 270px;
   margin-bottom: 10px;
   background-color: white;
@@ -86,7 +126,6 @@
 .removeTag {
   position: relative;
   left: 5px;
-  /*bottom: 5px;*/
   width: 10px;
   cursor: pointer;
 }
@@ -127,7 +166,6 @@
 
 .popupContent .recipeImage {
   opacity: 0.5;
-  /*height: 30%;*/
   height: 220px;
 }
 
@@ -146,7 +184,7 @@
 
 .moreButton {
   position: absolute;
-  width: 170px;
+  width: calc(50vw - 4.4vw - 10px);
   display: flex;
   justify-content: flex-end;
   z-index: 1;

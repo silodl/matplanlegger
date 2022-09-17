@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Recipe } from "../Recipes/AddRecipe";
 import { CookbookProps } from "./UseCookbooks";
 
-export const useCookbook = (id: string | undefined, time?: string, categories?: string[], tags?: string[], searchWords?: string[]) => {
+export const useCookbook = (id: string | undefined, time?: string[], categories?: string[], tags?: string[], searchWords?: string[]) => {
 
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [cookbook, setCookbook] = useState<CookbookProps>();
@@ -28,6 +28,7 @@ export const useCookbook = (id: string | undefined, time?: string, categories?: 
                             if(docSnap2.exists() 
                                 && (!categories || (categories && categories.includes(docSnap2.get("category"))))
                                 && (!tags || (tags && tags.every(tag => docSnap2.get("tags").includes(tag))))
+                                && (!time || (time && time.includes(docSnap2.get("time"))))
                                 && (!searchWords || (searchWords && searchWords.every(word => (docSnap2.get("name") as string).toLowerCase().includes(word))))
                             ) {
                                 const url = docSnap2.get("url");
