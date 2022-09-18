@@ -7,7 +7,7 @@ import { useCookbook } from './UseCookbook';
 import book from '../Images/book.png';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { ViewAllRecipes } from '../Recipes/ViewAllRecipes';
-import { AddRecipeToCookbook } from './AddRecipeToCookbook';
+import { AddRecipesToCookbook } from './AddRecipeToCookbook';
 import settings from '../Images/Icons/Settings.svg';
 import { CookbookProps } from './UseCookbooks';
 import { DeleteCookbook } from './DeleteCookbook';
@@ -34,18 +34,14 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
   const [nameError, setNameError] = useState<string | undefined>();
   const [ownerError, setOwnerError] = useState<string | undefined>();
 
-  console.log(props.cookbook)
-
   useEffect(() => {
     if(user && user.email) {
       let cookBookOwners = props.cookbook.owners;
       const index = cookBookOwners.indexOf(user.email);
       cookBookOwners.splice(index, 1);
       setOwners([...cookBookOwners]);
-      console.log("?---?", cookBookOwners, props.cookbook.owners)
       if(cookBookOwners.length >= 1) {
         setShare(true);
-        console.log("??")
       }
     }
   },[props.cookbook, user])
@@ -202,8 +198,6 @@ export const Cookbook = () => {
   const [searchWords, setSearchWords] = useState<string[]>([]);
   const {cookbook, recipes} = useCookbook(id, time, chosenCategories, tags, searchWords);
 
-  console.log(cookbook)
-
   useEffect(() => {
     if(loadCount > 1) {
       setIsLoading(false);
@@ -218,10 +212,12 @@ export const Cookbook = () => {
     })
   },[recipes])
 
-  const AddRecipeToBook = async(recipeID: string) => {
+  const AddRecipesToBook = async(recipeIDs: string[]) => {
     if (user && id) {
-      AddRecipeToCookbook({recipeID, userID: user.uid, bookID: id})
-      .then(() => setViewAllRecipes(false))
+      //new Promise<void>((resolve, reject) => {
+        //recipeIDs.forEach((recipeID) => {
+        AddRecipesToCookbook({recipeIDs, userID: user.uid, bookID: id})
+        .then(() => setViewAllRecipes(false))
     }
   }
 
@@ -230,39 +226,39 @@ export const Cookbook = () => {
     let checkbox = document.getElementById(`checkbox${category}`);
 
     if(chosenCategories && chosenCategories.includes(category) && chosenCategories.length !== 6) {
-        if(chosenCategories.length === 1) {
-            setChosenCategories(undefined)
-        }
-        else {
-            let newArray = chosenCategories;
-            const index = newArray.indexOf(category);
-            newArray.splice(index, 1);
-            setChosenCategories([...newArray])
-        }
+      if(chosenCategories.length === 1) {
+        setChosenCategories(undefined)
+      }
+      else {
+        let newArray = chosenCategories;
+        const index = newArray.indexOf(category);
+        newArray.splice(index, 1);
+        setChosenCategories([...newArray])
+      }
 
-        if(checkmark) {
-            checkmark.className = "hiddenCheckmark"
-        }
-        if(checkbox) {
+      if(checkmark) {
+        checkmark.className = "hiddenCheckmark"
+      }
+      if(checkbox) {
         checkbox.className = "checkbox"
-        }
+      }
     }
     else {
-        if(chosenCategories && chosenCategories.length !== 6) {
-            let newArray = chosenCategories;
-            newArray.push(category);
-            setChosenCategories([...newArray])
-        }
-        else {
-            setChosenCategories([category])
-        }
+      if(chosenCategories && chosenCategories.length !== 6) {
+        let newArray = chosenCategories;
+        newArray.push(category);
+        setChosenCategories([...newArray])
+      }
+      else {
+        setChosenCategories([category])
+      }
 
-        if(checkmark) {
-            checkmark.className = ""
-        }
-        if(checkbox) {
-            checkbox.className = "checkbox checked"
-        }
+      if(checkmark) {
+        checkmark.className = ""
+      }
+      if(checkbox) {
+        checkbox.className = "checkbox checked"
+      }
     }
   }
 
@@ -443,7 +439,7 @@ export const Cookbook = () => {
       <Filters/>
 
       {viewAllRecipes && (
-        <ViewAllRecipes addedRecipes={recipeIDs} close={() => setViewAllRecipes(false)} action={(recipeID: string) => AddRecipeToBook(recipeID)}/>
+        <ViewAllRecipes addedRecipes={recipeIDs} close={() => setViewAllRecipes(false)} action={(recipeIDs: string[]) => AddRecipesToBook(recipeIDs)}/>
       )}
 
       {doEditCookbook && cookbook && (

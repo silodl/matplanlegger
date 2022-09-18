@@ -234,3 +234,13 @@
   width: min-content;
   cursor: pointer;
 }
+
+.moreButton .checkbox {
+  border-color: #333;
+  background-color: white;
+  margin: 0;
+}
+
+.moreButton .checkbox img {
+  width: 12px;
+}

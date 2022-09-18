@@ -8,12 +8,12 @@ import './RecipeCard.css';
 import recipeCover from '../Images/Icons/EmptyRecipe.svg';
 import { Tag } from "./Tag";
 import checkmark from '../Images/Icons/Checkmark_black.svg';
+import { timeOptions } from "./NewRecipe";
 
 export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
 
     const [name, setName] = useState(props.recipe.name);
-    const [time, setTime] = useState(props.recipe.time.split(" ")[0]);
-    const [timeUnit, setTimeUnit] = useState(props.recipe.time.split(" ")[1]);
+    const [time, setTime] = useState(props.recipe.time);
     const [tags, setTags] = useState(props.recipe.tags);
     const [viewTimeOptions, setViewTimeOptions] = useState(false);
     const [viewDelete, setViewDelete] = useState(false);
@@ -22,6 +22,8 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
     const user = useLoggedInUser();
     const [isDeleting, setIsDeleting] = useState(false);
     const [isFinishedDeleting, setIsFinishedDeleting] = useState(false);
+
+    const [titleError, setTitleError] = useState<string | undefined>();
 
     const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === "Enter" && e.target.value !== "") {
@@ -58,15 +60,19 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
     }
 
     const updateRecipe = () => {
-        const cookTime = time + " " + timeUnit
         if (user) {
-            const updatedRecipe: Recipe = props.recipe;
-            updatedRecipe.name = name;
-            updatedRecipe.tags = tags;
-            updatedRecipe.time = cookTime;
-            UpdateRecipe({recipe: updatedRecipe, imageFile: image})
-            .then(() => 
-            props.avbryt())
+            if(name === "") {
+                setTitleError("Legg til tittel")
+            }
+              else {
+                const updatedRecipe: Recipe = props.recipe;
+                updatedRecipe.name = name;
+                updatedRecipe.tags = tags;
+                updatedRecipe.time = time;
+                UpdateRecipe({recipe: updatedRecipe, imageFile: image})
+                .then(() => 
+                props.avbryt())
+              }
         }
     }
 
@@ -114,32 +120,31 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                         <input className="inputField" 
                             value={name} style={{width: "320px"}}
                             onChange={(e) => setName(e.target.value)}/>
+                        {titleError && (<div className="errorMessage"> {titleError} </div> )} 
                     </div>
                     
                     <div>
-                        <div className="fieldTitle"> Tidsbruk </div>
+                        <div className="fieldTitle"> Tid </div>
                         <div className="cookTime">
                             <img src={clock} alt="clock"/>
-
-                            <input className="inputField" 
-                            value={time} size={3}
-                            onChange={(e) => setTime(e.target.value)}/>
-
                             <div tabIndex={0} onBlur={() => setViewTimeOptions(false)}>
-                                <div className={viewTimeOptions? "selectField selectFieldOpen" :"selectField"} style={{width: "85px"}}
-                                onClick={() => setViewTimeOptions(!viewTimeOptions)}> {timeUnit} <div className="selectFieldArrow"/> 
+                                <div className={viewTimeOptions ? "selectField selectFieldOpen" :"selectField"} style={{width: "100px"}}
+                                    onClick={() => setViewTimeOptions(!viewTimeOptions)}> {time} <div className="selectFieldArrow"/>
                                 </div>
 
                                 <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
-                                {viewTimeOptions && (
-                                    <div className='selectOptions' style={{width: "101px"}}>
-                                    <div onClick={() => (setTimeUnit("minutter"), setViewTimeOptions(false))} className="option"> minutter </div>
-                                    <div onClick={() => (setTimeUnit("timer"), setViewTimeOptions(false))} className="option"> timer </div>
-                                    </div>
-                                )}
+                                    {viewTimeOptions && (
+                                        <div className='selectOptions' style={{width:"116px"}}>
+                                            {timeOptions.map((timeOption) => {
+                                            return(
+                                                <div key={timeOption} className='option'
+                                                onClick={() => (setTime(timeOption), setViewTimeOptions(false))}> {timeOption} </div>
+                                            )
+                                            })} 
+                                        </div>
+                                    )}
                                 </div></div>
-          
-                            </div>
+                            </div> 
                         </div>
                     </div>
                     

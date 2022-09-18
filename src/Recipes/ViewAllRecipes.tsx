@@ -10,7 +10,6 @@ import { categories, timeOptions } from "./NewRecipe";
 import { Tag } from "./Tag";
 import checkmark from '../Images/Icons/Checkmark_black.svg';
 
-
 interface Props {
     action: Function,
     close: Function,
@@ -25,6 +24,9 @@ export const ViewAllRecipes = (props: Props) => {
     const [time, setTime] = useState<string[]>();
     const [searchWords, setSearchWords] = useState<string[]>([]);
     const recipes = useRecipes(props.addedRecipes, time, chosenCategories, tags, searchWords);
+    const isCookbook = window.location.pathname.includes("kokebok");
+    const [checkedRecipes, setCheckedRecipes] = useState<string[]>([])
+    const isPlanning = window.location.pathname.includes("ukeplanlegger");
 
     const handleCategories = (category: string) => {
         let checkmark = document.getElementById(`checkmark${category}`);
@@ -129,6 +131,40 @@ export const ViewAllRecipes = (props: Props) => {
             setTags([...newArray]) 
         }
     }
+
+    const handleClick = (recipeID: string) => {
+        let checkmark = document.getElementById(`checkmark${recipeID}`);
+        let checkbox = document.getElementById(`checkbox${recipeID}`);
+
+        if(checkedRecipes.includes(recipeID)) {
+            const index = checkedRecipes.indexOf(recipeID);
+            checkedRecipes.splice(index, 1);
+            setCheckedRecipes([...checkedRecipes]);
+
+            if(checkmark) {
+                checkmark.className = "hiddenCheckmark"
+            }
+            if(checkbox) {
+                checkbox.className = "checkbox"
+            }
+        }
+        else {
+            setCheckedRecipes(old => [...old, recipeID]);
+
+            if(checkmark) {
+                checkmark.className = ""
+            }
+            if(checkbox) {
+                checkbox.className = "checkbox checked"
+            }
+        }
+    }
+
+    const submit = () => {
+        props.action(checkedRecipes);
+        //props.close();
+    }
+
     const Filters = () => {
         return (
             <>
@@ -190,11 +226,12 @@ export const ViewAllRecipes = (props: Props) => {
                 <Filters/>
 
                 <div className="pageHeader fullHeader"> 
-                    <div className="left"> 
+                    <div className="left centerElements"> 
                         <div className="secondaryButton filterButton" onClick={() => setViewFilters(true)}>
                             <img src={filter} alt="filter" width="20px"/>  
                             <span className="desktop"> Filtrer </span> 
-                        </div>
+                        </div> 
+                        <div className="secondaryButton button" onClick={() => submit()}> Legg til  </div>
                     </div>
 
                     <div className='right'> 
@@ -228,7 +265,16 @@ export const ViewAllRecipes = (props: Props) => {
                 :
                     recipes.map((recipe: Recipe) => {
                         return(
-                            <div onClick={() => props.action(recipe.id)} key={recipe.id}>
+                            <div onClick={() => (!isCookbook && (props.action(recipe.id)))} key={recipe.id}>
+                                
+                                {isCookbook && (
+                                    <div className="moreButton"> 
+                                        <div id={`checkbox${recipe.id}`} className={checkedRecipes.includes(recipe.id) ? "checkbox checked" : "checkbox"} onClick={() => handleClick(recipe.id)}>
+                                            <img src={checkmark} id={`checkmark${recipe.id}`} alt="checkmark" className={checkedRecipes.includes(recipe.id) ? "" : "hiddenCheckmark"}/>
+                                        </div>
+                                    </div>
+                                )}
+
                                 <Card key={recipe.url} recipe={recipe} clickable={false}/>
                             </div>
                         )

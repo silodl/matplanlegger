@@ -18,7 +18,6 @@ export const useCookbook = (id: string | undefined, time?: string[], categories?
                     const name: string = cookbook.get("name");
                     const id = cookbook.id;
                     const owners: string[] = cookbook.get("owners");
-                    console.log(owners)
                     const recipeIDs: string[] = cookbook.get("recipes");
                     const book: CookbookProps = {name, id, recipes: recipeIDs, owners}
                     setCookbook(book);
@@ -42,7 +41,9 @@ export const useCookbook = (id: string | undefined, time?: string[], categories?
                                 const owner = user.uid
                                 const id = docSnap2.id;
                                 const recipe = {url, file, name, category, image, time, tags, owner, id};
-                                setRecipes(old => [...old, recipe])
+                                //if(!recipes.includes(recipe)) {
+                                    setRecipes(old => [...old, recipe])
+                                //}
                             }
                         })
                     })

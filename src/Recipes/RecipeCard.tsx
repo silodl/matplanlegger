@@ -100,6 +100,7 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
                         </div>
                     </div>
                 )}
+
                 <div className={props.clickable ? "card clickable" : "card" } onClick={() => (props.clickable ? HandleClick("view") : "")}>  
                     {props.recipe.image !== "" 
                     ? <img className='recipeImage' src={props.recipe.image} alt="food"/>

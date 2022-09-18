@@ -1,8 +1,8 @@
 import { AppLayout } from '../App';
 import { useCookbooks } from './UseCookbooks';
-import { Book } from './Book';
 import books from '../Images/books.png';
 import { useState, useEffect } from 'react';
+import './Book.css';
 
 export const LoadCookbook = (id: string) => {
     window.location.pathname = `/kokebok/${id}`;
@@ -41,7 +41,7 @@ export const Cookbooks = () => {
                         {cookbooks.map((book) => {
                             return(
                                 <div onClick={() => LoadCookbook(book.id)} key={book.id}>
-                                    <Book booktitle={book.name} />   
+                                    <div className="book"> {book.name} </div>
                                 </div>
                             )
                         })}

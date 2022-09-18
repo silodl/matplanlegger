@@ -183,3 +183,8 @@
 .errorMessage {
   color: #ff4949;
 }
+
+::placeholder {
+  color: var(--color-primary);
+  font-weight: 100;
+}

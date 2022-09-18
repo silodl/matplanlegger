@@ -128,7 +128,7 @@ export const NewCookbook = () => {
                   <div className="owner" key={owner}>{owner} <img src={close} className="removeTag" alt="close" onClick={() => removeOwner(owner)}/></div>
                 )
               })}
-              <input className='inputField' value={newOwner} 
+              <input className='inputField' value={newOwner} placeholder="ola@mail.no"
               onChange={(e) => (setNewOwner(e.target.value), setOwnerError(undefined))} onKeyDown={(e) => handleOwners(e)}
               />
             </div>

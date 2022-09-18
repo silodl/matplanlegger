@@ -54,10 +54,10 @@
         width: 100%;
     }
     .navbarIcons img {
-        width: 30px;
-        height: 30px;
+        /*height: 40px;*/
+        width: 40px;
         display: block;
-        padding: 10px;
+        padding: 5px 10px;
     }
     .active {
         background-color: var(--color-primary);

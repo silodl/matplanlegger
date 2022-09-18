@@ -39,7 +39,6 @@ export const NewRecipe = () => {
   const [urlError, setUrlError] = useState<string | undefined>();
   const [fileError, setFileError] = useState<string | undefined>();
   const [titleError, setTitleError] = useState<string | undefined>();
-  const [timeError, setTimeError] = useState<string | undefined>();
 
   useEffect(() => {
     if(loadCount > 1) {
@@ -119,9 +118,6 @@ export const NewRecipe = () => {
         }
         if(title === "") {
           setTitleError("Legg til tittel")
-        }
-        if(time === "") {
-          setTimeError("Legg til en estimert tid")
         }
       }
       else {
@@ -297,7 +293,6 @@ export const NewRecipe = () => {
                   )}
               </div></div>
             </div> 
-            {timeError && (<div className="errorMessage"> {timeError} </div> )} 
         </div>
 
         <div>
