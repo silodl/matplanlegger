@@ -7,7 +7,7 @@ import './RecipeCard.css';
 import book from '../Images/book.png';
 import filter from '../Images/Icons/Filter.png';
 import { useEffect, useState } from "react";
-import checkmark from '../Images/Icons/Checkmark_black.svg';
+import checkmark from '../Images/Icons/Checkmark.svg';
 import { categories, timeOptions } from "./NewRecipe";
 import { Tag } from "./Tag";
 import close from '../Images/Icons/Close.png';

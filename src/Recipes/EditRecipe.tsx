@@ -7,7 +7,7 @@ import { DeleteRecipe } from "./DeleteRecipe";
 import './RecipeCard.css';
 import recipeCover from '../Images/Icons/EmptyRecipe.svg';
 import { Tag } from "./Tag";
-import checkmark from '../Images/Icons/Checkmark_black.svg';
+import checkmark from '../Images/Icons/Checkmark.svg';
 import { timeOptions } from "./NewRecipe";
 
 export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {

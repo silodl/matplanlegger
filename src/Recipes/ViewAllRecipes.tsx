@@ -8,7 +8,7 @@ import filter from '../Images/Icons/Filter.png';
 import { useState } from 'react';
 import { categories, timeOptions } from "./NewRecipe";
 import { Tag } from "./Tag";
-import checkmark from '../Images/Icons/Checkmark_black.svg';
+import checkmark from '../Images/Icons/Checkmark.svg';
 import dinner from '../Images/Dinner.png';
 
 interface Props {

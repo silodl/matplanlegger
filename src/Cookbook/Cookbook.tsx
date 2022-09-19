@@ -13,7 +13,7 @@ import { CookbookProps } from './UseCookbooks';
 import { DeleteCookbook } from './DeleteCookbook';
 import { UpdateCookbook } from './UpdateCookbook';
 import '../App.css';
-import checkmark from '../Images/Icons/Checkmark_black.svg';
+import checkmark from '../Images/Icons/Checkmark.svg';
 import { categories, timeOptions } from "../Recipes/NewRecipe";
 import { Tag } from "../Recipes/Tag";
 import filter from '../Images/Icons/Filter.png';

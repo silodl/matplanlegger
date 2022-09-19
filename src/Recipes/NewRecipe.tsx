@@ -6,7 +6,7 @@ import fetch from 'node-fetch';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { Tag } from './Tag';
 import { CookbookProps, useCookbooks } from '../Cookbook/UseCookbooks';
-import checkmark from '../Images/Icons/Checkmark_black.svg';
+import checkmark from '../Images/Icons/Checkmark.svg';
 
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Bakverk" | "Drinker";
 

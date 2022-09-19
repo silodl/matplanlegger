@@ -3,6 +3,7 @@ import { useCookbooks } from './UseCookbooks';
 import books from '../Images/books.png';
 import { useState, useEffect } from 'react';
 import './Book.css';
+import add from '../Images/Icons/Add.png';
 
 export const LoadCookbook = (id: string) => {
     window.location.pathname = `/kokebok/${id}`;
@@ -31,7 +32,8 @@ export const Cookbooks = () => {
                     <div className='title'> Mine kokebøker </div>
                     <div className='right'> 
                         <a href="/ny_kokebok">
-                            <span className="mobile iconButton"> + </span> <span className="desktop button"> Ny kokebok </span>
+                            <div className="mobile iconButton"><img src={add} width="20px" alt="add"/></div> 
+                            <div className="desktop button"> Ny kokebok </div>
                         </a>
                     </div>
                 </div>
