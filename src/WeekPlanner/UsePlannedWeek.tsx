@@ -33,14 +33,13 @@ export const usePlannedWeek = (props: {week: string}) => {
                                     const tags = docSnaps.get("tags");
                                     const owner = user.uid
                                     const recipe = {url, file, name, category, image, time, tags, owner, id: recipeID};
-    
                                     if(plannedWeek[day].length > 0) {
                                         plannedWeek[day].push(recipe)
                                     } 
                                     else {
                                         plannedWeek[day] = [recipe];
                                     }
-                                    setRecipes(plannedWeek);
+                                    setRecipes({...plannedWeek});
                                 }
                             })
                         })

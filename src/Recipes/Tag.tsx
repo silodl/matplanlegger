@@ -1,5 +1,5 @@
 import './RecipeCard.css';
-import close from '../Images/Icons/Close.svg';
+import close from '../Images/Icons/Close.png';
 
 export const Tag = (props:{tags: string[], removable?: boolean, onRemove?(tag: string): void}) => {
 

@@ -336,7 +336,7 @@ export const NewRecipe = () => {
           </div>
         )}
         
-        <div className='primaryButton button center' onClick={() => AddNewRecipe()}> Legg til </div>
+        <div className='primaryButton button center' style={{minHeight: "40px"}} onClick={() => AddNewRecipe()}> Legg til </div>
       </form>
     </AppLayout>
   );

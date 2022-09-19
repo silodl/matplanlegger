@@ -31,7 +31,7 @@ export const Cookbooks = () => {
                     <div className='title'> Mine kokebøker </div>
                     <div className='right'> 
                         <a href="/ny_kokebok">
-                            <span className="mobile mobileButton secondaryButton"> + </span> <span className="desktop button secondaryButton"> Ny kokebok </span>
+                            <span className="mobile iconButton"> + </span> <span className="desktop button"> Ny kokebok </span>
                         </a>
                     </div>
                 </div>

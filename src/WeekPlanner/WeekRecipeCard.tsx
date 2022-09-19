@@ -1,8 +1,8 @@
 import { Recipe } from '../Recipes/AddRecipe';
 import './WeekRecipeCard.css';
-import clock from '../Images/Icons/Clock.svg';
+import clock from '../Images/Icons/Clock.png';
 import { Tag } from "../Recipes/Tag";
-import more from '../Images/Icons/More.svg';
+import more from '../Images/Icons/More.png';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import React, { useState } from 'react';
 import { RemovePlannedRecipe } from './RemovePlannedRecipe';

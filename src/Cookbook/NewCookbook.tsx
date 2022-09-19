@@ -6,7 +6,7 @@ import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { AddCookbook } from './AddCookbook';
 import checkmark from '../Images/Icons/Checkmark_black.svg';
 import { useCheckUser } from './UseCheckUser';
-import close from '../Images/Icons/Close.svg';
+import close from '../Images/Icons/Close.png';
 
 export const NewCookbook = () => {
 

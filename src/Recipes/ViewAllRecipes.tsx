@@ -1,14 +1,15 @@
-import close from '../Images/Icons/Close.svg';
+import close from '../Images/Icons/Close.png';
 import { useRecipes } from './UseRecipes';
 import book from '../Images/book.png';
 import { Recipe } from './AddRecipe';
 import { Card } from './RecipeCard';
 import './ViewAllRecipes.css';
-import filter from '../Images/Icons/Filter.svg';
+import filter from '../Images/Icons/Filter.png';
 import { useState } from 'react';
 import { categories, timeOptions } from "./NewRecipe";
 import { Tag } from "./Tag";
 import checkmark from '../Images/Icons/Checkmark_black.svg';
+import dinner from '../Images/Dinner.png';
 
 interface Props {
     action: Function,
@@ -24,6 +25,8 @@ export const ViewAllRecipes = (props: Props) => {
     const [time, setTime] = useState<string[]>();
     const [searchWords, setSearchWords] = useState<string[]>([]);
     const recipes = useRecipes(props.addedRecipes, time, chosenCategories, tags, searchWords);
+    const dinners = useRecipes(props.addedRecipes, time, ["Middag"], tags, searchWords);
+
     const isCookbook = window.location.pathname.includes("kokebok");
     const [checkedRecipes, setCheckedRecipes] = useState<string[]>([])
     const isPlanning = window.location.pathname.includes("ukeplanlegger");
@@ -160,9 +163,10 @@ export const ViewAllRecipes = (props: Props) => {
         }
     }
 
-    const submit = () => {
-        props.action(checkedRecipes);
-        //props.close();
+    const getRandomRecipe = () => {
+        const randomIndex = Math.floor(Math.random() * dinners.length)
+        const randomRecipe = dinners[randomIndex];
+        props.action(randomRecipe.id);
     }
 
     const Filters = () => {
@@ -227,11 +231,16 @@ export const ViewAllRecipes = (props: Props) => {
 
                 <div className="pageHeader fullHeader"> 
                     <div className="left centerElements"> 
-                        <div className="secondaryButton filterButton" onClick={() => setViewFilters(true)}>
+                        <div className="button desktop" onClick={() => setViewFilters(true)}>
                             <img src={filter} alt="filter" width="20px"/>  
-                            <span className="desktop"> Filtrer </span> 
+                            <span> Filtrer </span> 
+                        </div>
+
+                        <div className="iconButton mobile" onClick={() => setViewFilters(true)}>
+                            <img src={filter} alt="filter" width="20px"/>  
                         </div> 
-                        <div className="secondaryButton button" onClick={() => submit()}> Legg til  </div>
+
+                        <div className="button" onClick={() => props.action(checkedRecipes)}> Legg til  </div>
                     </div>
 
                     <div className='right'> 
@@ -263,7 +272,16 @@ export const ViewAllRecipes = (props: Props) => {
                     src={book} alt="book"/>
                     </div>
                 :
-                    recipes.map((recipe: Recipe) => {
+                    <>
+                    {isPlanning && (
+                        <div className="card" onClick={() => getRandomRecipe()}>
+                            <div className="randomRecipe">
+                                Velg en tilfeldig oppskrift fra dine oppskrifter
+                                <img src={dinner} alt="random" width="80px"/>
+                            </div>
+                        </div>
+                    )}
+                    {recipes.map((recipe: Recipe) => {
                         return(
                             <div onClick={() => (!isCookbook && (props.action(recipe.id)))} key={recipe.id}>
                                 
@@ -278,7 +296,8 @@ export const ViewAllRecipes = (props: Props) => {
                                 <Card key={recipe.url} recipe={recipe} clickable={false}/>
                             </div>
                         )
-                    })
+                    })}
+                    </>
                 }
             <img src={close} alt="close" className="closeButton" onClick={() => props.close()}/>
             </div> 

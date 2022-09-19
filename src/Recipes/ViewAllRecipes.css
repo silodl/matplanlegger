@@ -1,10 +1,10 @@
 .alignRecipes {
-  z-index: 2;
+  z-index: 20;
   position: fixed;
   left: 0;
   top: 0;
   width: 80vw;
-  height: 100vh;
+  height: calc(100vh - 40px);
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -50,7 +50,7 @@
 }
 
 .alignRecipes .pageHeader .searchField {
-  padding: 8px;
+  padding: 0 8px;
 }
 
 .alignRecipes .sideBox {

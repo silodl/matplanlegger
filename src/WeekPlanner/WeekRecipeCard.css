@@ -25,5 +25,5 @@
 }
 
 .side .moreButton {
-    width: 330px;
+    width: 330px !important;
 }

@@ -1,10 +1,10 @@
 import { Recipe } from './AddRecipe';
-import clock from '../Images/Icons/Clock.svg';
+import clock from '../Images/Icons/Clock.png';
 import { Tag } from './Tag';
 import './RecipeCard.css';
 import React, { useState } from 'react';
 import { EditRecipe } from './EditRecipe';
-import more from '../Images/Icons/More.svg';
+import more from '../Images/Icons/More.png';
 import { DeleteRecipe } from './DeleteRecipe';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { RemoveRecipeFromBook } from '../Cookbook/RemoveRecipeFromBook';
@@ -60,7 +60,7 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
                         <div className="popupContent deleteAlert">
                             <div style={{display: "flex", flexWrap: "wrap"}}> Er du sikker på at du vil slette {props.recipe.name} ? </div>
                             <div className="centerElements">
-                                <div className="secondaryButton button" onClick={() => setViewDelete(false)}> Avbryt </div>
+                                <div className="button" onClick={() => setViewDelete(false)}> Avbryt </div>
                                 <div className="deleteButton button" onClick={() => deleteRecipe()}> Slett </div>
                             </div>
                         </div>

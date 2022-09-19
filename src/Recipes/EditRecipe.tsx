@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Recipe } from "./AddRecipe";
-import clock from '../Images/Icons/Clock.svg';
+import clock from '../Images/Icons/Clock.png';
 import { useLoggedInUser } from "../Authentication/UseLoggedInUser";
 import { UpdateRecipe } from "./UpdateRecipe";
 import { DeleteRecipe } from "./DeleteRecipe";
@@ -160,7 +160,7 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                 <div className="centerElements" style={{padding: "10px"}}>
                     <div className="deleteButton button" onClick={() => setViewDelete(true)}> Slett </div>
                     <div style={{display: "flex", columnGap: "10px"}}>
-                        <div className="secondaryButton button" onClick={() => props.avbryt()}> Avbryt </div>
+                        <div className="button" onClick={() => props.avbryt()}> Avbryt </div>
                         <div className="primaryButton button" onClick={() => updateRecipe()}> Lagre </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                     <div className="popupContent deleteAlert">
                         <div style={{display: "flex", flexWrap: "wrap"}}> Er du sikker på at du vil slette {props.recipe.name} ? </div>
                         <div className="centerElements">
-                            <div className="secondaryButton button" onClick={() => setViewDelete(false)}> Avbryt </div>
+                            <div className="button" onClick={() => setViewDelete(false)}> Avbryt </div>
                             <div className="deleteButton button" onClick={() => deleteRecipe()}> Slett </div>
                         </div>
                     </div>

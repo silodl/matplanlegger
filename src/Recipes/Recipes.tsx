@@ -5,12 +5,13 @@ import { Recipe } from "./AddRecipe";
 import './NewRecipe.css';
 import './RecipeCard.css';
 import book from '../Images/book.png';
-import filter from '../Images/Icons/Filter.svg';
+import filter from '../Images/Icons/Filter.png';
 import { useEffect, useState } from "react";
 import checkmark from '../Images/Icons/Checkmark_black.svg';
 import { categories, timeOptions } from "./NewRecipe";
 import { Tag } from "./Tag";
-import close from '../Images/Icons/Close.svg';
+import close from '../Images/Icons/Close.png';
+import add from '../Images/Icons/Add.png';
 
 export const Recipes = () => {
 
@@ -193,9 +194,13 @@ export const Recipes = () => {
         return (
             <div className="pageHeader fullHeader"> 
                 <div className="left centerElements"> 
-                    <div className="secondaryButton filterButton" onClick={() => setViewFilters(true)}>
+                    <div className="button desktop" onClick={() => setViewFilters(true)}>
                         <img src={filter} alt="filter" width="20px"/>  
-                        <span className="desktop"> Filtrer </span> 
+                        <span> Filtrer </span> 
+                    </div>
+
+                    <div className="iconButton mobile" onClick={() => setViewFilters(true)}>
+                        <img src={filter} alt="filter" width="20px"/>  
                     </div>
 
                     <input className="searchField inputField desktop" type="text"  key="search"
@@ -230,7 +235,8 @@ export const Recipes = () => {
 
                     <div>
                         <a href="/ny_oppskrift">
-                            <span className="mobile mobileButton secondaryButton"> + </span> <span className="desktop button secondaryButton"> Ny oppskrift </span>
+                            <div className="mobile iconButton"><img src={add} width="20px" alt="add"/></div> 
+                            <span className="desktop button"> Ny oppskrift </span>
                         </a>
                     </div>
                 </div>

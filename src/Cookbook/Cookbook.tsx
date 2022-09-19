@@ -8,7 +8,7 @@ import book from '../Images/book.png';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { ViewAllRecipes } from '../Recipes/ViewAllRecipes';
 import { AddRecipesToCookbook } from './AddRecipeToCookbook';
-import settings from '../Images/Icons/Settings.svg';
+import settings from '../Images/Icons/Settings.png';
 import { CookbookProps } from './UseCookbooks';
 import { DeleteCookbook } from './DeleteCookbook';
 import { UpdateCookbook } from './UpdateCookbook';
@@ -16,9 +16,10 @@ import '../App.css';
 import checkmark from '../Images/Icons/Checkmark_black.svg';
 import { categories, timeOptions } from "../Recipes/NewRecipe";
 import { Tag } from "../Recipes/Tag";
-import filter from '../Images/Icons/Filter.svg';
-import close from '../Images/Icons/Close.svg';
+import filter from '../Images/Icons/Filter.png';
+import close from '../Images/Icons/Close.png';
 import { useCheckUser } from './UseCheckUser';
+import add from '../Images/Icons/Add.png';
 
 const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
   const [name, setName] = useState(props.cookbook.name);
@@ -159,7 +160,7 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
           <div className="centerElements" style={{marginTop: "15px"}}>
             <div className="deleteButton button" onClick={() => setViewDelete(true)}> Slett </div>
             <div style={{display: "flex", columnGap: "10px"}}>
-              <div className="secondaryButton button" onClick={() => props.avbryt()}> Avbryt </div>
+              <div className="button" onClick={() => props.avbryt()}> Avbryt </div>
               <div className="primaryButton button" onClick={() => updateCookbook()}> Lagre </div>
             </div>
           </div>
@@ -171,7 +172,7 @@ const EditCookbook = (props: {cookbook: CookbookProps, avbryt: Function}) => {
               <div className="popupContent deleteAlert">
                   <div style={{display: "flex", flexWrap: "wrap"}}> Er du sikker på at du vil slette {props.cookbook.name} ? </div>
                   <div className="centerElements">
-                      <div className="secondaryButton button" onClick={() => setViewDelete(false)}> Avbryt </div>
+                      <div className="button" onClick={() => setViewDelete(false)}> Avbryt </div>
                       <div className="deleteButton button" onClick={() => deleteCookbook()}> Slett </div>
                   </div>
               </div>
@@ -214,10 +215,8 @@ export const Cookbook = () => {
 
   const AddRecipesToBook = async(recipeIDs: string[]) => {
     if (user && id) {
-      //new Promise<void>((resolve, reject) => {
-        //recipeIDs.forEach((recipeID) => {
-        AddRecipesToCookbook({recipeIDs, userID: user.uid, bookID: id})
-        .then(() => setViewAllRecipes(false))
+      AddRecipesToCookbook({recipeIDs, userID: user.uid, bookID: id})
+      .then(() => setViewAllRecipes(false))
     }
   }
 
@@ -329,9 +328,13 @@ export const Cookbook = () => {
     return (
         <div className="pageHeader fullHeader"> 
             <div className="left centerElements"> 
-              <div className="secondaryButton filterButton" onClick={() => setViewFilters(true)}>
+              <div className="button desktop" onClick={() => setViewFilters(true)}>
                 <img src={filter} alt="filter" width="20px"/>  
-                <span className="desktop"> Filtrer </span> 
+                <span> Filtrer </span> 
+              </div>
+
+              <div className="iconButton mobile" onClick={() => setViewFilters(true)}>
+                <img src={filter} alt="filter" width="20px"/>  
               </div>
 
               <input className="searchField inputField desktop" type="text"  key="search"
@@ -347,7 +350,7 @@ export const Cookbook = () => {
                 onBlur={() => setViewSearchField(false)}
               />
 
-              <img src={settings} className="mobile" onClick={() => setDoEditCookbook(true)} alt="settings" width="28px"/>
+              <img src={settings} className="mobile" onClick={() => setDoEditCookbook(true)} alt="settings" width="30px" height="30px"/>
 
             </div>
             
@@ -356,7 +359,7 @@ export const Cookbook = () => {
 
             <div className='right centerElements'> 
 
-              <img src={settings} className="desktop" onClick={() => setDoEditCookbook(true)} alt="settings" width="28px"/>
+              <img src={settings} className="desktop" onClick={() => setDoEditCookbook(true)} alt="settings" width="30px" height="30px"/>
 
               <input type="text" key="searchMobile" className="searchField inputField mobile"
                 autoFocus={viewSearchField}
@@ -371,7 +374,8 @@ export const Cookbook = () => {
               />
 
               <div onClick={() => setViewAllRecipes(true)}>
-                <span className="mobile mobileButton secondaryButton"> + </span> <span className="desktop button secondaryButton"> Legg til oppskrift </span>
+                <div className="mobile iconButton"><img src={add} width="20px" alt="add"/></div> 
+                <div className="desktop button"> <img src={add} width="20px" alt="add"/> Legg til oppskrift </div>
               </div>
 
             </div>

@@ -16,7 +16,7 @@
   overflow-y: hidden;
 }
 
-@media (min-width: 481px) {
+@media (min-width: 760px) {
   .weekplan {
     padding: 5px calc(50vw - 360px) 0 calc(50vw - 360px);
     height: calc(100vh - 131px);
@@ -48,26 +48,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.addRecipe {
-  border: 2px solid var(--color-primary);
-  border-radius: 8px;
-  font-size: 16px;
-  padding: 0 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.addRecipe:hover {
-  background-color: #e3d2c480;
-}
-
-.addRecipe > span {
-  font-size: 20px;
-  margin-left: 5px;
 }
 
 .recipeWrapper {

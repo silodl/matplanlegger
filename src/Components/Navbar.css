@@ -7,7 +7,7 @@
     align-items: center;
     box-shadow: rgb(0 0 0 / 10%) 0px 5px 10px -3px, rgb(0 0 0 / 5%) 0px -4px 6px -2px;
     background-color: #fff;
-    z-index: 100;
+    z-index: 10;
 }
 
 @media (min-width: 481px) {
