@@ -52,7 +52,7 @@ export const Cookbooks = () => {
                 
 
                 {isLoading && (
-                <div className="cardWrapper cardloading" style={{columnGap: "40px"}}>
+                <div className="cardWrapper" style={{columnGap: "40px"}}>
                 {Array.from(Array(3).keys()).map((i) => {
                     return(
                         <div className="book bookLoading" key={i}>

@@ -23,8 +23,6 @@ export const Authentication = () => {
   const [passwordError, setPasswordError] = useState<string | undefined>();
 
   const [isLoading, setIsLoading] = useState(true);
-  //const [loadCount, setLoadCount] = useState(1);
-
   const user = useLoggedInUser();
 
   useEffect(() => {
@@ -34,7 +32,6 @@ export const Authentication = () => {
     else {
       setIsLoading(false);
     }
-    //setLoadCount(loadCount + 1)
   },[user])
 
   const login = () =>{

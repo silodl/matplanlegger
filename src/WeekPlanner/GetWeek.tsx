@@ -34,23 +34,21 @@ export const GetWeek = (props: {week: number}) => {
 
     return(
         <>  
-            {isLoading && (
-                <div className="cardloading weekloader">
-                    {Array.from(Array(7).keys()).map((i: number) => {
-                        return(
-                            <div className="emptySideCard emptyCard" key={i}>
-                                <div className="headerLoader"> 
-                                    <div className="emptyText" style={{width: "25%"}}/> <div className="emptyText" style={{width: "20%"}}/> 
-                                </div>
-                                <div className="emptyContent">
-                                    <div className="emptyText" style={{width: "40%"}}/>
-                                    <div className="emptyText" style={{width: "30%"}}/>
-                                </div> 
+            {isLoading && 
+                Array.from(Array(4).keys()).map((i: number) => {
+                    return(
+                        <div className="emptySideCard emptyCard" key={i}>
+                            <div className="headerLoader"> 
+                                <div className="emptyText" style={{width: "25%"}}/> <div className="emptyText" style={{width: "20%"}}/> 
                             </div>
-                        )
-                    })}
-                </div>
-            )}  
+                            <div className="emptyContent">
+                                <div className="emptyText" style={{width: "40%"}}/>
+                                <div className="emptyText" style={{width: "30%"}}/>
+                            </div> 
+                        </div>
+                    )
+                })
+            }  
 
             {typeof(planDay) === "number" && (
                 <ViewAllRecipes close={() => setPlanDay(undefined)} action={(recipeID: string) => AddRecipeToPlan(recipeID)} />

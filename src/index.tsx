@@ -1,21 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {AppRouter} from './AppRouter';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { createRoot } from 'react-dom/client';
-
-/*
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-
-root.render(
-  <React.StrictMode>
-    <AppRouter />
-  </React.StrictMode>
-);
-*/
 
 const container = document.getElementById('root');
 const root = createRoot(container!);

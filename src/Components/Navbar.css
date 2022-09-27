@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     box-shadow: rgb(0 0 0 / 10%) 0px 5px 10px -3px, rgb(0 0 0 / 5%) 0px -4px 6px -2px;
-    background-color: #fff;
+    background-color: #fafafa;
     z-index: 10;
 }
 
@@ -54,7 +54,6 @@
         width: 100%;
     }
     .navbarIcons img {
-        /*height: 40px;*/
         width: 40px;
         display: block;
         padding: 5px 10px;

@@ -467,7 +467,7 @@ export const Cookbook = () => {
         
 
         {isLoading && (
-        <div className="cardWrapper cardloading">
+        <div className="cardWrapper">
             {Array.from(Array(3).keys()).map((i) => {
               return(
                 <div className="emptyCard" key={i}>

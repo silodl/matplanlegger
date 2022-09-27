@@ -3,7 +3,7 @@
     justify-content: center; 
     flex-wrap: wrap;
     margin-top: 50px;
-    outline: 10px solid white;
+    outline: 10px solid var(--background-color);
     height: 400px;
     width: fit-content;
     border: 2px solid var(--color-primary);
@@ -51,7 +51,7 @@
 }
 
 /* phone */
-@media /*(max-width: 480px) and*/ (max-width: 800px) {
+@media (max-width: 800px) {
     .landingPageTitle {
         font-size: 30px;
     }
@@ -93,16 +93,4 @@
     .mobile {
         display: none;
     }
-}
-
-.loadingpage {
-    width: 100vw;
-    height: 100vh;
-    background-color: white;
-    z-index: 1;
-    animation: loading infinite 1s ease-in;
-}
-
-@keyframes loading {
-    50% {transform: scale(1.2);}
 }

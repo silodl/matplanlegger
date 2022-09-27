@@ -2,8 +2,8 @@
 
 :root {
   --color-primary: #e3d2c4;
-  --background-color-secondary: #efe8dd;
-  --background-card: #f9feff;
+  --background-color: #fafafa;
+
 }
 
 .root {
@@ -16,6 +16,7 @@
   font-family: 'Nunito', sans-serif;
   font-weight: 300;
   user-select: none;
+  background-color: var(--background-color);
 }
 
 .pageHeader {

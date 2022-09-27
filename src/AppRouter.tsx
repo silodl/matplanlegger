@@ -14,37 +14,26 @@ import { MyProfile } from "./MyProfile";
 import { Recipes } from "./Recipes/Recipes";
 import { Recipe } from "./Recipes/Recipe";
 import { ErrorPage } from "./ErrorPage";
-import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./Firebase";
+import { LoadingPage } from "./LoadingPage";
   
 export const AppRouter = () => {
 
-    useEffect(() => {
-      const unlisten = onAuthStateChanged(auth, (user) => {
-        if (!user && window.location.pathname !== "/") {
-          window.location.pathname = "/";
-        }
-      });
-      return () => {
-        unlisten();
-      }
-    },[])
-
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Authentication/>}/>
-                <Route path="/ukeplanlegger" element={<WeekPlanner/>}/>
-                <Route path="/oppskrifter" element={<Recipes/>}/>
-                <Route path="/oppskrifter/:id" element={<Recipe/>}/>
-                <Route path="/ny_oppskrift" element={<NewRecipe/>}/>
-                <Route path="/kokebok" element={<Cookbooks/>}/>
-                <Route path="/ny_kokebok" element={<NewCookbook/>}/>
-                <Route path="/kokebok/:id" element={<Cookbook/>}/>
-                <Route path="/min_profil" element={<MyProfile/>}/>
-                <Route path="*" element={<ErrorPage/>}/>
-            </Routes>
-        </Router>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoadingPage/>}/>
+        <Route path="/logg_inn" element={<Authentication/>}/>
+        <Route path="/registrer" element={<Authentication/>}/>
+        <Route path="/ukeplanlegger" element={<WeekPlanner/>}/>
+        <Route path="/oppskrifter" element={<Recipes/>}/>
+        <Route path="/oppskrifter/:id" element={<Recipe/>}/>
+        <Route path="/ny_oppskrift" element={<NewRecipe/>}/>
+        <Route path="/kokebok" element={<Cookbooks/>}/>
+        <Route path="/ny_kokebok" element={<NewCookbook/>}/>
+        <Route path="/kokebok/:id" element={<Cookbook/>}/>
+        <Route path="/min_profil" element={<MyProfile/>}/>
+        <Route path="*" element={<ErrorPage/>}/>
+      </Routes>
+    </Router>
+  );
 }

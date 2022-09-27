@@ -112,7 +112,7 @@ input[type="url"] {
 }
 
 .fileInput::-webkit-file-upload-button {
-    background-color: #fff;
+    background-color: #fafafa;
     padding: 8px 10px !important;
     border: 1.5px solid var(--color-primary);
     border-radius: 10px;
@@ -183,7 +183,7 @@ input[type="url"] {
     padding: 0;
     z-index: 2;
     position: relative;
-    background-color: white;
+    background-color: var(--background-color);
 }
 
 .option {
@@ -298,7 +298,7 @@ input[type="number"] {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    background-color: white;
+    background-color: var(--background-color);
     box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -307,7 +307,7 @@ input[type="number"] {
 }
 
 .formLoader {
-    background-color: white;
+    background-color: var(--background-color);
     width: var(--wrapper-width);
     padding: 20vh calc((100vw - var(--wrapper-width)) / 2);
     display: flex;

@@ -265,10 +265,10 @@ export const Recipes = () => {
                 )}
                 
                 {isLoading && (
-                    <div className="cardWrapper cardloading">
+                    <div className="cardWrapper">
                         {Array.from(Array(3).keys()).map((i) => {
                             return(
-                                <div className="emptyCard" key={i}>
+                                <div className="card emptyCard" key={i}>
                                     <div className="emptyContent">
                                         <div className="emptyText" style={{width: "90%"}}/>
                                         <div className="emptyText" style={{width: "70%"}}/>

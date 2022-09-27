@@ -1,0 +1,14 @@
+.loadingpage {
+    display: flex;
+    justify-content: center;
+}
+
+.loadingpage img {
+    position: relative;
+    top: 35vh;
+    animation: logoLoading infinite 1s ease-in;
+}
+
+@keyframes logoLoading {
+    50% {transform: scale(1.2);}
+}

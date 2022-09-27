@@ -12,10 +12,6 @@
   justify-content: space-evenly;
 }
 
-.weekplan .cardloading {
-  overflow-y: hidden;
-}
-
 @media (min-width: 760px) {
   .weekplan {
     padding: 5px calc(50vw - 360px) 0 calc(50vw - 360px);
@@ -62,27 +58,30 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  row-gap: 10px;
-  padding-bottom: 10px;
+  row-gap: 20px;
+  padding-bottom: 20px;
 }
 
 .emptyCard.emptySideCard {
-  width: 345px;
-  height: 150px;
+  width: 350px;
+  height: 165px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  border: 2px solid var(--color-primary);
+  background-color: var(--background-color);
+  margin-bottom: 10px;
+  background-color: #e3d2c44D;
 }
 
 .emptySideCard .emptyContent {
-  height: 100%;
-  top: 0;
-  width: 100%;
+  height: 110px;
+  width: 330px;
+  top: 15px;
+  margin: 0 10px;
+  padding: 0;
   border-radius: 10px;
-  transform: scale(0.7);
   box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(to right, var(--color-primary) 50% , white 50%);
+  background: linear-gradient(to right, var(--color-primary) 50% , var(--background-color) 50%);
 }
 
 .emptySideCard .emptyContent .emptyText {
