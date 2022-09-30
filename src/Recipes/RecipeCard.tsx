@@ -21,8 +21,13 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
     const [isDeleting, setIsDeleting] = useState(false);
     const [isFinishedDeleting, setIsFinishedDeleting] = useState(false);
 
-    const LoadRecipe = (id: string) => {
-        window.location.pathname = `/oppskrifter/${id}`;
+    const LoadRecipe = (id: string, url: string | undefined) => {
+        if(url) {
+            window.open(url, "_blank");
+        }
+        else {
+            window.location.pathname = `/oppskrifter/${id}`;
+        }
     }
 
     const HandleClick = (action: string) => {
@@ -37,7 +42,7 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
             RemoveRecipeFromBook({recipeID: props.recipe.id, user, bookID: props.bookID})
         }
         else if (action === "view") {
-            LoadRecipe(props.recipe.id)
+            LoadRecipe(props.recipe.id, props.recipe.url);
         }        
     }
 

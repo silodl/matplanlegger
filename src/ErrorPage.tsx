@@ -1,4 +1,4 @@
-import error from './Images/Error.svg';
+import error from './Images/Sign.png';
 
 export const ErrorPage = () => {
 

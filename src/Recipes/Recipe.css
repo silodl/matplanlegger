@@ -2,10 +2,9 @@
     position: fixed;
     left: 0;
     display: flex;
-    justify-content: center;
+    padding-left: 5vw;
     align-items: center;
-    background-color: var(--background-color);
-    width: 100%;
+    width: calc(100% - 5vw);
     height: 4vh;
     background-color: var(--color-primary);
     z-index: 2;
@@ -24,18 +23,11 @@
 
 .recipePreview {
     position: fixed;
+    position: relative;
     top: 4vh;
     left: 0;
     width: 100vw;
     height: 96vh;
-}
-
-.noPreview {
-    padding: 150px 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 40px;
 }
 
 .emptyCard {
