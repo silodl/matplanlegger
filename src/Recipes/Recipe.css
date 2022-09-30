@@ -162,3 +162,7 @@
     text-align: center;
     background-color: #e3d2c44D;
 }
+
+.card.half {
+    height: 125px;
+}

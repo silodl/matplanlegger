@@ -11,6 +11,16 @@
   row-gap: 5px;
 }
 
+.moreButton {
+  position: absolute;
+  --cards: 2;
+  width: calc((90vw - calc(var(--cards) - 1) * 15px) / var(--cards));
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1;
+  cursor: pointer;
+}
+
 @media (min-width: 481px) {
   .cardWrapper {
     padding: 0 10vw 0 10vw;
@@ -25,7 +35,6 @@
   }
 
   .moreButton {
-    --cards: 2;
     width: calc((80vw - calc(var(--cards) - 1) * 20px) / var(--cards)) !important;
   }
 }
@@ -36,7 +45,7 @@
   }
 
   .moreButton {
-    --cards: 3;
+    --cards: 3 !important;
   }
 }
 
@@ -46,7 +55,7 @@
   }
 
   .moreButton {
-    --cards: 4;
+    --cards: 4 !important;
   }
 }
 
@@ -56,7 +65,7 @@
   }
 
   .moreButton {
-    --cards: 5;
+    --cards: 5 !important;
   }
 }
 
@@ -181,15 +190,6 @@
   display: flex;
   flex-direction: column;
   row-gap: 15px;
-}
-
-.moreButton {
-  position: absolute;
-  width: calc(50vw - 4.4vw - 10px);
-  display: flex;
-  justify-content: flex-end;
-  z-index: 1;
-  cursor: pointer;
 }
 
 .moreButton img {

@@ -169,6 +169,29 @@ export const ViewAllRecipes = (props: Props) => {
         props.action(randomRecipe.id);
     }
 
+    const getRandomWeek = () => {
+        let weekRecipes: Recipe[] = [];
+        const randomIndex = Math.floor(Math.random() * dinners.length)
+        const randomRecipe = dinners[randomIndex];
+        weekRecipes.push(randomRecipe);
+        for(let i = 1; i < 7; i++) {
+            let randomIndex = Math.floor(Math.random() * dinners.length)
+            let randomRecipe = dinners[randomIndex];
+            while(weekRecipes.includes(randomRecipe)) {
+                randomIndex = Math.floor(Math.random() * dinners.length)
+                randomRecipe = dinners[randomIndex];
+            }
+            weekRecipes.push(randomRecipe);
+
+        }
+        console.log("??", weekRecipes)
+        weekRecipes.forEach((recipe) => {
+            console.log(recipe.name)
+        })
+        //const randomRecipe = dinners[randomIndex];
+        //props.action(randomRecipe.id);
+    }
+
     const Filters = () => {
         return (
             <>
@@ -274,10 +297,23 @@ export const ViewAllRecipes = (props: Props) => {
                 :
                     <>
                     {isPlanning && (
-                        <div className="card" onClick={() => getRandomRecipe()}>
-                            <div className="randomRecipe">
-                                Velg en tilfeldig oppskrift fra dine oppskrifter
-                                <img src={dinner} alt="random" width="80px"/>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+                            <div className="card half" onClick={() => getRandomRecipe()}>
+                                <div className="randomRecipe">
+                                    La oss plukke ut en middag for deg
+                                    <img src={dinner} alt="random" width="40px"/>
+                                </div>
+                            </div>
+
+                            <div className="card half" onClick={() => getRandomWeek()}>
+                                <div className="randomRecipe">
+                                    La oss planlegge hele uken din
+                                    <div>
+                                        <img src={dinner} alt="random" width="30px"/>
+                                        <img src={dinner} alt="random" width="30px" style={{margin: "0 10px"}}/>
+                                        <img src={dinner} alt="random" width="30px"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}

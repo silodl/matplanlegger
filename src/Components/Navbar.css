@@ -20,7 +20,7 @@
     }
     .navbarText a:hover {
         cursor: pointer;
-        text-shadow: 0px 0px 1px; 
+        text-shadow: 0px 0px 0.5px; 
     }
 
     .navbarText {
