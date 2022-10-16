@@ -1,79 +1,54 @@
 import { useState } from "react";
 import { Recipe } from "./AddRecipe";
-import clock from '../Images/Icons/Clock.png';
 import { useLoggedInUser } from "../Authentication/UseLoggedInUser";
 import { UpdateRecipe } from "./UpdateRecipe";
 import { DeleteRecipe } from "./DeleteRecipe";
 import './RecipeCard.css';
 import recipeCover from '../Images/Icons/EmptyRecipe.svg';
-import { Tag } from "./Tag";
 import checkmark from '../Images/Icons/Checkmark.svg';
 import { timeOptions } from "./NewRecipe";
+import { useTags } from "./UseTags";
+import { SelectField } from "../Components/SelectField";
+import { MultiselectField } from "../Components/MultiselectField";
 
 export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
 
     const [name, setName] = useState(props.recipe.name);
     const [time, setTime] = useState(props.recipe.time);
     const [tags, setTags] = useState(props.recipe.tags);
-    const [viewTimeOptions, setViewTimeOptions] = useState(false);
     const [viewDelete, setViewDelete] = useState(false);
     const [image, setImage] = useState<File | undefined>();
     const [previewImage, setPreviewImage] = useState("");
     const user = useLoggedInUser();
+    const tagSuggestions =  useTags();
     const [isDeleting, setIsDeleting] = useState(false);
     const [isFinishedDeleting, setIsFinishedDeleting] = useState(false);
 
     const [titleError, setTitleError] = useState<string | undefined>();
 
-    const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if(e.key === "Enter" && e.target.value !== "") {
-            if(tags) {
-                let newArray = tags;
-                newArray.push(e.target.value)
-                setTags([...newArray])
-            }
-            else {
-                setTags([e.target.value])
-            }
-            let tagField = window.document.getElementById("tagField") as HTMLInputElement
-            if(tagField) {
-                tagField.value = ""
-            }
-        }
-    }
-
-    const removeTag = (tag: string) => {
-        if(tag && tags && tags.includes(tag)) {
-            let newArray = tags;
-            const index = tags?.indexOf(tag)
-            newArray?.splice(index, 1)
-            setTags([...newArray]) 
-        }
-    }
-
     const handleImageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(e.target.files && e.target.files[0]) {
-            const imageUrl = URL.createObjectURL(e.target.files[0])
-            setPreviewImage(imageUrl);
-            setImage(e.target.files[0]);
-        }
+      if(e.target.files && e.target.files[0]) {
+        const imageUrl = URL.createObjectURL(e.target.files[0])
+        setPreviewImage(imageUrl);
+        setImage(e.target.files[0]);
+      }
     }
 
     const updateRecipe = () => {
-        if (user) {
-            if(name === "") {
-                setTitleError("Legg til tittel")
-            }
-              else {
-                const updatedRecipe: Recipe = props.recipe;
-                updatedRecipe.name = name;
-                updatedRecipe.tags = tags;
-                updatedRecipe.time = time;
-                UpdateRecipe({recipe: updatedRecipe, imageFile: image})
-                .then(() => 
-                props.avbryt())
-              }
+      if (user) {
+        if(name === "") {
+          setTitleError("Legg til tittel")
         }
+        else {
+          const updatedRecipe: Recipe = props.recipe;
+          updatedRecipe.name = name;
+          updatedRecipe.tags = tags;
+          updatedRecipe.time = time;
+          UpdateRecipe({recipe: updatedRecipe, imageFile: image})
+          .then(() => 
+          props.avbryt())
+        }
+      }
     }
 
     const deleteRecipe = () => {
@@ -116,44 +91,22 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
 
                 <div className="recipeInfo">
                     <div>
-                        <div className="fieldTitle"> Tittel </div>
-                        <input className="inputField" 
-                            value={name} style={{width: "320px"}}
-                            onChange={(e) => setName(e.target.value)}/>
-                        {titleError && (<div className="errorMessage"> {titleError} </div> )} 
+                      <div className="fieldTitle"> Tittel </div>
+                      <input className="inputField" 
+                          value={name} style={{width: "310px"}}
+                          onChange={(e) => setName(e.target.value)}/>
+                      {titleError && (<div className="errorMessage"> {titleError} </div> )} 
                     </div>
                     
                     <div>
-                        <div className="fieldTitle"> Tid </div>
-                        <div className="cookTime">
-                            <img src={clock} alt="clock"/>
-                            <div tabIndex={0} onBlur={() => setViewTimeOptions(false)}>
-                                <div className={viewTimeOptions ? "selectField selectFieldOpen" :"selectField"} style={{width: "100px"}}
-                                    onClick={() => setViewTimeOptions(!viewTimeOptions)}> {time} <div className="selectFieldArrow"/>
-                                </div>
-
-                                <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
-                                    {viewTimeOptions && (
-                                        <div className='selectOptions' style={{width:"116px"}}>
-                                            {timeOptions.map((timeOption) => {
-                                            return(
-                                                <div key={timeOption} className='option'
-                                                onClick={() => (setTime(timeOption), setViewTimeOptions(false))}> {timeOption} </div>
-                                            )
-                                            })} 
-                                        </div>
-                                    )}
-                                </div></div>
-                            </div> 
-                        </div>
+                      <div className="fieldTitle"> Tid </div>
+                      <SelectField options={timeOptions} defaultValue={"20-40 min"} width={120} select={(time: string) => setTime(time)}/>
                     </div>
-                    
+
                     <div>
-                        <div className="fieldTitle"> Tags <span style={{fontSize: "14px"}}>(maks 4)</span> </div>
-                        <input type="text" id="tagField" className="inputField" onKeyDown={(e) => handleTags(e)}/>
+                      <div className="fieldTitle"> Tags </div>
+                      <MultiselectField options={[...tagSuggestions]} placeholder="kylling" canWrite={true} width={150} select={(tags: string[]) => setTags(tags)}/>
                     </div>
-
-                    {tags && (<Tag tags={tags} removable={true} onRemove={(tag) => removeTag(tag)} />)}
                     
                 </div>
 

@@ -126,7 +126,6 @@ input[type="url"] {
     background-color: #e3d2c480;
 }
 
-
 .inputField, .selectField, .selectOptions {
     border-radius: 10px;
     padding: 8px;
@@ -135,6 +134,17 @@ input[type="url"] {
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
     user-select: auto;
+    background-color: var(--background-color);
+}
+
+.multiselectField, .multiselectField:hover {
+    padding: 1px 0;
+}
+
+.multiselectField .inputField:hover, .multiselectField .inputField:active,
+.multiselectField .inputField:focus {
+    border-width: 1.5px;
+    padding: 7px 8px;
 }
 
 .inputField:focus, .inputField:hover, .selectField:hover, 
@@ -146,34 +156,20 @@ input[type="url"] {
 
 .selectField {
     cursor: pointer;
-}
-
-.selectFieldArrow {
-    border: solid #333;
-    border-width: 0 1.5px 1.5px 0;
-    display: inline-block;
-    padding: 4px;
-    transform: rotate(45deg);
-    float: right;
-    position: relative;
-    top: 5px;
+    background-image: url("../Images/Icons/DownArrow.png");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: 98% 50%;
 }
 
 .selectFieldOpen {
     border-radius: 10px 10px 0 0;
+    background-image: url("../Images/Icons/UpArrow.png");
 }
 
 .selectField.selectFieldOpen:hover {
     border-width: 1.5px;
     margin: 0;
-}
-
-.selectFieldOpen .selectFieldArrow {
-    transform: rotate(225deg);
-    top: 10px;
-}
-
-.selectFieldOpen:hover {
     outline: none;
 }
 
@@ -184,13 +180,18 @@ input[type="url"] {
     z-index: 2;
     position: relative;
     background-color: var(--background-color);
+    max-height: 120px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.selectOptions::-webkit-scrollbar {
+    display: none;
 }
 
 .option {
     border-bottom: 1px solid var(--color-primary);
     padding: 5px;
-    width: calc(100% - 8px);
-    margin-left: -1px;
 }
 
 .option:last-child {
@@ -207,6 +208,14 @@ input[type="url"] {
     box-shadow: 0 1px 0 var(--color-primary);
 }
 
+.checkedOption {
+    background-color: #e3d2c480;
+    background-image: url("../Images/Icons/Checkmark.svg");
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+    background-size: 14px;
+}
+
 input[type="number"]::-webkit-outer-spin-button, 
 input[type="number"]::-webkit-inner-spin-button {
     display: none;
@@ -220,13 +229,9 @@ input[type="number"] {
     width: calc(var(--wrapper-width) - 20px);
 }
 
-.multiField {
-    display: flex;
-    column-gap: 10px;
-}
-
-.multiField .option {
-    margin-left: -1px;
+.selectField .inputField {
+    border: none;
+    padding: 6px 8px;
 }
 
 .checkbox {
@@ -327,6 +332,5 @@ input[type="number"] {
     display: flex;
     justify-content: center;
     align-items: center;
-
     background-color: var(--color-primary);
 }

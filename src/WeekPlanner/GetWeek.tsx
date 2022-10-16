@@ -18,11 +18,15 @@ export const GetWeek = (props: {week: number}) => {
 
     const weeknames = ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "Søndag"];
 
-    const AddRecipeToPlan = async(recipeID: string) => {
-        if (planDay !== undefined && user) {
-            PlanRecipe({recipeID, day:planDay, week:props.week, userID: user.uid})
+    const AddRecipesToPlan = async(recipeIDs: string[]) => {
+        if (planDay !== undefined && user && recipeIDs.length === 1) {
+            PlanRecipe({recipeIDs, day:planDay, week:props.week, userID: user.uid})
             .then(() => setPlanDay(undefined))
         } 
+        else if (user && recipeIDs.length === 7) {
+            PlanRecipe({recipeIDs, week:props.week, userID: user.uid})
+            .then(() => setPlanDay(undefined))
+        }
     }
 
     useEffect(() => {
@@ -51,7 +55,7 @@ export const GetWeek = (props: {week: number}) => {
             }  
 
             {typeof(planDay) === "number" && (
-                <ViewAllRecipes close={() => setPlanDay(undefined)} action={(recipeID: string) => AddRecipeToPlan(recipeID)} />
+                <ViewAllRecipes close={() => setPlanDay(undefined)} action={(recipeIDs: string[]) => AddRecipesToPlan(recipeIDs)} />
             )}
 
             {!isLoading && Object.entries(plannedRecipes).map(([day, recipes]) => {

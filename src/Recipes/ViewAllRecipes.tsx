@@ -166,30 +166,24 @@ export const ViewAllRecipes = (props: Props) => {
     const getRandomRecipe = () => {
         const randomIndex = Math.floor(Math.random() * dinners.length)
         const randomRecipe = dinners[randomIndex];
-        props.action(randomRecipe.id);
+        props.action([randomRecipe.id]);
     }
 
     const getRandomWeek = () => {
-        let weekRecipes: Recipe[] = [];
+        let weekRecipes: string[] = [];
         const randomIndex = Math.floor(Math.random() * dinners.length)
         const randomRecipe = dinners[randomIndex];
-        weekRecipes.push(randomRecipe);
+        weekRecipes.push(randomRecipe.id);
         for(let i = 1; i < 7; i++) {
             let randomIndex = Math.floor(Math.random() * dinners.length)
             let randomRecipe = dinners[randomIndex];
-            while(weekRecipes.includes(randomRecipe)) {
+            while(weekRecipes.includes(randomRecipe.id)) {
                 randomIndex = Math.floor(Math.random() * dinners.length)
                 randomRecipe = dinners[randomIndex];
             }
-            weekRecipes.push(randomRecipe);
-
+            weekRecipes.push(randomRecipe.id);
         }
-        console.log("??", weekRecipes)
-        weekRecipes.forEach((recipe) => {
-            console.log(recipe.name)
-        })
-        //const randomRecipe = dinners[randomIndex];
-        //props.action(randomRecipe.id);
+        props.action(weekRecipes);
     }
 
     const Filters = () => {
@@ -319,7 +313,7 @@ export const ViewAllRecipes = (props: Props) => {
                     )}
                     {recipes.map((recipe: Recipe) => {
                         return(
-                            <div onClick={() => (!isCookbook && (props.action(recipe.id)))} key={recipe.id}>
+                            <div onClick={() => (!isCookbook && (props.action([recipe.id])))} key={recipe.id}>
                                 
                                 {isCookbook && (
                                     <div className="moreButton"> 

@@ -1,5 +1,4 @@
 import './RecipeCard.css';
-import close from '../Images/Icons/Close.png';
 
 export const Tag = (props:{tags: string[], removable?: boolean, onRemove?(tag: string): void}) => {
 
@@ -20,7 +19,6 @@ export const Tag = (props:{tags: string[], removable?: boolean, onRemove?(tag: s
                 (tag.length > 1 && (
                     <div key={tag} id={tag} className="tag" style={{backgroundColor: setColor(tag)}}> 
                         {tag} 
-                        {props.removable && (<img src={close} alt="close" className="removeTag" onClick={() => {props.onRemove && (props.onRemove(tag))}}/>)}
                     </div> 
                 )) 
             )

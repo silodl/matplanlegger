@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import { AddRecipe, NewRecipeInterface } from './AddRecipe';
 import fetch from 'node-fetch';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
-import { Tag } from './Tag';
 import { CookbookProps, useCookbooks } from '../Cookbook/UseCookbooks';
 import checkmark from '../Images/Icons/Checkmark.svg';
+import { useTags } from './UseTags';
+import { SelectField } from '../Components/SelectField';
+import { MultiselectField } from '../Components/MultiselectField';
 
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Bakverk" | "Drinker";
 
@@ -16,19 +18,17 @@ export const timeOptions = ["Under 20 min", "20-40 min", "40-60 min", "1-2 timer
 export const NewRecipe = () => {
 
   const [type, setType] = useState("url");
-  const [tags, setTags] = useState<string[]>([]);
   const [url, setUrl] = useState("");
   const [file, setFile] = useState<File>();
   const [imageUrl, setImageUrl] = useState("");
-  const [category, setCategory] = useState<FoodCategory>("Middag");
-  const [viewCategoryOptions, setViewCategoryOptions] = useState(false);
-  const [viewTimeOptions, setViewTimeOptions] = useState(false);
-  const [timeUnit, setTimeUnit] = useState("minutter");
-  const [time, setTime] = useState("20-40 min");
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [time, setTime] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
   const [viewCookbooks, setViewCookbooks] = useState(false);
   const [addToCookbook, setAddToCookbook] = useState<CookbookProps[]>([])
   const user = useLoggedInUser();
+  const tagSuggestions =  useTags();
   const cookbooks = useCookbooks();
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingPage, setIsLoadingPage] = useState(true);
@@ -46,32 +46,6 @@ export const NewRecipe = () => {
     }
     setLoadCount(loadCount + 1);
   },[cookbooks])
-
-  const handleTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === "Enter" && e.target.value !== "") {
-      if(tags) {
-        let newArray = tags;
-        newArray.push(e.target.value)
-        setTags([...newArray])
-      }
-      else {
-        setTags([e.target.value])
-      }
-      let tagField = window.document.getElementById("tagField") as HTMLInputElement
-      if(tagField) {
-        tagField.value = ""
-      }
-    } 
-  }
-
-  const removeTag = (tag: string) => {
-    if(tag && tags && tags.includes(tag)) {
-      let newArray = tags;
-      const index = tags?.indexOf(tag)
-      newArray?.splice(index, 1)
-      setTags([...newArray]) 
-    }
-  }
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -107,8 +81,8 @@ export const NewRecipe = () => {
   }
 
   const AddNewRecipe = async() => {
-    const cookTime = time + " " + timeUnit
     if (user) {
+      
       if ((url === "" && type === "url") || (!file && type === "file") || title === "" || time === "") {
         if(url === "" && type === "url") {
           setUrlError("Legg inn link til oppskriften")
@@ -123,7 +97,7 @@ export const NewRecipe = () => {
       else {
         setIsSending(true)
         const owner = user.uid;
-        const newRecipe: NewRecipeInterface = {url, file, name: title, category, image: imageUrl, time: cookTime, tags, owner}
+        const newRecipe: NewRecipeInterface = {url, file, name: title, category, image: imageUrl, time, tags, owner}
         await AddRecipe(newRecipe, addToCookbook)
         .then(() => {
           setIsFinishedSending(true);
@@ -252,63 +226,23 @@ export const NewRecipe = () => {
 
         <div>
           <div className="fieldTitle"> Kategori </div>
-
-          <div tabIndex={0} onBlur={() => setViewCategoryOptions(false)}>
-            <div className={viewCategoryOptions? "selectField selectFieldOpen" :"selectField"} style={{width: "100px"}}
-              onClick={() => setViewCategoryOptions(!viewCategoryOptions)}> {category} <div className="selectFieldArrow"/>
-            </div>
-
-            <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
-                {viewCategoryOptions && (
-                    <div className='selectOptions' style={{width:"116px"}}>
-                      {categories.map((categoryOption) => {
-                        return(
-                          <div key={categoryOption} className='option'
-                          onClick={() => (setCategory(categoryOption), setViewCategoryOptions(false))}> {categoryOption} </div>
-                        )
-                      })} 
-                    </div>
-                )}
-            </div></div>
-          </div> 
-        </div>
+          <SelectField options={categories} defaultValue="Middag" width={100} select={(category: string) => setCategory(category)}/>
+        </div> 
 
         <div>
           <div className="fieldTitle"> Tid </div>
-            <div tabIndex={0} onBlur={() => setViewTimeOptions(false)}>
-              <div className={viewTimeOptions ? "selectField selectFieldOpen" :"selectField"} style={{width: "100px"}}
-                onClick={() => setViewTimeOptions(!viewTimeOptions)}> {time} <div className="selectFieldArrow"/>
-              </div>
-
-              <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
-                  {viewTimeOptions && (
-                      <div className='selectOptions' style={{width:"116px"}}>
-                        {timeOptions.map((timeOption) => {
-                          return(
-                            <div key={timeOption} className='option'
-                            onClick={() => (setTime(timeOption), setViewTimeOptions(false))}> {timeOption} </div>
-                          )
-                        })} 
-                    </div>
-                  )}
-              </div></div>
-            </div> 
+          <SelectField options={timeOptions} defaultValue={"20-40 min"} width={120} select={(time: string) => setTime(time)}/>
         </div>
 
         <div>
-          <div className="fieldTitle"> Tags <span style={{fontSize: "14px"}}>(maks 4)</span> </div>
-          <input className='inputField maxWidth' type="text" 
-            onKeyDown={(e) => handleTags(e)}
-            id={"tagField"}
-            placeholder="trykk enter for å legge til"/>
+          <div className="fieldTitle"> Tags </div>
+          <MultiselectField options={[...tagSuggestions]} placeholder="kylling" canWrite={true} width={150} select={(tags: string[]) => setTags(tags)}/>
         </div>
-        
-        {tags.length > 0 && (<Tag tags={tags} removable={true} onRemove={(tag) => removeTag(tag)} />)}
-        
+     
         {cookbooks && cookbooks.length > 0 && (
           <div>
             <div className="fieldTitle"> Legg til i kokebok </div>
-
+            
             <div tabIndex={0} onBlur={() => setViewCookbooks(false)}>
               <div className={viewCookbooks? "selectField selectFieldOpen" :"selectField"} style={{width: "250px"}}
                 onClick={() => setViewCookbooks(!viewCookbooks)}> Velg <div className="selectFieldArrow"/>
@@ -332,11 +266,10 @@ export const NewRecipe = () => {
                 )}
               </div></div>
             </div> 
-  
           </div>
         )}
         
-        <div className='primaryButton button center' style={{minHeight: "40px"}} onClick={() => AddNewRecipe()}> Legg til </div>
+        <div className='primaryButton button center' style={{minHeight: "40px", marginBottom: "60px"}} onClick={() => AddNewRecipe()}> Legg til </div>
       </form>
     </AppLayout>
   );

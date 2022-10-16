@@ -33,6 +33,7 @@
 .emptyCard {
     background-color: var(--color-primary);
     animation: movement 1.5s linear infinite;
+    height: 220px;
 }
 
 @keyframes movement {
@@ -111,6 +112,11 @@
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    overflow-y: scroll;
+}
+
+.sideBox::-webkit-scrollbar {
+    display: none;
 }
 
 .sideBox div {
