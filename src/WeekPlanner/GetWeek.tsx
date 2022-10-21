@@ -4,9 +4,9 @@ import { Recipe } from '../Recipes/AddRecipe';
 import { PlanRecipe } from './PlanRecipe';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { usePlannedWeek } from './UsePlannedWeek';
-import book from '../Images/book.png';
+import coverImage from '../Images/Fork and spoon.png';
 import { ViewAllRecipes } from '../Recipes/ViewAllRecipes';
-import add from '../Images/Icons/Add.png';
+import add from '../Images/Icons/Add.svg';
 
 export const GetWeek = (props: {week: number}) => {
 
@@ -63,7 +63,7 @@ export const GetWeek = (props: {week: number}) => {
                     <div className="weekday" key={weeknames[parseInt(day)]} onLoad={() => setIsLoading(false)} > 
                         <div className="weekdayHeader">
                             <div>{weeknames[parseInt(day)]} </div>
-                            <div className="button" style={{padding: "0 8px", height:"30px"}} onClick={() => setPlanDay(parseInt(day))}> Planlegg <img src={add} width="16px" alt="add"/> </div>
+                            <div className="button" onClick={() => setPlanDay(parseInt(day))}> <img src={add} width="16px" alt="add"/> Planlegg </div>
                         </div>
                         <div key={parseInt(day)} className="recipeWrapper">                      
                             {recipes.length > 0 && recipes.map((recipe: Recipe) => {
@@ -74,8 +74,8 @@ export const GetWeek = (props: {week: number}) => {
                             
                             {recipes.length === 0 && (
                                 <div className="noCards">
+                                    <img src={coverImage} alt="Fork and spoon"/>
                                     <div> Ingen planlagte oppskrifter </div>
-                                    <img src={book} alt="book" width="100px"/>
                                 </div>                                    
                             )}
                         </div>

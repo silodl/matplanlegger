@@ -14,20 +14,19 @@
 }
 
 .book {
-    background-image: url("../Images/Book.svg");
+    background-image: url("../Images/Book2.svg");
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: center center;
+    background-position: center 80%;
     width: 100px;
     height: 140px;
-    padding: 15px;
+    padding: 20px 15px 30px 30px;
+    background-color: var(--color-primary);
+    border-radius: 15px 10px 10px 10px;
     cursor: pointer;
+    font-size: 18px;
+    background-color: #e3d2c466;
 }
-
-.book:hover {
-    filter: drop-shadow(0 0 5px rgb(189, 182, 182));
-}
-
 
 .owners {
     border: 1.5px solid var(--color-primary);

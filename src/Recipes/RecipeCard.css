@@ -1,7 +1,7 @@
 .cardWrapper {
   position: relative;
   top: 15px;
-  padding: 5px 4.4vw 0 4.4vw;
+  padding: 5px 5vw 0 5vw;
   height: calc(100vh - 154px);
   overflow-y: auto;
   display: flex;
@@ -81,7 +81,7 @@
   border-radius: 10px;
   box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  width: calc(50vw - 4.4vw - 10px);
+  width: calc(50vw - 5vw - 10px);
   margin-bottom: 10px;
   background-color: var(--background-color);
   display: flex;
@@ -89,49 +89,38 @@
   text-align: left;
 }
 
-.card.clickable:hover {
-  box-shadow: 0px 3.5px 5px 4px rgba(0, 0, 0, 0.2);
+.selected {
+  background-color: #e3d2c480;
 }
 
 .alignRecipeOptions {
   position: relative;
-  left: 50%;
-  top: 20px;
+  left: 83px;
+  top: 0;
   z-index: 1;
   outline: none;
 }
 
 .recipeOptions {
-  background-color: var(--background-color);
   position: absolute;
   transform: translateX(-50%);
   border-radius: 10px;
+  border: 1px solid #333;
   cursor: pointer;
-  border: 1px solid var(--color-primary);
+  display: flex;
+  background-color: var(--background-color);
 }
 
 .recipeOptions div {
-  padding: 0 10px;
-}
-
-.recipeOptions div:first-child {
-  padding-top: 5px;
-}
-
-.recipeOptions div:last-child {
-  padding-bottom: 5px;
-}
-
-.recipeOptions div:hover {
-  background-color: #e3d2c480;
-}
-
-.recipeOptions div:first-child {
-  border-radius: 10px 10px 0 0;
+  padding: 3px 11px;
+  height: calc(100% / 3);
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #333;
 }
 
 .recipeOptions div:last-child {
-  border-radius: 0 0 10px 10px;
+  border: none;
 }
 
 .recipeImage {
@@ -140,7 +129,6 @@
   padding: 10px;
   border-radius: 15px;
   object-fit: cover;
-  opacity: 0.8;
 }
 
 .recipeInfo {
@@ -148,7 +136,7 @@
   flex-direction: column;
   row-gap: 5px;
   width: calc(100% - 20px);
-  padding: 0 10px;
+  padding: 0 10px 5px 10px;
   overflow: hidden;
 }
 
@@ -242,7 +230,7 @@
   height: 220px;
 }
 
-.popupContent .recipeInfo, .popupContent .recipeTitle, .popupContent .recipeInfo div {
+.popupContent .recipeInfo, .popupContent .recipeInfo div {
   height: fit-content;
   max-height: fit-content;
 }
@@ -271,15 +259,3 @@
   width: min-content;
   cursor: pointer;
 }
-
-/*
-.moreButton .checkbox {
-  border-color: #333;
-  background-color: var(--background-color);
-  margin: 0;
-}
-
-.moreButton .checkbox img {
-  width: 12px;
-}
-*/

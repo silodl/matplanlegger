@@ -8,7 +8,7 @@ export const PlanRecipe = async(props: {recipeIDs: string[], day?: number, week:
         let docRecipes: {[key: string]: string[]};
         docRecipes = {0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[]}
         if (docSnap.exists()) {
-            if(props.day && props.recipeIDs.length === 1) {
+            if(props.day !== undefined && props.recipeIDs.length === 1) {
                 docRecipes = docSnap.get("recipes");
                 if(docRecipes[props.day] && docRecipes[props.day].length > 0) {
                     docRecipes[props.day].push(props.recipeIDs[0]);
@@ -29,7 +29,7 @@ export const PlanRecipe = async(props: {recipeIDs: string[], day?: number, week:
         }
         else {
             docRecipes = {0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[]}
-            if(props.day) {
+            if(props.day !== undefined) {
                 docRecipes[props.day] = [props.recipeIDs[0]];
                 await setDoc(doc(db, "users", props.userID, "weeks", props.week.toString()), {
                     recipes: docRecipes,

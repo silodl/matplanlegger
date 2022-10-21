@@ -1,0 +1,13 @@
+<svg width="188" height="244" viewBox="0 0 188 244" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M49 14H19C10.7157 14 4 20.7157 4 29V225C4 233.284 10.7157 240 19 240H169C177.284 240 184 233.284 184 225V29C184 20.7157 177.284 14 169 14H139M65 14H94H123" stroke="black" stroke-width="8"/>
+<line x1="4" y1="56" x2="184" y2="56" stroke="black" stroke-width="6"/>
+<rect x="47.5" y="2.5" width="15" height="25" rx="7.5" stroke="black" stroke-width="5"/>
+<rect x="125.5" y="2.5" width="15" height="25" rx="7.5" stroke="black" stroke-width="5"/>
+<rect x="78.5" y="185.5" width="30" height="30" rx="2.5" stroke="black" stroke-width="5"/>
+<rect x="80" y="76.5" width="30" height="30" rx="2.5" stroke="black" stroke-width="5"/>
+<rect x="132.5" y="76.5" width="30" height="30" rx="2.5" stroke="black" stroke-width="5"/>
+<rect x="27.5" y="132.5" width="30" height="30" rx="2.5" stroke="black" stroke-width="5"/>
+<rect x="27.5" y="185.5" width="30" height="30" rx="2.5" stroke="black" stroke-width="5"/>
+<rect x="80" y="132.5" width="30" height="30" rx="2.5" stroke="black" stroke-width="5"/>
+<rect x="132.5" y="132.5" width="30" height="30" rx="2.5" stroke="black" stroke-width="5"/>
+</svg>

@@ -166,7 +166,8 @@ export const ViewAllRecipes = (props: Props) => {
     const getRandomRecipe = () => {
         const randomIndex = Math.floor(Math.random() * dinners.length)
         const randomRecipe = dinners[randomIndex];
-        props.action([randomRecipe.id]);
+        let weekRecipes: string[] = [randomRecipe.id];
+        props.action(weekRecipes);
     }
 
     const getRandomWeek = () => {
@@ -257,7 +258,7 @@ export const ViewAllRecipes = (props: Props) => {
                             <img src={filter} alt="filter" width="20px"/>  
                         </div> 
 
-                        <div className="button" onClick={() => props.action(checkedRecipes)}> Legg til  </div>
+                        {isCookbook && (<div className="button" onClick={() => props.action(checkedRecipes)}> Legg til  </div>)}
                     </div>
 
                     <div className='right'> 
@@ -292,20 +293,20 @@ export const ViewAllRecipes = (props: Props) => {
                     <>
                     {isPlanning && (
                         <div style={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
-                            <div className="card half" onClick={() => getRandomRecipe()}>
+                            <div className="card" onClick={() => getRandomRecipe()}>
                                 <div className="randomRecipe">
-                                    La oss plukke ut en middag for deg
+                                    Tilfeldig middag
                                     <img src={dinner} alt="random" width="40px"/>
                                 </div>
                             </div>
 
-                            <div className="card half" onClick={() => getRandomWeek()}>
+                            <div className="card" onClick={() => getRandomWeek()}>
                                 <div className="randomRecipe">
-                                    La oss planlegge hele uken din
+                                    Tilfeldig ukemeny
                                     <div>
-                                        <img src={dinner} alt="random" width="30px"/>
-                                        <img src={dinner} alt="random" width="30px" style={{margin: "0 10px"}}/>
-                                        <img src={dinner} alt="random" width="30px"/>
+                                        <img src={dinner} alt="random" width="35px"/>
+                                        <img src={dinner} alt="random" width="35px" style={{margin: "0 10px"}}/>
+                                        <img src={dinner} alt="random" width="35px"/>
                                     </div>
                                 </div>
                             </div>
@@ -313,17 +314,17 @@ export const ViewAllRecipes = (props: Props) => {
                     )}
                     {recipes.map((recipe: Recipe) => {
                         return(
-                            <div onClick={() => (!isCookbook && (props.action([recipe.id])))} key={recipe.id}>
+                            <div onClick={() => (isPlanning && (props.action([recipe.id])))} key={recipe.id}>
                                 
                                 {isCookbook && (
-                                    <div className="moreButton"> 
+                                    <div className="recipeCardCheckbox"> <div>
                                         <div id={`checkbox${recipe.id}`} className={checkedRecipes.includes(recipe.id) ? "checkbox checked" : "checkbox"} onClick={() => handleClick(recipe.id)}>
-                                            <img src={checkmark} id={`checkmark${recipe.id}`} alt="checkmark" className={checkedRecipes.includes(recipe.id) ? "" : "hiddenCheckmark"}/>
+                                            <img src={checkmark} id={`checkmark${recipe.id}`} width="14px" alt="checkmark" className={checkedRecipes.includes(recipe.id) ? "" : "hiddenCheckmark"}/>
                                         </div>
-                                    </div>
+                                    </div></div>
                                 )}
 
-                                <Card key={recipe.url} recipe={recipe} clickable={false}/>
+                                <Card key={recipe.url} recipe={recipe} isSelected={checkedRecipes.includes(recipe.id)} hasOptions={false}/>
                             </div>
                         )
                     })}

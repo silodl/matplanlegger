@@ -103,13 +103,14 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                       <SelectField options={timeOptions} defaultValue={"20-40 min"} width={120} select={(time: string) => setTime(time)}/>
                     </div>
 
-                    <div>
+                    <div style={{paddingBottom: "120px"}}>
                       <div className="fieldTitle"> Tags </div>
                       <MultiselectField options={[...tagSuggestions]} placeholder="kylling" canWrite={true} width={150} select={(tags: string[]) => setTags(tags)}/>
                     </div>
                     
                 </div>
-
+                
+                
                 <div className="centerElements" style={{padding: "10px"}}>
                     <div className="deleteButton button" onClick={() => setViewDelete(true)}> Slett </div>
                     <div style={{display: "flex", columnGap: "10px"}}>
@@ -117,7 +118,7 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                         <div className="primaryButton button" onClick={() => updateRecipe()}> Lagre </div>
                     </div>
                 </div>
-
+                
             </div>
 
             {viewDelete && (

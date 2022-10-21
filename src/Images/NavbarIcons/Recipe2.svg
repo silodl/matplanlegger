@@ -1,0 +1,11 @@
+<svg width="180" height="240" viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4" width="172" height="232" rx="11" stroke="black" stroke-width="8"/>
+<path d="M57.6481 92.4886C42.3784 88.4645 32.9079 74.1679 36.4951 60.5562C40.0823 46.9446 55.3687 39.1724 70.6384 43.1965" stroke="black" stroke-width="8"/>
+<path d="M116.197 52C116.197 38.1929 104.781 27 90.6973 27C76.614 27 65.1973 38.1929 65.1973 52" stroke="black" stroke-width="8" stroke-linecap="round"/>
+<path d="M122.55 92.3058C137.819 88.8996 147.713 75.0009 144.649 61.2622C141.584 47.5235 126.697 39.041 111.428 42.4473" stroke="black" stroke-width="8"/>
+<path d="M54.1973 91V112.109C54.1973 112.617 54.5779 113.044 55.0824 113.102L71.5 115L90.5 116L108.5 115L125.31 113.1C125.815 113.043 126.197 112.615 126.197 112.107V91" stroke="black" stroke-width="8"/>
+<line x1="35" y1="140" x2="119" y2="140" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<line x1="35" y1="165" x2="139" y2="165" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<line x1="35" y1="190" x2="129" y2="190" stroke="black" stroke-width="6" stroke-linecap="round"/>
+<line x1="35" y1="215" x2="139" y2="215" stroke="black" stroke-width="6" stroke-linecap="round"/>
+</svg>

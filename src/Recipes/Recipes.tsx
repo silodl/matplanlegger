@@ -258,7 +258,7 @@ export const Recipes = () => {
                    <div className={viewFilters ? 'cardWrapper smaller' : 'cardWrapper'} onLoad={() => setIsLoading(false)}>
                         {recipes.map((recipe: Recipe) => {
                             return(
-                                <Card key={recipe.id} recipe={recipe} clickable={true}/>
+                                <Card key={recipe.id} recipe={recipe} hasOptions={true}/>
                             )
                         })}
                     </div> 

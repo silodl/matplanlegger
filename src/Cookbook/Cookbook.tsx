@@ -459,7 +459,7 @@ export const Cookbook = () => {
           <div className={viewFilters ? 'cardWrapper smaller' : 'cardWrapper'}>
             {recipes.map((recipe: Recipe) => {
               return(
-                <Card key={recipe.url} recipe={recipe} clickable={true} bookID={id}/>
+                <Card key={recipe.url} recipe={recipe}bookID={id} hasOptions={true}/>
               )
             })}
           </div>

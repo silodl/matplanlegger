@@ -62,14 +62,14 @@
 }
 
 .searchField {
-    width: 0px;
+    width: 0;
     padding: 0 25px 0 8px;
-    border: 2px solid var(--color-primary);
+    border: 1.5px solid black;
     background-image: url("../Images/Icons/Search.png");
     background-repeat: no-repeat;
     background-position: right 6px top 50%;
     background-size: 18px;
-    height: 40px;
+    height: 35px;
 }
 
 .searchField.desktop {
@@ -137,6 +137,10 @@
     display: flex;
 }
 
+.sideBox .closeButton {
+    left: 145px;
+}
+
 .space {
     display: flex;
     flex-direction: column;
@@ -158,8 +162,7 @@
 
 .randomRecipe {
     width: 90%;
-    height: 90%;
-    padding: 7.5% 5%;
+    padding: 5% 5%;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -167,8 +170,4 @@
     justify-content: space-around;
     text-align: center;
     background-color: #e3d2c44D;
-}
-
-.card.half {
-    height: 125px;
 }

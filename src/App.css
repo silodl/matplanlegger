@@ -17,6 +17,7 @@
   font-weight: 300;
   user-select: none;
   background-color: var(--background-color);
+  color: #050505;
 }
 
 .pageHeader {
@@ -78,15 +79,16 @@
   }
 
   .pageHeader > .left {
-    left: 4.4vw;
+    left: 5vw;
   }
 
   .pageHeader > .right {
-    right: 4.4vw;
+    right: 5vw;
   }
 
   .title {
     font-size: 20px;
+    font-weight: 400;
   }
 
   .fullHeader .title {
@@ -109,12 +111,12 @@
 }
 
 .iconButton {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--color-primary);
+  border: 1.5px solid black;
   border-radius: 10px;
 }
 

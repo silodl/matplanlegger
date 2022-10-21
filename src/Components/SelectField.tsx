@@ -23,8 +23,6 @@ export const SelectField = (props: Props) => {
         setViewOptions(false);
     }
 
-    // fiks scrolling i felt
-
     return(
         <div tabIndex={0} onBlur={() => setViewOptions(false)} style={{width: "fit-content"}}>
             <div className={viewOptions ? "selectField selectFieldOpen" :"selectField"} 

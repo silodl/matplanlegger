@@ -23,7 +23,7 @@ export const NewRecipe = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState("20-40 min");
   const [tags, setTags] = useState<string[]>([]);
   const [viewCookbooks, setViewCookbooks] = useState(false);
   const [addToCookbook, setAddToCookbook] = useState<CookbookProps[]>([])
@@ -82,7 +82,6 @@ export const NewRecipe = () => {
 
   const AddNewRecipe = async() => {
     if (user) {
-      
       if ((url === "" && type === "url") || (!file && type === "file") || title === "" || time === "") {
         if(url === "" && type === "url") {
           setUrlError("Legg inn link til oppskriften")

@@ -28,18 +28,22 @@
   .alignRecipes {
     column-gap: 10px;
     row-gap: 10px;
-    padding: 20px 4.4vw;
-    width: calc(100vw - 8.8vw);
+    padding: 20px 5vw;
+    width: calc(100vw - 10vw);
   }
 
   .alignRecipes.smaller {
-    width: calc(100vw - 8.8vw - 175px);
+    width: calc(100vw - 10vw - 175px);
+  }
+
+  .closeButton {
+    right: 5vw;
   }
 }
 
 .closeButton {
   position: fixed;
-  left: 150px;
+  right: 10vw;
   top: 10px;
   width: 15px;
   cursor: pointer;
@@ -56,4 +60,27 @@
 .alignRecipes .sideBox {
   top: 0;
   height: calc(100vh - 40px);
+}
+
+.recipeCardCheckbox {
+  width: 19px;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.recipeCardCheckbox > div {
+  position: absolute;
+  height: 0;
+  padding: 5px;
+}
+
+.checkbox {
+  background-color: var(--background-color);
+  outline: 5px solid var(--background-color);
+}
+
+.checkbox.checked {
+  background-color: var(--color-primary);
+  outline: 5px solid #efe6df;
 }

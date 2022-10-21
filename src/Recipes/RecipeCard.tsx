@@ -12,7 +12,7 @@ import { RemoveRecipeFromBook } from '../Cookbook/RemoveRecipeFromBook';
 import recipeCover from '../Images/Icons/EmptyRecipe.svg';
 import checkmark from '../Images/Icons/Checkmark.svg';
 
-export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string}) => {
+export const Card = (props: {recipe: Recipe, bookID?: string, isSelected?: boolean, hasOptions: boolean}) => {
 
     const [doEditRecipe, setDoEditRecipe] = useState(false);
     const user = useLoggedInUser();
@@ -59,6 +59,10 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
         }
     },[viewOptions])
 
+    useEffect(() => {
+        setViewOptions(false);
+    },[doEditRecipe])
+
     return(
         <>
             {doEditRecipe 
@@ -95,33 +99,35 @@ export const Card = (props: {recipe: Recipe, clickable: boolean, bookID?: string
                     </div>
                 )}
 
-                <div className={props.clickable ? "card clickable" : "card"}>   
+                <div className={props.isSelected ? "card selected" : "card"}  onClick={() => setViewOptions(true)}>   
                     {viewOptions && (
                         <div className="alignRecipeOptions" id="options" tabIndex={0} onBlur={() => setViewOptions(false)}>
                             <div className="recipeOptions">
+                                <div onClick={() => LoadRecipe(props.recipe.id, props.recipe.url)}> Vis </div>
                                 <div onClick={() => setDoEditRecipe(true)}> Endre </div>
                                 {(window.location.pathname) === "/oppskrifter" && (<div onClick={() => setViewDelete(true)}> Slett </div>)}
                                 {(window.location.pathname) !== "/oppskrifter" && (<div onClick={() => removeRecipe()}> Fjern </div>)}
-                                <div onClick={() => LoadRecipe(props.recipe.id, props.recipe.url)}> Vis </div>
                             </div>
                         </div>
                     )}  
-                    <div style={{opacity: (viewOptions ? "0.5": "1"), display: "flex", flexDirection: "column"}} onClick={() => setViewOptions(true)}>
-                        {props.recipe.image !== "" 
-                        ? <img className='recipeImage' loading='lazy' src={props.recipe.image} alt="food"/>
-                        : <img className='recipeImage' loading='lazy' style={{width: "50%", padding: "0 25%", objectFit: "contain", backgroundColor: "var(--color-primary)"}} src={recipeCover} alt="recipe cover"/>
-                        }
 
-                        <div className={isExpanded ? "recipeInfo recipeInfoExpanded" : "recipeInfo"}>
-                            <div className="recipeTitle">{props.recipe.name}</div>
-                            <div className="cookTime"><img loading='lazy' src={clock} alt="clock" width="18px"/>{props.recipe.time}</div>
+                    {props.recipe.image !== "" 
+                    ? <img className='recipeImage' loading='lazy' src={props.recipe.image} alt="food" style={{opacity: (viewOptions ? "0.5": "0.8")}}/>
+                    : <img className='recipeImage' loading='lazy' style={{width: "50%", padding: "0 25%", objectFit: "contain", backgroundColor: "var(--color-primary)"}} src={recipeCover} alt="recipe cover"/>
+                    }
+
+                    
+                    <div className={(isExpanded && props.isSelected === undefined) ? "recipeInfo recipeInfoExpanded" : "recipeInfo"}
+                    style={{opacity: (viewOptions ? "0.5": "1")}}>
+                        <div className="recipeTitle">{props.recipe.name}</div>
+                        <div className="cookTime"><img loading='lazy' src={clock} alt="clock" width="18px"/>{props.recipe.time}</div>
+                        {props.isSelected === undefined && (
                             <div className="recipeTags" id={`tags${props.recipe.id}`}>
                                 {props.recipe.tags.length > 0 && (
                                     <Tag tags={props.recipe.tags}/>
                                 )} 
                             </div>
-                        </div>
-
+                        )}
                     </div>
                     
                     {tagOverflow && (
