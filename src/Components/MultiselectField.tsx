@@ -80,17 +80,17 @@ export const MultiselectField = (props: Props) => {
             <div className={`selectField multiselectField ${(inputFocus || optionsFocus) ? "selectFieldOpen": ""}`}
                 style={{width: props.width + "px"}}> 
                     {props.canWrite && (
-                        <input className="inputField" type="text" 
+                        <input className="inputField" type="text"
                         onChange={(e) => filterOptions(e.target.value.toLowerCase().trim())}
                         value={newOption} onFocus={() => setInputFocus(true)} onBlur={() => setTimeout(() => setInputFocus(false), 100)}
-                        placeholder={props.placeholder} style={{width: (props.width - 16) + "px"}}/>
+                        placeholder={props.placeholder} style={{width: (props.width - 30) + "px"}}/>
                     )}
             </div>
 
             <div style={{position: "relative", top: 0}} tabIndex={0} onBlur={() => setOptionsFocus(false)} onFocusCapture={() => setOptionsFocus(true)}>
                 <div style={{position: "absolute", height:"0"}}> 
                     {(inputFocus || optionsFocus) && ( 
-                        <div className='selectOptions' style={{width: (props.width) + "px"}}>
+                        <div className='selectOptions' style={{width: (props.width + 16) + "px"}}>
                         {options.map((option) => {
                             return (
                                 <div key={option} onClick={() => handleClick(option)}

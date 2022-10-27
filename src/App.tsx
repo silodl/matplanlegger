@@ -5,8 +5,8 @@ export const AppLayout = (props: {children: React.ReactNode}) => {
 
     return(
         <div className='root'>
-            {props.children}
             <Navbar/>
-        </div>
+            {props.children}
+        </div> 
     )
 }

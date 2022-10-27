@@ -1,5 +1,4 @@
 import './Navbar.css';
-
 import recipes2 from '../Images/NavbarIcons/Recipe2.svg';
 import calendar2 from '../Images/NavbarIcons/Calendar2.svg';
 import cookbook2 from '../Images/NavbarIcons/Cookbook2.svg';
@@ -17,20 +16,16 @@ export const Navbar = () => {
         let min_profil = document.getElementById("min_profil");
 
         if(path === "/ukeplanlegger" && ukeplanlegger) {
-            ukeplanlegger.className = "active"
-            console.log("1", ukeplanlegger)
+            ukeplanlegger.className = "active";
         }
-        else if(path === "/kokebok" && kokebok) {
-            kokebok.className = "active"
-            console.log("2")
+        else if((path.includes("/kokebok") || path === "/ny_kokebok") && kokebok) {
+            kokebok.className = "active";
         }
-        else if(path === "/oppskrifter" && oppskrifter) {
-            oppskrifter.className = "active"
-            console.log("3")
+        else if((path === "/oppskrifter" || path === "/ny_oppskrift") && oppskrifter) {
+            oppskrifter.className = "active";
         }
         else if(path === "/min_profil" && min_profil) {
-            min_profil.className = "active"
-            console.log("4")
+            min_profil.className = "active";
         }
     },[path])
 
@@ -41,17 +36,17 @@ export const Navbar = () => {
             <div className="navbarContent">
                 <a href="/oppskrifter" id="oppskrifter"> 
                     <span className="desktop">Mine oppskrifter</span>
-                    <span className="mobile"><img src={recipes2} alt="add recipe"/><div/></span> 
+                    <span className="mobile"><img src={recipes2} alt="add recipe"/> <div/></span> 
                 </a>
 
                 <a href="/ukeplanlegger" id="ukeplanlegger"> 
                     <span className="desktop"> Ukeplanlegger </span>
-                    <span className="mobile"> <img src={calendar2} alt="Plate"/><div/> </span>
+                    <span className="mobile"> <img src={calendar2} alt="Plate"/> <div/> </span>
                 </a> 
 
                 <a href="/kokebok" id="kokebok"> 
                     <span className="desktop"> Mine kokebøker </span>
-                    <span className="mobile"> <img src={cookbook2} alt="Cookbook"/><div/> </span>
+                    <span className="mobile"> <img src={cookbook2} alt="Cookbook"/> <div/> </span>
                 </a> 
 
                 <a href="/min_profil" id="min_profil"> 

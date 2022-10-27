@@ -4,9 +4,38 @@ import books from '../Images/books.png';
 import { useState, useEffect } from 'react';
 import './Book.css';
 import add from '../Images/Icons/Add.png';
+import { useRecipes } from '../Recipes/UseRecipes';
+import { Recipe } from "../Recipes/AddRecipe";
+
 
 export const LoadCookbook = (id: string) => {
     window.location.pathname = `/kokebok/${id}`;
+}
+
+const GetImagesFromCookbook = (props: {recipeIds: string[]}) => {
+    
+    let recipes: (Recipe | undefined)[] = useRecipes(props.recipeIds);
+
+    useEffect(() => {
+        while(recipes.length < 2) {
+            recipes.push(undefined)
+        }
+    },[])
+
+    return(
+        <div className="cookbookImages">
+            {Array.from(Array(2).keys()).map((i) => {
+                    return(
+                        <>
+                        {recipes[i]?.image 
+                            ? <img src={recipes[i]?.image} key={recipes[i]?.id}/>
+                            : <div key={recipes[i]?.id}/>
+                        }               
+                        </>
+                    )
+                })}
+        </div>
+    )
 }
 
 export const Cookbooks = () => {
@@ -28,22 +57,33 @@ export const Cookbooks = () => {
             {cookbooks.length > 0 || isLoading
             ?
             <>
-                <div className="pageHeader">
+                <div className="header">
+                    <div style={{width: "38px"}}/>
                     <div className='title'> Mine kokebøker </div>
                     <div className='right'> 
                         <a href="/ny_kokebok">
-                            <div className="mobile iconButton"><img src={add} width="20px" alt="add"/></div> 
+                            <div className="mobile iconButton"><img src={add} width="22px" alt="add"/></div> 
                             <div className="desktop button"> Ny kokebok </div>
                         </a>
                     </div>
                 </div>
 
                 {!isLoading && (
-                    <div className='cardWrapper' style={{columnGap: "40px", rowGap: "30px"}} onLoad={() => setIsLoading(false)}>
+                    <div className='cardWrapper' onLoad={() => setIsLoading(false)}>
                         {cookbooks.map((book) => {
                             return(
                                 <div onClick={() => LoadCookbook(book.id)} key={book.id}>
-                                    <div className="book"> {book.name} </div>
+                                    <div className="book">  
+                                        {book.recipes.length >= 2 
+                                            ? <GetImagesFromCookbook recipeIds={book.recipes.slice(0,2)}/>
+                                            : <GetImagesFromCookbook recipeIds={book.recipes.slice(0,book.recipes.length - 1)}/>
+                                        }
+                                        <div className="bookTitle">{book.name}</div>
+                                        {book.recipes.length >= 4 
+                                            ? <GetImagesFromCookbook recipeIds={book.recipes.slice(2,4)}/>
+                                            : <GetImagesFromCookbook recipeIds={book.recipes.slice(2,book.recipes.length - 1)}/>
+                                        }
+                                    </div>
                                 </div>
                             )
                         })}
@@ -52,20 +92,12 @@ export const Cookbooks = () => {
                 
 
                 {isLoading && (
-                <div className="cardWrapper" style={{columnGap: "40px"}}>
+                <div className="cardWrapper">
                 {Array.from(Array(3).keys()).map((i) => {
                     return(
                         <div className="book bookLoading" key={i}>
-                            <div className="inner-book">
-                                <div className="coverPage"></div>
-                                <div className="page"></div>
-                                <div className="page page-2"></div>
-                                <div className="page page-3"></div>
-                                <div className="page page-4"></div>
-                                <div className="page page-5"></div>
-                                <div className="final-page">
-                                </div>
-                            </div>
+                            <GetImagesFromCookbook recipeIds={[]}/>
+                            <GetImagesFromCookbook recipeIds={[]}/>
                         </div>
                     )
                 })}

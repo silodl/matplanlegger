@@ -113,7 +113,7 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                 
                 <div className="centerElements" style={{padding: "10px"}}>
                     <div className="deleteButton button" onClick={() => setViewDelete(true)}> Slett </div>
-                    <div style={{display: "flex", columnGap: "10px"}}>
+                    <div>
                         <div className="button" onClick={() => props.avbryt()}> Avbryt </div>
                         <div className="primaryButton button" onClick={() => updateRecipe()}> Lagre </div>
                     </div>

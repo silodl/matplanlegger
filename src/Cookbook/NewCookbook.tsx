@@ -7,6 +7,7 @@ import { AddCookbook } from './AddCookbook';
 import checkmark from '../Images/Icons/Checkmark.svg';
 import { useCheckUser } from './UseCheckUser';
 import close from '../Images/Icons/Close.png';
+import leftArrow from '../Images/Icons/LeftArrow.png';
 
 export const NewCookbook = () => {
 
@@ -77,6 +78,15 @@ export const NewCookbook = () => {
     setOwners([...newOwners]);
   }
 
+  const handleCookbookName = (name: string) => {
+    const cookbookName = name.charAt(0).toUpperCase() + name.substring(1)
+    setName(cookbookName)
+
+    if(nameError) {
+      setNameError(undefined)
+    }
+  }
+
   return (
     <AppLayout>
 
@@ -99,13 +109,13 @@ export const NewCookbook = () => {
       )}
 
       <form className="formWrapper">
-        <div className='center' style={{fontSize: "25px"}}> Ny kokebok </div>
+        <div className='center title'> <img src={leftArrow} onClick={() => window.history.back()} alt="left arrow" width="22px"/> <span>Ny kokebok</span> </div>
 
         <div>
           <div className="fieldTitle"> Navn </div>
           <input className='inputField maxWidth'
-            value={name}
-            onChange={(e) => (setName(e.target.value), nameError && (setNameError(undefined)))}  
+            value={name} maxLength={30}
+            onChange={(e) => handleCookbookName(e.target.value)}  
           />  
           {nameError && (<div className="errorMessage"> {nameError} </div> )}  
         </div>

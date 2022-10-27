@@ -3,7 +3,6 @@
 @media (min-width: 481px) {
     :root {
         --wrapper-width: 40vw;
-        --wrapper-margin-top: 57px;
         --wrapper-height: calc(100vh - 58px);
     } 
 }
@@ -11,7 +10,6 @@
 @media (max-width: 820px) {
     :root {
         --wrapper-width:50vw;
-        --wrapper-margin-top: 57px;
         --wrapper-height: calc(100vh - 58px);
     } 
 }
@@ -19,7 +17,6 @@
 @media (max-width: 480px) {
     :root {
         --wrapper-width: 90vw;
-        --wrapper-margin-top: 1vh;
         --wrapper-height: calc(100vh - 83px);
     } 
 }
@@ -29,7 +26,6 @@
     width: var(--wrapper-width);
     padding: 0 calc((100vw - var(--wrapper-width)) / 2);
     height: var(--wrapper-height);
-    margin-top: var(--wrapper-margin-top);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -39,6 +35,12 @@
 
 .formWrapper::-webkit-scrollbar {
     display: none;
+}
+
+.formHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .formTitle {
@@ -53,7 +55,7 @@
 }
 
 .toggleWrapper {
-    border: 1.5px solid var(--color-primary);
+    border: 1px solid #333;
     border-radius: 20px;
     display: flex;
     justify-content: space-around;
@@ -81,17 +83,17 @@
 }
 
 .rightToggle {
-    left: 63px;
+    left: 62px;
     animation: toggleRight 0.5s;
 }
 
 @keyframes toggleRight {
     from {left: 0;}
-    to {left: 63px;}
+    to {left: 62px;}
 }
 
 @keyframes toggleLeft {
-    from {left: 63px}
+    from {left: 62px}
     to {left: 0}
 }
 
@@ -114,7 +116,7 @@ input[type="url"] {
 .fileInput::-webkit-file-upload-button {
     background-color: #fafafa;
     padding: 8px 10px !important;
-    border: 1.5px solid var(--color-primary);
+    border: 1px solid #333;
     border-radius: 10px;
     font-size: 16px;
     color: #333;
@@ -129,29 +131,12 @@ input[type="url"] {
 .inputField, .selectField, .selectOptions {
     border-radius: 10px;
     padding: 8px;
-    border: 1.5px solid var(--color-primary);
+    border: 1px solid #333;
     text-align: left;
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
     user-select: auto;
     background-color: var(--background-color);
-}
-
-.multiselectField, .multiselectField:hover {
-    padding: 1px 0;
-}
-
-.multiselectField .inputField:hover, .multiselectField .inputField:active,
-.multiselectField .inputField:focus {
-    border-width: 1.5px;
-    padding: 7px 8px;
-}
-
-.inputField:focus, .inputField:hover, .selectField:hover, 
-.inputField:active, .inputField:active, .selectField:active {
-    outline: none;
-    border-width: 2.5px;
-    margin: -1px 0;
 }
 
 .selectField {
@@ -162,15 +147,14 @@ input[type="url"] {
     background-position: 98% 50%;
 }
 
+.multiselectField .inputField {
+    padding: 0 !important;
+    border-radius: 0;
+}
+
 .selectFieldOpen {
     border-radius: 10px 10px 0 0;
     background-image: url("../Images/Icons/UpArrow.png");
-}
-
-.selectField.selectFieldOpen:hover {
-    border-width: 1.5px;
-    margin: 0;
-    outline: none;
 }
 
 .selectOptions {
@@ -198,22 +182,12 @@ input[type="url"] {
     border: none;
 }
 
-.option:hover {
-    background-color: var(--color-primary);
-    cursor: pointer;
-}
-
-.option:last-child:hover {
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 1px 0 var(--color-primary);
-}
-
 .checkedOption {
     background-color: #e3d2c480;
     background-image: url("../Images/Icons/Checkmark.svg");
     background-repeat: no-repeat;
     background-position: 95% 50%;
-    background-size: 14px;
+    background-size: 12px;
 }
 
 input[type="number"]::-webkit-outer-spin-button, 
@@ -259,22 +233,6 @@ input[type="number"] {
     display: flex;
     align-items: center;
     cursor: pointer;
-}
-
-.alignCheckbox:hover {
-    background-color: transparent;
-    box-shadow: none !important;
-}
-
-.alignCheckbox:hover .hiddenCheckmark {
-    display: block;
-    opacity: 0.6;
-}
-
-@media (max-width: 480px) {
-    .checkOption:hover .hiddenCheckMark{
-        display: none;
-    }
 }
 
 .popup.dataLoader {

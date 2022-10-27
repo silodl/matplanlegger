@@ -9,6 +9,7 @@ import checkmark from '../Images/Icons/Checkmark.svg';
 import { useTags } from './UseTags';
 import { SelectField } from '../Components/SelectField';
 import { MultiselectField } from '../Components/MultiselectField';
+import leftArrow from '../Images/Icons/LeftArrow.png';
 
 type FoodCategory = "Frokost" | "Lunsj" | "Middag" | "Dessert" | "Bakverk" | "Drinker";
 
@@ -181,7 +182,12 @@ export const NewRecipe = () => {
       )} 
 
       <form className="formWrapper">
-        <div className="formTitle"> Ny oppskrift </div>
+        
+        <div className="formHeader">
+          <img src={leftArrow} onClick={() => window.history.back()} alt="left arrow" width="22px"/>
+          <div className="title"> Ny oppskrift </div>
+          <div style={{width: "22px"}}/>
+        </div>
 
         <div>
           <div className="fieldTitle"> Hvor henter du oppskriften fra? </div>

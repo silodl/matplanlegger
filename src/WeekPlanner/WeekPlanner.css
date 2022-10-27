@@ -2,7 +2,7 @@
   position: relative;
   top: 5px;
   padding: 5px calc(50vw - 175px) 0 calc(50vw - 175px);
-  height: calc(100vh - 166px);
+  height: calc(100vh - 164px);
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
@@ -15,7 +15,7 @@
 @media (min-width: 760px) {
   .weekplan {
     padding: 5px calc(50vw - 360px) 0 calc(50vw - 360px);
-    height: calc(100vh - 131px);
+    height: calc(100vh - 149px);
     column-gap: 20px;
     row-gap: 10px;
     justify-content: flex-start;
@@ -52,7 +52,7 @@
 .weekdayHeader .button {
   height: 25px;
   padding: 0 6px;
-  border-width: 1.5px;
+  border-width: 1px;
   border-radius: 15px;
   border-color: #333;
 }

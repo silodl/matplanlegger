@@ -11,25 +11,102 @@
 
 .bookLoading {
     animation: movement 1.5s linear infinite;
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
 }
 
 .book {
-    background-image: url("../Images/Book2.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center 80%;
-    width: 100px;
-    height: 140px;
-    padding: 20px 15px 30px 30px;
-    background-color: var(--color-primary);
-    border-radius: 15px 10px 10px 10px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    font-size: 18px;
-    background-color: #e3d2c466;
+    margin-bottom: 10px;
+    min-height: 165px;
+    padding: 10px 20px;
+    --books: 2;
+    width: calc((90vw - calc(var(--books) - 1) * 20px - calc(40px * var(--books))) / var(--books));
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cookbookTitle {
+    max-width: calc(100% - 38px - 107px - 10px - 20px);
+}
+
+@media (min-width: 481px) {
+    .book {
+        --books: 2;
+        width: calc((80vw - calc(var(--books) - 1) * 20px - calc(40px * var(--books))) / var(--books));
+    }
+    .cookbookTitle {
+        max-width: calc(100% - 38px - 38px - 10px - 20px);
+    }
+}
+
+@media (min-width: 580px) {
+    .book {
+        --books: 3;
+    }
+}
+
+@media (min-width: 780px) {
+    .book {
+        --books: 4;
+    }
+}
+
+@media (min-width: 980px) {
+    .book {
+        --books: 5;
+    }
+}
+
+@media (min-width: 1180px) {
+    .book {
+        --books: 6;
+    }
+}
+
+@media (min-width: 1380px) {
+    .book {
+        --books: 7;
+    }
+}
+
+@media (min-width: 1580px) {
+    .book {
+        --books: 8;
+    }
+}
+
+@media (min-width: 1780px) {
+    .book {
+        --books: 9;
+    }
+}
+
+@media (min-width: 1980px) {
+    .book {
+        --books: 10;
+    }
+}
+
+@media (min-width: 2180px) {
+    .book {
+        --books: 11;
+    }
+}
+
+@media (min-width: 2380px) {
+    .book {
+        --books: 12;
+    }
 }
 
 .owners {
-    border: 1.5px solid var(--color-primary);
+    border: 1px solid var(--color-primary);
     border-radius: 10px;
     display: flex;
     column-gap: 5px;
@@ -59,4 +136,29 @@
     padding: 0 10px 0 4px;
     border-radius: 10px;
     display: flex;
+}
+
+.bookTitle {
+    padding: 8px 0;
+}
+
+.cookbookImages {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 15px;
+    justify-content: center;
+}
+
+.cookbookImages div, .cookbookImages img {
+    width: calc(50% - 15px);
+    height: 45px;
+    border-radius: 10px;
+    background-color: var(--color-primary);
+    opacity: 0.5;
+    object-fit: cover;
+    display: block;
+}
+
+.cookbookImages img {
+    opacity: 0.8;
 }

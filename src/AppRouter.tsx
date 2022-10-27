@@ -12,7 +12,6 @@ import { Cookbooks } from "./Cookbook/Cookbooks";
 import { NewCookbook } from "./Cookbook/NewCookbook";
 import { MyProfile } from "./MyProfile";
 import { Recipes } from "./Recipes/Recipes";
-import { Recipe } from "./Recipes/Recipe";
 import { ErrorPage } from "./ErrorPage";
 import { LoadingPage } from "./LoadingPage";
   
@@ -26,7 +25,6 @@ export const AppRouter = () => {
         <Route path="/registrer" element={<Authentication/>}/>
         <Route path="/ukeplanlegger" element={<WeekPlanner/>}/>
         <Route path="/oppskrifter" element={<Recipes/>}/>
-        <Route path="/oppskrifter/:id" element={<Recipe/>}/>
         <Route path="/ny_oppskrift" element={<NewRecipe/>}/>
         <Route path="/kokebok" element={<Cookbooks/>}/>
         <Route path="/ny_kokebok" element={<NewCookbook/>}/>
