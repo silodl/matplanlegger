@@ -18,6 +18,8 @@
   user-select: none;
   background-color: var(--background-color);
   color: #050505;
+
+  cursor: auto;
 }
 
 .header {
@@ -27,13 +29,10 @@
   height: 42px;
   width: 90vw;
   margin: 10px auto;
+  column-gap: 10px;
 }
 
-.header > * {
-  cursor: auto;
-}
-
-.header div {
+.header > div {
   display: flex;
   column-gap: 10px;
 }
@@ -46,13 +45,12 @@
 
 .header .searchField {
   width: calc(100% - 88px - 109px - 20px);
-  margin-right: 10px;
+  max-width: 300px;
 }
 
 .title {
   font-size: 25px;
   line-height: 0.9em;
-  cursor: auto;
 }
 
 .button {
@@ -77,6 +75,7 @@
   justify-content: center;
   border: 1px solid #333;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .button.desktop, button.mobile {

@@ -69,7 +69,7 @@ export const Cookbooks = () => {
                 </div>
 
                 {!isLoading && (
-                    <div className='cardWrapper' onLoad={() => setIsLoading(false)}>
+                    <div className='bookWrapper' onLoad={() => setIsLoading(false)}>
                         {cookbooks.map((book) => {
                             return(
                                 <div onClick={() => LoadCookbook(book.id)} key={book.id}>
@@ -92,7 +92,7 @@ export const Cookbooks = () => {
                 
 
                 {isLoading && (
-                <div className="cardWrapper">
+                <div className="bookWrapper">
                 {Array.from(Array(3).keys()).map((i) => {
                     return(
                         <div className="book bookLoading" key={i}>

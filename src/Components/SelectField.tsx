@@ -24,7 +24,7 @@ export const SelectField = (props: Props) => {
     }
 
     return(
-        <div tabIndex={0} onBlur={() => setViewOptions(false)} style={{width: "fit-content"}}>
+        <div tabIndex={0} onBlur={() => setViewOptions(false)} style={{width: (props.width + 18) + "px"}}>
             <div className={viewOptions ? "selectField selectFieldOpen" :"selectField"} 
                 style={{width: props.width + "px"}}
                 onClick={() => setViewOptions(!viewOptions)}> 

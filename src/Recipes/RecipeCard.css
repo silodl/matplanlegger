@@ -1,6 +1,6 @@
 .cardWrapper {
   padding: 5px 5vw 0 5vw;
-  height: calc(100vh - 189px);
+  height: calc(100vh - 194px);
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
@@ -169,7 +169,8 @@
 }
 
 .recipeButton {
-  background-color: #f5a68f;
+  /*background-color: #f5a68f;*/
+  background-color: #FF9F0A;
   padding: 3px 25px;
   border: none;
   border-radius: 15px;

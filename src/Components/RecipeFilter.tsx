@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { SelectField } from '../Components/SelectField';
 import { categories, timeOptions } from "../Recipes/NewRecipe";
-import close from '../Images/Icons/Close.png';
+import closeIcon from '../Images/Icons/Close.png';
 
 interface Props {
     updateTime: Function,
@@ -57,18 +57,26 @@ export const RecipeFilter = (props: Props) => {
         props.updateActiveSearch(true);
     }
 
+    const close = () => {
+        if(props.close !== undefined) {
+            props.close()
+        }
+    }
+
     return (
         <div className='header'>
             <input className="searchField inputField" type="text"  key="search"
             defaultValue={searchWords?.toString().replaceAll(",", " ")}
             placeholder="Søk"
             autoFocus={props.activeSearch}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => handleSearch(e.target.value.toLowerCase())}
             />
-            <SelectField options={categories} width={70} select={(category: string) => handleCategories(category)} defaultValue="Kategori"/>
-            <SelectField options={timeOptions} width={91} select={(time: string) => handleTime(time)} defaultValue="Tid"/>
+            <div>
+                <SelectField options={categories} width={70} select={(category: string) => handleCategories(category)} defaultValue="Kategori"/>
+                <SelectField options={timeOptions} width={91} select={(time: string) => handleTime(time)} defaultValue="Tid"/>
+            </div>
             {props.canClose && (
-                <img src={close} alt="close" width="18px"/>
+                <img src={closeIcon} alt="close" width="18px" onClick={() => close()} style={{cursor: "pointer"}}/>
             )}
         </div>
     )
