@@ -82,8 +82,10 @@ export const Card = (props: {recipe: Recipe, bookID?: string, isSelected?: boole
                 <div className={props.isSelected ? "card selected" : "card"}>   
 
                     {props.recipe.image !== "" 
-                    ? <img className='recipeImage' loading='lazy' src={props.recipe.image} alt="food"/>
-                    : <img className='recipeImage' loading='lazy' style={{width: "50%", padding: "0 25%", objectFit: "contain", backgroundColor: "var(--color-primary)"}} src={recipeCover} alt="recipe cover"/>
+                    ? <img className='recipeImage' loading='lazy' src={props.recipe.image} alt="food" onClick={() => loadRecipe()}/>
+                    : <img className='recipeImage' loading='lazy' 
+                        style={{width: "50%", padding: "0 25%", objectFit: "contain", backgroundColor: "var(--color-primary)"}} src={recipeCover} alt="recipe cover"
+                        onClick={() => loadRecipe()}/>
                     }
 
                     <div className="recipeInfo">

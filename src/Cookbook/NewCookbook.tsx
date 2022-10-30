@@ -1,13 +1,14 @@
 import { AppLayout } from '../App';
 import '../Recipes/NewRecipe.css';
 import '../App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { AddCookbook } from './AddCookbook';
 import checkmark from '../Images/Icons/Checkmark.svg';
-import { useCheckUser } from './UseCheckUser';
 import close from '../Images/Icons/Close.png';
 import leftArrow from '../Images/Icons/LeftArrow.png';
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../Firebase";
 
 export const NewCookbook = () => {
 
@@ -18,7 +19,6 @@ export const NewCookbook = () => {
   const [isSending, setIsSending] = useState(false);
   const [isFinishedSending, setIsFinishedSending] = useState(false);
   const [newOwner, setNewOwner] = useState("");
-  const isNewUser = useCheckUser(newOwner);
 
   const [nameError, setNameError] = useState<string | undefined>();
   const [ownerError, setOwnerError] = useState<string | undefined>();
@@ -47,29 +47,30 @@ export const NewCookbook = () => {
     }
   }
 
-  const handleOwners = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === "Enter" && e.target.value !== "") {
-      if(isNewUser && !owners.includes(e.target.value) && user && e.target.value !== user.email) {
-        if(owners) {
-          let newArray = owners;
-          newArray.push(e.target.value)
-          setOwners([...newArray])
+  useEffect(() => {
+    if(newOwner && newOwner.includes(".") && newOwner.split(".")[1].length >= 2) {
+      let isUser = false
+      const q = query(collection(db, "users"), where("email", "==", newOwner));
+      getDocs(q)
+      .then((docs) => {
+        if(docs.size === 1){
+          isUser = true;
+        }
+      })
+      .then(() => {
+        if(isUser && !owners.includes(newOwner) && user?.email !== newOwner) {
+          setOwners(old => [...old, newOwner]);
+          setNewOwner("");
+        }
+        else if(isUser && (owners.includes(newOwner) || user?.email !== newOwner)) {
+          setOwnerError("Deler allerede med denne brukeren");
         }
         else {
-          setOwners([e.target.value])
+          setOwnerError("Finner ikke brukeren");
         }
-        setNewOwner("");
-      }
-      else {
-        if(user && e.target.value === user.email) {
-          setOwnerError("Du trenger ikke dele med deg selv")
-        }
-        else(
-          setOwnerError("Finner ikke brukeren")
-        )
-      }
-    }
-  }
+      })
+    } 
+  },[newOwner])
 
   const removeOwner = (owner: string) => {
     let newOwners = owners;
@@ -108,8 +109,14 @@ export const NewCookbook = () => {
         </div>
       )}
 
+
       <form className="formWrapper">
-        <div className='center title'> <img src={leftArrow} onClick={() => window.history.back()} alt="left arrow" width="22px"/> <span>Ny kokebok</span> </div>
+        
+        <div className="formHeader"> 
+          <img src={leftArrow} onClick={() => window.history.back()} alt="left arrow" width="22px"/>
+          <div className='title'> Ny kokebok </div>
+          <div style={{width: "22px"}}/>
+        </div>
 
         <div>
           <div className="fieldTitle"> Navn </div>
@@ -131,19 +138,23 @@ export const NewCookbook = () => {
           </div>
         </div>
         {share && (
-            <>
-            <div className="owners">
-              {owners.map((owner) => {
-                return(
-                  <div className="owner" key={owner}>{owner} <img src={close} className="removeTag" alt="close" onClick={() => removeOwner(owner)}/></div>
-                )
-              })}
-              <input className='inputField' value={newOwner} placeholder="ola@mail.no"
-              onChange={(e) => (setNewOwner(e.target.value), setOwnerError(undefined))} onKeyDown={(e) => handleOwners(e)}
-              />
+            <div className="fieldTitle">
+              Brukernes mail
+              <div className="owners">
+                {owners.map((owner) => {
+                  return(
+                    <div className="owner" key={owner}>{owner} 
+                      <img src={close} className="removeTag" 
+                      alt="close" onClick={() => removeOwner(owner)}/>
+                    </div>
+                  )
+                })}
+                <input className='inputField' value={newOwner} placeholder="ola.nordmann@mail.no"
+                onChange={(e) => (setNewOwner(e.target.value), setOwnerError(undefined))} 
+                />
+              </div>
+              {ownerError && (<div className="errorMessage"> {ownerError} </div>)}
             </div>
-            {ownerError && (<div className="errorMessage"> {ownerError} </div>)}
-            </>
           )}
 
         <div className='primaryButton button center' onClick={() => submit()}> Legg til </div> 

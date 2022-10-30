@@ -84,7 +84,11 @@
   border-color: #333;
 }
 
+.recipeCardCheckbox .checkbox.checked {
+  outline: 5px solid #efe6df;
+}
+
 .checkbox.checked {
   background-color: var(--color-primary);
-  outline: 5px solid #efe6df;
+  outline: 5px solid transparent;
 }

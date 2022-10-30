@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import './Fields.css';
 
 interface Props {
     options: string[], 
-    defaultValue?: string, 
+    fieldName?: string, 
+    selectedOptions: string[] | undefined,
     width: number,
     select: Function,
 }
@@ -10,7 +12,8 @@ interface Props {
 export const SelectField = (props: Props) => {
 
     const [viewOptions, setViewOptions] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(props.defaultValue);
+    const [fieldName, setFieldName] = useState(props.fieldName)
+    const [selectedOptions, setSelectedOptions] = useState(props.selectedOptions);
     const [options, setOptions] = useState([...props.options]);
 
     useEffect(() => {
@@ -18,7 +21,6 @@ export const SelectField = (props: Props) => {
     },[props.options])
 
     const handleClick = (option: string) => {
-        setSelectedOption(option);
         props.select(option);
         setViewOptions(false);
     }
@@ -28,7 +30,7 @@ export const SelectField = (props: Props) => {
             <div className={viewOptions ? "selectField selectFieldOpen" :"selectField"} 
                 style={{width: props.width + "px"}}
                 onClick={() => setViewOptions(!viewOptions)}> 
-                {selectedOption} 
+                {fieldName} 
             </div>
 
             <div style={{position: "relative", top: 0}}><div style={{position: "absolute", height:"0"}}>
@@ -37,7 +39,7 @@ export const SelectField = (props: Props) => {
                       {options.map((option) => {
                         return(
                           <div key={option} 
-                          className={`option ${(selectedOption === option) ? "checkedOption" : ""}`}
+                          className={`option ${(selectedOptions?.includes(option)) ? "checkedOption" : ""}`}
                           onClick={() => handleClick(option)}> {option} </div>
                         )
                       })} 

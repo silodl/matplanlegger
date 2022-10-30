@@ -9,6 +9,7 @@ import { useLoggedInUser } from '../Authentication/UseLoggedInUser';
 import { ViewAllRecipes } from '../Recipes/ViewAllRecipes';
 import { AddRecipesToCookbook } from './AddRecipeToCookbook';
 import settings from '../Images/Icons/Settings.png';
+import edit from '../Images/Icons/Edit.png';
 import '../App.css';
 import add from '../Images/Icons/Add.png';
 import { EditCookbook } from './EditCookbook';
@@ -61,7 +62,7 @@ export const Cookbook = () => {
           <div className='title cookbookTitle'> {cookbook?.name} </div>
 
           <div>
-            <div className="iconButton"><img src={settings} onClick={() => setDoEditCookbook(true)} alt="settings" width="22px"/></div>
+            <div className="iconButton"><img src={edit} onClick={() => setDoEditCookbook(true)} alt="settings" width="22px"/></div>
 
             <div onClick={() => setViewAllRecipes(true)}>
               <div className="mobile iconButton"><img src={add} width="22px" alt="add"/></div> 

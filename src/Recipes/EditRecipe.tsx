@@ -100,7 +100,7 @@ export const EditRecipe = (props: {recipe: Recipe, avbryt: Function}) => {
                     
                     <div>
                       <div className="fieldTitle"> Tid </div>
-                      <SelectField options={timeOptions} defaultValue={"20-40 min"} width={120} select={(time: string) => setTime(time)}/>
+                      <SelectField options={timeOptions} /*defaultValue={"20-40 min"}*/ selectedOptions={[time]} width={120} select={(time: string) => setTime(time)}/>
                     </div>
 
                     <div style={{paddingBottom: "120px"}}>

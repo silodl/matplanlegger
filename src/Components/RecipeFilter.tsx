@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { SelectField } from '../Components/SelectField';
 import { categories, timeOptions } from "../Recipes/NewRecipe";
 import closeIcon from '../Images/Icons/Close.png';
+import '../Recipes/Recipe.css';
 
 interface Props {
     updateTime: Function,
@@ -25,8 +26,16 @@ export const RecipeFilter = (props: Props) => {
     const handleCategories = (category: string) => {
         let newArray: string[];
         if(selectedCategories && selectedCategories.length > 0) {
-            let old = selectedCategories;
-            newArray = old.concat([category])
+            if(selectedCategories.includes(category)) {
+                let old = selectedCategories;
+                let index = selectedCategories.indexOf(category);
+                old.splice(index, 1);
+                newArray = old;
+            }
+            else {
+                let old = selectedCategories;
+                newArray = old.concat([category])
+            }
             setSelectedCategories(newArray)
         }
         else {
@@ -39,9 +48,17 @@ export const RecipeFilter = (props: Props) => {
     const handleTime = (time: string) => {
         let newArray: string[];
         if(selectedTimes && selectedTimes.length > 0) {
-            let old = selectedTimes;
-            newArray = old.concat([time])
-            setSelectedTimes(newArray)
+            if(selectedTimes.includes(time)) {
+                let old = selectedTimes;
+                let index = selectedTimes.indexOf(time);
+                old.splice(index, 1);
+                newArray = old;
+            }
+            else {
+                let old = selectedTimes;
+                newArray = old.concat([time])
+                setSelectedTimes(newArray)
+            }
         }
         else {
             newArray = [time];
@@ -72,8 +89,8 @@ export const RecipeFilter = (props: Props) => {
             onChange={(e) => handleSearch(e.target.value.toLowerCase())}
             />
             <div>
-                <SelectField options={categories} width={70} select={(category: string) => handleCategories(category)} defaultValue="Kategori"/>
-                <SelectField options={timeOptions} width={91} select={(time: string) => handleTime(time)} defaultValue="Tid"/>
+                <SelectField options={categories} width={70} select={(category: string) => handleCategories(category)} fieldName="Kategori" selectedOptions={selectedCategories}/>
+                <SelectField options={timeOptions} width={105} select={(time: string) => handleTime(time)} fieldName="Tid" selectedOptions={selectedTimes}/>
             </div>
             {props.canClose && (
                 <img src={closeIcon} alt="close" width="18px" onClick={() => close()} style={{cursor: "pointer"}}/>

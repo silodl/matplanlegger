@@ -43,6 +43,10 @@
     justify-content: space-between;
 }
 
+.formHeader img {
+    cursor: pointer;
+}
+
 .formTitle {
     font-size: 25px;
     margin: 5px auto;
@@ -128,7 +132,7 @@ input[type="url"] {
     background-color: #e3d2c480;
 }
 
-.inputField, .selectField, .selectOptions {
+.inputField {
     border-radius: 10px;
     padding: 8px;
     border: 1px solid #333;
@@ -137,57 +141,6 @@ input[type="url"] {
     font-size: 16px;
     user-select: auto;
     background-color: var(--background-color);
-}
-
-.selectField {
-    cursor: pointer;
-    background-image: url("../Images/Icons/DownArrow.png");
-    background-repeat: no-repeat;
-    background-size: 18px;
-    background-position: 98% 50%;
-}
-
-.multiselectField .inputField {
-    padding: 0 !important;
-    border-radius: 0;
-}
-
-.selectFieldOpen {
-    border-radius: 10px 10px 0 0;
-    background-image: url("../Images/Icons/UpArrow.png");
-}
-
-.selectOptions {
-    border-radius: 0 0 10px 10px;
-    border-top: none;
-    padding: 0;
-    z-index: 2;
-    position: relative;
-    background-color: var(--background-color);
-    max-height: 120px !important;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-.selectOptions::-webkit-scrollbar {
-    display: none;
-}
-
-.option {
-    border-bottom: 1px solid var(--color-primary);
-    padding: 5px;
-}
-
-.option:last-child {
-    border: none;
-}
-
-.checkedOption {
-    background-color: #e3d2c480;
-    background-image: url("../Images/Icons/Checkmark.svg");
-    background-repeat: no-repeat;
-    background-position: 95% 50%;
-    background-size: 12px;
 }
 
 input[type="number"]::-webkit-outer-spin-button, 

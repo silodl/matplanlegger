@@ -38,8 +38,10 @@ export const WeekRecipeCard = (props: {recipe: Recipe, week: string, daynr: stri
                 <div className="sideCard">  
 
                     {props.recipe.image !== "" 
-                    ? <img className='recipeImage' loading='lazy' src={typeof(props.recipe.image) === "string" ? props.recipe.image : ""} alt="food"/>
-                    : <img className='recipeImage' loading='lazy' style={{width: "20%", padding: "0 10%", objectFit: "contain", backgroundColor: "var(--color-primary)"}} src={recipeCover} alt="recipe cover"/>
+                    ? <img className='recipeImage' loading='lazy' src={typeof(props.recipe.image) === "string" ? props.recipe.image : ""} alt="food" onClick={() => loadRecipe()}/>
+                    : <img className='recipeImage' loading='lazy' 
+                        style={{width: "20%", padding: "0 10%", objectFit: "contain", backgroundColor: "var(--color-primary)"}} src={recipeCover} alt="recipe cover"
+                        onClick={() => loadRecipe()}/>
                     }
 
                     <div className="recipeInfo">
